@@ -37,6 +37,9 @@
     margin: 0 3rem;
 }
 
+.default-text-restrictor {
+    max-width: 40rem;
+}
 
 /* ------------------------------- 2. Main -------------------------------- */
 
