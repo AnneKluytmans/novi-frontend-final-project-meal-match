@@ -10,12 +10,8 @@
     background-color: var(--primary);
 }
 
-.header__content-wrapper {
-    margin: 0 5rem;
-}
-
 .header__title {
-    margin-block-end: 1.25rem;
+    margin-bottom: 1.25rem;
 }
 
 .header__icon-wrapper {
@@ -31,7 +27,7 @@
     justify-content: center;
     align-items: center;
 
-    margin-left: 3rem;
+    margin: 0 2rem;
 }
 
 
@@ -40,10 +36,6 @@
 @media screen and (max-width: 678px) {
     .header__content-wrapper {
         text-align: center;
-    }
-
-    .header__text-wrapper {
-        flex-basis: auto;
     }
 
     .header__icon-wrapper {
