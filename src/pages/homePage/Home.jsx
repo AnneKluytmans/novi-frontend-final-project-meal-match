@@ -3,6 +3,7 @@ import Loader from '../../components/loader/Loader.jsx';
 import ErrorMessage from '../../components/errorMessage/ErrorMessage.jsx';
 import Logo from '../../components/logo/Logo.jsx';
 import './Home.css';
+import SectionDivider from "../../components/sectionDivider/SectionDivider.jsx";
 
 
 
@@ -18,6 +19,7 @@ function Home() {
               >
                   Try it now
               </Button>
+              <SectionDivider title="Errors"/>
               <Loader text="Finding delicious recipes just for you...🍝"/>
               <Loader />
               <ErrorMessage message="Something went wrong while fetching the popular recipes...
