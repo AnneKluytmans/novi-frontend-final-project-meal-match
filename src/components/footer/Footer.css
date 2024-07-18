@@ -55,3 +55,21 @@
     opacity: 0.8;
 }
 
+
+
+/* ------------------------------- Footer Mediaqueries -------------------------------- */
+
+@media screen and (max-width: 678px) {
+    .footer__nav-links-wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+
+        flex-basis: auto;
+        gap: 2rem;
+        margin: 1rem 0 1.5rem;
+    }
+
+    .footer__text-wrapper {
+        order: -2;
+    }
+}
