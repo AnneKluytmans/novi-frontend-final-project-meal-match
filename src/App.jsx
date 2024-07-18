@@ -12,7 +12,9 @@ import Contact from './pages/contactPage/Contact.jsx';
 import Faq from './pages/faqPage/Faq.jsx';
 import TermsAndPolicy from './pages/termsAndPolicyPage/TermsAndPolicy.jsx';
 import NotFound from './pages/notFoundPage/NotFound.jsx';
+import Footer from './components/footer/Footer.jsx';
 import './App.css';
+
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
             <Route path="*" element={<NotFound/>}/>
           </Routes>
         </main>
+        <Footer />
       </>
   )
 }
