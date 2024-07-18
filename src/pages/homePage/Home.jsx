@@ -1,5 +1,7 @@
+import Button from '../../components/buttons/button/Button.jsx';
+import Loader from '../../components/loader/Loader.jsx';
 import './Home.css';
-import Button from "../../components/buttons/button/Button.jsx";
+
 
 function Home() {
     return (
@@ -12,6 +14,8 @@ function Home() {
               >
                   Try it now
               </Button>
+              <Loader text="Finding delicious recipes just for you...🍝"/>
+              <Loader />
           </section>
       </div>
     );
