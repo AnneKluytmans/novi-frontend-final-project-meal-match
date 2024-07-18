@@ -14,7 +14,7 @@
 
 :root {
     --primary: #D8F499;
-    --primary-20: rgba(216, 244, 153, 0.2);
+    --primary-light: rgba(216, 244, 153, 0.4);
     --primary-dark: #1A7453;
     --secondary-orange: #F87E39;
     --secondary-pink: #F2686D;
