@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Home from './pages/homePage/Home.jsx';
 import SignIn from './pages/signInPage/SignIn.jsx';
 import SignUp from './pages/signUpPage/SignUp.jsx';
@@ -17,6 +18,17 @@ import './App.css';
 
 
 function App() {
+  const [footerClassName, setFooterClassName] = useState('');
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/sign-in' || location.pathname === '/sign-up') {
+      setFooterClassName('footer--light');
+    } else {
+      setFooterClassName('footer--default');
+    }
+  }, [location]);
+
   return (
       <>
         <main>
@@ -36,7 +48,7 @@ function App() {
             <Route path="*" element={<NotFound/>}/>
           </Routes>
         </main>
-        <Footer />
+        <Footer className={footerClassName}/>
       </>
   )
 }

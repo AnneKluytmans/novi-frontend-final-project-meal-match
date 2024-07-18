@@ -1,0 +1,9 @@
+/* ------------------------------- Footer styling -------------------------------- */
+
+.footer--default {
+    background: var(--primary);
+}
+
+.footer--light {
+    background: var(--primary-light);
+}

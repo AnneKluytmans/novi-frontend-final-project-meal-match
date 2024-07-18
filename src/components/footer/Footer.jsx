@@ -3,9 +3,9 @@ import { LineVertical, InstagramLogo, FacebookLogo } from '@phosphor-icons/react
 import './Footer.css';
 
 
-function Footer() {
+function Footer( { className } ) {
     return (
-        <footer className="footer outer-content-container">
+        <footer className={`outer-content-container ${className}`}>
             <div className="inner-content-container__row">
                 <ul className="footer__nav-links-wrapper">
                     <li><Link to="/contact">Contact</Link></li>
