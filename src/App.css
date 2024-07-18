@@ -1,0 +1,50 @@
+/*////////////////////////
+    Table of Contents
+    1. Layout
+    2. Main
+    3. Mediaqueries
+////////////////////////*/
+
+/* ------------------------------- 1. Layout -------------------------------- */
+
+.outer-content-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.inner-content-container__column {
+    flex-basis: 80rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 2rem 0;
+    margin: 0 3rem;
+}
+
+.inner-content-container__row {
+    flex-basis: 80rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 2rem 0;
+    margin: 0 3rem;
+}
+
+
+/* ------------------------------- 2. Main -------------------------------- */
+
+
+/* ------------------------------- 3. Mediaqueries -------------------------------- */
+
+@media screen and (max-width: 678px) {
+    .inner-content-container__row {
+        flex-direction: column-reverse;
+    }
+}
