@@ -1,0 +1,20 @@
+/* ------------------------------- Logo styling -------------------------------- */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    fill: var(--primary);
+}
+
+.logo__text {
+    font-weight: 800;
+    line-height: 0.6;
+    text-transform: uppercase;
+    color: var(--primary);
+}
