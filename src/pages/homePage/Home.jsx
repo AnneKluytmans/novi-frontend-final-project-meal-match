@@ -7,6 +7,7 @@ import SectionDivider from '../../components/sectionDivider/SectionDivider.jsx';
 import Dropdown from '../../components/dropdowns/dropdown/Dropdown.jsx';
 import Header from '../../components/header/Header.jsx';
 import './Home.css';
+import NavLinkItem from "../../components/navigation/navLinkItem/NavLinkItem.jsx";
 
 
 
@@ -30,6 +31,8 @@ function Home() {
                       <h4>This is a</h4>
                       <h4>Hamburger</h4>
                       <h4>Menu</h4>
+                      <NavLinkItem to="/" name="Home" />
+                      <NavLinkItem to="/contact" name="Contact" />
                   </Dropdown>
                   <Button
                       className="btn btn__default"

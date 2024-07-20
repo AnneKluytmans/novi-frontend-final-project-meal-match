@@ -1,0 +1,21 @@
+/* ------------------------------- NavLink styling -------------------------------- */
+
+.nav-link {
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+}
+
+.nav-link p {
+    font-size: 0.9rem;
+}
+
+.nav-link .active-link > * {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.nav-link .default-link {
+    color: var(--light);
+}
