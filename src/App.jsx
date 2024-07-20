@@ -13,8 +13,10 @@ import Contact from './pages/contactPage/Contact.jsx';
 import Faq from './pages/faqPage/Faq.jsx';
 import TermsAndPolicy from './pages/termsAndPolicyPage/TermsAndPolicy.jsx';
 import NotFound from './pages/notFoundPage/NotFound.jsx';
+import NavBar from './components/navigation/navBar/NavBar.jsx';
 import Footer from './components/footer/Footer.jsx';
 import './App.css';
+
 
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
 
   return (
       <>
+        <NavBar />
         <main>
           <Routes>
             <Route path="/" element={<Home/>}/>

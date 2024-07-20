@@ -33,16 +33,7 @@ function Home() {
                       <h4>This is a</h4>
                       <h4>Hamburger</h4>
                       <h4>Menu</h4>
-                      <NavLinkItem to="/" name="Home" />
-                      <NavLinkItem to="/contact" name="Contact" />
                   </Dropdown>
-                  <DropdownNavigation
-                      title="Help & Support"
-                      className="dropdown__nav-bar--default"
-                  >
-                      <DropdownItem to="/" name="Home" />
-                      <DropdownItem to="/contact" name="Contact" />
-                  </DropdownNavigation>
                   <Button
                       className="btn btn__default"
                       onClick={() => { console.log("This button is clicked!"); }}
