@@ -8,6 +8,7 @@ import Dropdown from '../../components/dropdowns/dropdown/Dropdown.jsx';
 import Header from '../../components/header/Header.jsx';
 import './Home.css';
 import NavLinkItem from "../../components/navigation/navLinkItem/NavLinkItem.jsx";
+import DropdownItem from "../../components/navigation/dropdownItem/DropdownItem.jsx";
 
 
 
@@ -33,6 +34,8 @@ function Home() {
                       <h4>Menu</h4>
                       <NavLinkItem to="/" name="Home" />
                       <NavLinkItem to="/contact" name="Contact" />
+                      <DropdownItem to="/" name="Home" />
+                      <DropdownItem to="/contact" name="Contact" />
                   </Dropdown>
                   <Button
                       className="btn btn__default"

@@ -1,0 +1,21 @@
+/* ------------------------------- Dropdown NavItem styling -------------------------------- */
+
+.dropdown__item {
+    text-decoration: none;
+    width: 100%;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--primary-dark);
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.active-dropdown-item p {
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.dropdown__item:hover {
+    border-bottom: 1px solid var(--secondary-orange);
+}
+
+
+
