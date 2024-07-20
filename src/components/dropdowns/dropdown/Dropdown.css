@@ -62,12 +62,12 @@
 /* ------------------------------- 2.2 Dropdown Hamburger Menu header styling -------------------- */
 
 .dropdown__hamburger-menu .dropdown__header {
-    color: var(--light);
+    color: var(--primary);
     transition: transform 0.2s ease-in-out;
 }
 
 .dropdown__hamburger-menu .dropdown__header:hover {
-    color: var(--primary);
+    color: var(--light);
     transform: scale(1.1);
 }
 
