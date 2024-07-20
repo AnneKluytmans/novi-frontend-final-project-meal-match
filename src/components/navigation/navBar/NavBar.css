@@ -1,4 +1,12 @@
+/*////////////////////////
+    Table of Contents
+    1. NavBar styling
+    2. NavBar Mediaqueries
+ ////////////////////////*/
+
 /* ------------------------------- 1. NavBar styling -------------------------------- */
+
+/* ------------------------------- 1.1 NavBar -------------------------------- */
 
 .nav-bar {
     background: var(--dark);
@@ -34,6 +42,8 @@
 
 
 
+/* ------------------------------- 1.2 Nav Links -------------------------------- */
+
 .nav-links-wrapper {
     list-style: none;
     display: flex;
@@ -42,6 +52,8 @@
 }
 
 
+
+/* ------------------------------- 1.3 Profile Links -------------------------------- */
 
 .profile-links-wrapper {
     display: flex;
@@ -67,6 +79,17 @@
 
 
 
+/* ------------------------------- 1.4 Hamburger Menus -------------------------------- */
+
+.hamburger-menu__small-desktop {
+    display: none;
+}
+
+.hamburger-menu__mobile {
+    display: none;
+}
+
+
 
 .sign-out__btn {
     font-size: 1.1rem;
@@ -82,3 +105,36 @@
     color: var(--secondary-orange);
     border-bottom: 1px solid var(--secondary-orange);
 }
+
+
+
+/* ------------------------------- 2. NavBar Mediaqueries -------------------------------- */
+
+@media screen and (max-width: 1200px) {
+    .nav-bar__links-wrapper {
+        justify-content: flex-end;
+    }
+    .nav-links-wrapper {
+        display: none;
+    }
+    .hamburger-menu__small-desktop {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 678px) {
+    .profile-links-wrapper {
+        display: none;
+    }
+    .hamburger-menu__mobile {
+        display: flex;
+    }
+    .hamburger-menu__small-desktop {
+        display: none;
+    }
+}
+
+
+
+
+

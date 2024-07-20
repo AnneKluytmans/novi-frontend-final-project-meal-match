@@ -6,8 +6,8 @@ import DropdownItem from '../dropdownItem/DropdownItem.jsx';
 function HamburgerMenu( { children }) {
     return (
         <Dropdown
-            openIcon={<X size={36}/>}
-            closedIcon={<List size={36}/>}
+            openIcon={<X size={44}/>}
+            closedIcon={<List size={44}/>}
             className="dropdown__nav-bar dropdown__nav-bar--default dropdown__hamburger-menu"
         >
             <DropdownItem to="/" name="Home" />
