@@ -1,0 +1,8 @@
+/* ------------------------------- Dropdown Navigation styling -------------------------------- */
+
+.dropdown-navigation {
+    display: flex;
+    align-items: center;
+
+    color: var(--light);
+}

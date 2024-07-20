@@ -9,6 +9,7 @@ import Header from '../../components/header/Header.jsx';
 import './Home.css';
 import NavLinkItem from "../../components/navigation/navLinkItem/NavLinkItem.jsx";
 import DropdownItem from "../../components/navigation/dropdownItem/DropdownItem.jsx";
+import DropdownNavigation from "../../components/navigation/dropdownNavigation/DropdownNavigation.jsx";
 
 
 
@@ -34,9 +35,14 @@ function Home() {
                       <h4>Menu</h4>
                       <NavLinkItem to="/" name="Home" />
                       <NavLinkItem to="/contact" name="Contact" />
+                  </Dropdown>
+                  <DropdownNavigation
+                      title="Help & Support"
+                      className="dropdown__nav-bar--default"
+                  >
                       <DropdownItem to="/" name="Home" />
                       <DropdownItem to="/contact" name="Contact" />
-                  </Dropdown>
+                  </DropdownNavigation>
                   <Button
                       className="btn btn__default"
                       onClick={() => { console.log("This button is clicked!"); }}
