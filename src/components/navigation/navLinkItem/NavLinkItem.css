@@ -1,4 +1,10 @@
-/* ------------------------------- NavLink styling -------------------------------- */
+/*////////////////////////
+    Table of Contents
+    1. NavLink styling
+    2. Hover transformation
+////////////////////////*/
+
+/* ------------------------------- 1. NavLink styling -------------------------------- */
 
 .nav-link {
     text-decoration: none;
@@ -9,6 +15,9 @@
 
 .nav-link p {
     font-size: 0.9rem;
+
+    position: relative;
+    transition: all 0.3s ease;
 }
 
 .nav-link .active-link > * {
@@ -18,4 +27,23 @@
 
 .nav-link .default-link {
     color: var(--light);
+}
+
+
+/* ------------------------------- 2. Hover transformation -------------------------------- */
+
+.nav-link p::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    height: 2px;
+    width: 0;
+    background-color: var(--primary);
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link p:hover::after {
+    width: 100%;
 }
