@@ -59,8 +59,21 @@
 }
 
 
+/* ------------------------------- 2.2 Dropdown Hamburger Menu header styling -------------------- */
 
-/* ------------------------------- 2.2 Dropdown NavBar content styling -------------------- */
+.dropdown__hamburger-menu .dropdown__header {
+    color: var(--light);
+    transition: transform 0.2s ease-in-out;
+}
+
+.dropdown__hamburger-menu .dropdown__header:hover {
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+
+
+/* ------------------------------- 2.3 Dropdown NavBar content styling -------------------- */
 
 .dropdown__nav-bar .dropdown__content {
     background-color: var(--light);
@@ -85,4 +98,8 @@
 
 .dropdown__nav-link .dropdown__content {
     margin: 1.4rem 0 0 -1.25rem;
+}
+
+.dropdown__hamburger-menu .dropdown__content {
+    margin-top: 1rem;
 }
