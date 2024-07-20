@@ -4,7 +4,9 @@ import Logo from '../../logo/Logo.jsx';
 import NavLinkItem from '../navLinkItem/NavLinkItem.jsx';
 import DropdownItem from '../dropdownItem/DropdownItem.jsx';
 import DropdownNavigation from '../dropdownNavigation/DropdownNavigation.jsx';
+import HamburgerMenu from '../hamburgerMenu/HamburgerMenu.jsx';
 import './NavBar.css';
+import Button from "../../buttons/button/Button.jsx";
 
 
 function NavBar() {
@@ -17,6 +19,27 @@ function NavBar() {
     return (
         <nav className="nav-bar outer-content-container">
             <div className="nav-bar__container">
+                <div className="hamburger-menu__mobile">
+                    <HamburgerMenu>
+                        {isAuth ?
+                            <>
+                                <DropdownItem to="/profile" name="Profile"/>
+                                <DropdownItem to="/favorite-recipes" name="Favorite Recipes"/>
+                                <Button onClick={signOut}>
+                                    <p className="sign-out__btn">Sign Out</p>
+                                </Button>
+                            </>
+                            :
+                            <>
+                                <DropdownItem to="/sign-in" name="Sign In"/>
+                                <DropdownItem to="/sign-up" name="Sign Up"/>
+                            </>
+                        }
+                    </ HamburgerMenu>
+                </div>
+                <div className="hamburger-menu__small-desktop">
+                    <HamburgerMenu/>
+                </div>
                 <Logo/>
                 <div className="nav-bar__links-wrapper">
                     <ul className="nav-links-wrapper">
@@ -47,9 +70,9 @@ function NavBar() {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <button type="button" onClick={signOut}>
+                                    <Button onClick={signOut}>
                                         <SignOut size={24} weight="bold" className="profile-link"/>
-                                    </button>
+                                    </Button>
                                 </li>
                             </div>
                             :

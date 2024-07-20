@@ -64,3 +64,21 @@
     color: var(--primary);
     transform: scale(1.1);
 }
+
+
+
+
+.sign-out__btn {
+    font-size: 1.1rem;
+    color: var(--primary-dark);
+    text-align: left;
+    width: 100%;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--primary-dark);
+    transition: border-color 0.5s ease, color 0.5s ease;
+}
+
+.sign-out__btn:hover {
+    color: var(--secondary-orange);
+    border-bottom: 1px solid var(--secondary-orange);
+}
