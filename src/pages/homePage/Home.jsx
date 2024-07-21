@@ -7,6 +7,10 @@ import SectionDivider from '../../components/sectionDivider/SectionDivider.jsx';
 import Dropdown from '../../components/dropdowns/dropdown/Dropdown.jsx';
 import Header from '../../components/header/Header.jsx';
 import './Home.css';
+import NavLinkItem from "../../components/navigation/navLinkItem/NavLinkItem.jsx";
+import DropdownItem from "../../components/navigation/dropdownItem/DropdownItem.jsx";
+import DropdownNavigation from "../../components/navigation/dropdownNavigation/DropdownNavigation.jsx";
+import HamburgerMenu from "../../components/navigation/hamburgerMenu/HamburgerMenu.jsx";
 
 
 
@@ -22,15 +26,7 @@ function Home() {
               <section className="home-section inner-content-container__column">
                   <Logo />
                   <h1>Home</h1>
-                  <Dropdown
-                      title="Hamburger Menu"
-                      openIcon={<X size={36}/>}
-                      closedIcon={<List size={36}/>}
-                  >
-                      <h4>This is a</h4>
-                      <h4>Hamburger</h4>
-                      <h4>Menu</h4>
-                  </Dropdown>
+                  <HamburgerMenu />
                   <Button
                       className="btn btn__default"
                       onClick={() => { console.log("This button is clicked!"); }}
