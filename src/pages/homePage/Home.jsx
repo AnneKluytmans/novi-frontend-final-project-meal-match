@@ -6,9 +6,9 @@ import ErrorMessage from '../../components/errorMessage/ErrorMessage.jsx';
 import Logo from '../../components/logo/Logo.jsx';
 import SectionDivider from '../../components/sectionDivider/SectionDivider.jsx';
 import Header from '../../components/header/Header.jsx';
+import EmailField from '../../components/form/emailField/EmailField.jsx';
+import PasswordField from '../../components/form/passwordField/PasswordField.jsx';
 import './Home.css';
-import EmailField from "../../components/form/emailField/EmailField.jsx";
-
 
 
 
@@ -41,6 +41,7 @@ function Home() {
                   <FormProvider {...methods}>
                       <form onSubmit={methods.handleSubmit(handleFormSubmit)} noValidate>
                           <EmailField />
+                          <PasswordField />
                           <Button
                               type="submit"
                               className="btn btn__default"
