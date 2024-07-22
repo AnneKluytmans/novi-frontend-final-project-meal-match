@@ -34,9 +34,11 @@
     padding: 0.5rem 0.8rem;
     margin: 0 0 0.25rem;
     display: flex;
+    align-items: center;
     gap: 0.5rem;
 }
 
 .input-field__error p {
     font-size: 0.875rem;
+    max-width: 20rem;
 }

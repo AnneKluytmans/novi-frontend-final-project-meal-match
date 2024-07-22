@@ -16,7 +16,7 @@ function InputField( { label, type = 'text', id, name, register, validation, err
             />
             {error &&
                 <span className="input-field__error">
-                    <WarningCircle size={28} color="#F87E39" weight="fill"/>
+                    <WarningCircle size={24} color="#F87E39" weight="fill"/>
                     <p> {error.message} </p>
                 </span>
             }
