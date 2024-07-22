@@ -8,11 +8,14 @@ import SectionDivider from '../../components/sectionDivider/SectionDivider.jsx';
 import Header from '../../components/header/Header.jsx';
 import InputField from '../../components/form/inputField/InputField.jsx';
 import './Home.css';
+import isEmailValid from "../../helpers/isEmailValid.js";
 
 
 
 function Home() {
-    const { handleSubmit, formState: { errors }, register } = useForm();
+    const { handleSubmit, formState: { errors }, register } = useForm({
+        mode: "onTouched"
+    });
 
     function handleFormSubmit(data) {
         console.log(data);
@@ -35,7 +38,7 @@ function Home() {
                   >
                       Try it now
                   </Button>
-                  <form onSubmit={handleSubmit(handleFormSubmit)}>
+                  <form onSubmit={handleSubmit(handleFormSubmit)} noValidate>
                       <InputField
                           id="email-field"
                           type="email"
@@ -44,6 +47,7 @@ function Home() {
                           register={register}
                           validation={{
                               required: 'Email is required',
+                              validate: isEmailValid,
                               maxLength: { value: 50, message: `Email cannot exceed 50 characters` }
                           }}
                           error={errors.email}
