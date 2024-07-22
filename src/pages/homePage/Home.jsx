@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { House } from '@phosphor-icons/react';
 import Button from '../../components/buttons/button/Button.jsx';
 import Loader from '../../components/loader/Loader.jsx';
@@ -6,15 +6,15 @@ import ErrorMessage from '../../components/errorMessage/ErrorMessage.jsx';
 import Logo from '../../components/logo/Logo.jsx';
 import SectionDivider from '../../components/sectionDivider/SectionDivider.jsx';
 import Header from '../../components/header/Header.jsx';
-import InputField from '../../components/form/inputField/InputField.jsx';
 import './Home.css';
-import isEmailValid from "../../helpers/isEmailValid.js";
+import EmailField from "../../components/form/emailField/EmailField.jsx";
+
 
 
 
 function Home() {
-    const { handleSubmit, formState: { errors }, register } = useForm({
-        mode: "onTouched"
+    const methods = useForm({
+        mode: 'onTouched',
     });
 
     function handleFormSubmit(data) {
@@ -38,27 +38,17 @@ function Home() {
                   >
                       Try it now
                   </Button>
-                  <form onSubmit={handleSubmit(handleFormSubmit)} noValidate>
-                      <InputField
-                          id="email-field"
-                          type="email"
-                          name="email"
-                          label="Email Address"
-                          register={register}
-                          validation={{
-                              required: 'Email is required',
-                              validate: isEmailValid,
-                              maxLength: { value: 50, message: `Email cannot exceed 50 characters` }
-                          }}
-                          error={errors.email}
-                      />
-                      <Button
-                          type="submit"
-                          className="btn btn__default"
-                      >
-                          send
-                      </Button>
-                  </form>
+                  <FormProvider {...methods}>
+                      <form onSubmit={methods.handleSubmit(handleFormSubmit)} noValidate>
+                          <EmailField />
+                          <Button
+                              type="submit"
+                              className="btn btn__default"
+                          >
+                              send
+                          </Button>
+                      </form>
+                  </FormProvider>
                   <SectionDivider title="Errors"/>
                   <Loader text="Finding delicious recipes just for you...🍝"/>
                   <Loader />
