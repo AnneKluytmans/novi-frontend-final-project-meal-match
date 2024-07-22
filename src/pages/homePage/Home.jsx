@@ -1,20 +1,23 @@
-import { List, X, House } from '@phosphor-icons/react';
+import { useForm } from 'react-hook-form';
+import { House } from '@phosphor-icons/react';
 import Button from '../../components/buttons/button/Button.jsx';
 import Loader from '../../components/loader/Loader.jsx';
 import ErrorMessage from '../../components/errorMessage/ErrorMessage.jsx';
 import Logo from '../../components/logo/Logo.jsx';
 import SectionDivider from '../../components/sectionDivider/SectionDivider.jsx';
-import Dropdown from '../../components/dropdowns/dropdown/Dropdown.jsx';
 import Header from '../../components/header/Header.jsx';
+import InputField from '../../components/form/inputField/InputField.jsx';
 import './Home.css';
-import NavLinkItem from "../../components/navigation/navLinkItem/NavLinkItem.jsx";
-import DropdownItem from "../../components/navigation/dropdownItem/DropdownItem.jsx";
-import DropdownNavigation from "../../components/navigation/dropdownNavigation/DropdownNavigation.jsx";
-import HamburgerMenu from "../../components/navigation/hamburgerMenu/HamburgerMenu.jsx";
 
 
 
 function Home() {
+    const { handleSubmit, formState: { errors }, register } = useForm();
+
+    function handleFormSubmit(data) {
+        console.log(data);
+    }
+
     return (
       <>
           <Header
@@ -26,13 +29,32 @@ function Home() {
               <section className="home-section inner-content-container__column">
                   <Logo />
                   <h1>Home</h1>
-                  <HamburgerMenu />
                   <Button
                       className="btn btn__default"
                       onClick={() => { console.log("This button is clicked!"); }}
                   >
                       Try it now
                   </Button>
+                  <form onSubmit={handleSubmit(handleFormSubmit)}>
+                      <InputField
+                          id="email-field"
+                          type="email"
+                          name="email"
+                          label="Email Address"
+                          register={register}
+                          validation={{
+                              required: 'Email is required',
+                              maxLength: { value: 50, message: `Email cannot exceed 50 characters` }
+                          }}
+                          error={errors.email}
+                      />
+                      <Button
+                          type="submit"
+                          className="btn btn__default"
+                      >
+                          send
+                      </Button>
+                  </form>
                   <SectionDivider title="Errors"/>
                   <Loader text="Finding delicious recipes just for you...🍝"/>
                   <Loader />
