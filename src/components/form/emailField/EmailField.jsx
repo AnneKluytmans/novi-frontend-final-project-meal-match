@@ -5,6 +5,7 @@ import isEmailValid from '../../../helpers/isEmailValid.js';
 
 function EmailField() {
     const { register, formState: {errors} } = useFormContext();
+    const maxEmailLength = 254;
 
     return (
         <InputField
@@ -16,7 +17,7 @@ function EmailField() {
             validation={{
                 required: 'Email is required',
                 validate: isEmailValid,
-                maxLength: { value: 50, message: `Email cannot exceed 50 characters` }
+                maxLength: { value: {maxEmailLength}, message: `Email cannot exceed ${maxEmailLength} characters` }
             }}
             error={errors.email}
         />
