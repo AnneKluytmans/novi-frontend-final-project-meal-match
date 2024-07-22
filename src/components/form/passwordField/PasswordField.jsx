@@ -21,7 +21,7 @@ function PasswordField() {
                 validation={{
                     required: 'Password is required',
                     validate: isPasswordValid,
-                    maxLength: { value: {maxPasswordLength}, message: `Password cannot exceed ${maxPasswordLength} characters` }
+                    maxLength: { value: maxPasswordLength, message: `Password cannot exceed ${maxPasswordLength} characters` }
                 }}
                 error={errors.password}
             />

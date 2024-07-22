@@ -8,7 +8,9 @@ import SectionDivider from '../../components/sectionDivider/SectionDivider.jsx';
 import Header from '../../components/header/Header.jsx';
 import EmailField from '../../components/form/emailField/EmailField.jsx';
 import PasswordField from '../../components/form/passwordField/PasswordField.jsx';
+import UsernameField from '../../components/form/usernameField/UsernameField.jsx';
 import './Home.css';
+
 
 
 
@@ -42,6 +44,7 @@ function Home() {
                       <form onSubmit={methods.handleSubmit(handleFormSubmit)} noValidate>
                           <EmailField />
                           <PasswordField />
+                          <UsernameField />
                           <Button
                               type="submit"
                               className="btn btn__default"
