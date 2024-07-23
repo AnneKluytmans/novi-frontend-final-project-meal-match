@@ -18,7 +18,7 @@ function AuthForm({ title, children, buttonText, primaryLinkText, primaryLink, p
         <div className="form__container">
             <div className="form__header">
                 <span className="form__logo-wrapper"><Logo /></span>
-                <h4 className="form__title">{title}</h4>
+                <h4>{title}</h4>
             </div>
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(handleFormSubmit)} noValidate>
@@ -35,8 +35,9 @@ function AuthForm({ title, children, buttonText, primaryLinkText, primaryLink, p
                 <p>{primaryLinkText} <Link to={primaryLink}>{primaryLinkName}</Link></p>
                 <p>{secondaryLinkText} <Link to={secondaryLink}>{secondaryLinkName}</Link></p>
             </div>
-            <p>By continuing you agree to Meal Match’s <Link to="/terms-and-policy">terms</Link> and acknowledge you’ve
-                read our <Link to="/terms-and-policy">privacy policy</Link></p>
+            <p className="form__terms-policy">By continuing you agree to Meal Match’s
+                <Link to="/terms-and-policy"> terms </Link> and acknowledge you’ve read our
+                <Link to="/terms-and-policy"> privacy policy </Link></p>
         </div>
     );
 }
