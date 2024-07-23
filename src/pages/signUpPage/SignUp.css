@@ -1,1 +1,6 @@
 /* ------------------------------- Sign up page styling -------------------------------- */
+
+.sign-up-section {
+    background-color: var(--primary);
+    min-height: 90vh;
+}

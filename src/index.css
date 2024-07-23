@@ -14,7 +14,7 @@
 
 :root {
     --primary: #D8F499;
-    --primary-light: rgba(216, 244, 153, 0.5);
+    --primary-light: #EBFACC;
     --primary-dark: #1A7453;
     --secondary-orange: #F87E39;
     --secondary-pink: #F2686D;
@@ -82,12 +82,12 @@ h3 {
 }
 
 h4 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 500;
 }
 
 h5 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
 }
 
