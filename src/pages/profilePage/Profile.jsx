@@ -1,9 +1,17 @@
+import { User } from '@phosphor-icons/react';
+import Header from '../../components/header/Header.jsx';
 import './Profile.css';
 
+
 function Profile() {
+    const userName = "Davide Gallo"
     return (
       <>
-        <h1>Profile</h1>
+        <Header
+            title={`Hello ${userName}`}
+            subtitle="Manage your account and personal information here."
+            icon={<User className="header__icon" />}
+        />
       </>
     );
 }

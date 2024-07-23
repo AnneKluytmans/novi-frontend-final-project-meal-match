@@ -16,7 +16,7 @@ function Home() {
           <Header
               title="Home Page"
               subtitle="Welcome to Meal Match. Start your culinary adventure."
-              icon={<House size={120} />}
+              icon={<House className="header__icon" />}
           />
           <div className="outer-content-container">
               <section className="home-section inner-content-container__column">
