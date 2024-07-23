@@ -11,6 +11,7 @@ function UsernameField() {
             type="text"
             name="username"
             label="Username"
+            placeholder="Enter your username"
             register={register}
             validation={{
                 required: 'Username is required',

@@ -13,6 +13,7 @@ function EmailField() {
             type="email"
             name="email"
             label="E-mail"
+            placeholder="Enter your e-mail"
             register={register}
             validation={{
                 required: 'Email is required',

@@ -17,6 +17,7 @@ function PasswordField() {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 label="Password"
+                placeholder="Enter your password"
                 register={register}
                 validation={{
                     required: 'Password is required',

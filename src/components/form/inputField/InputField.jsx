@@ -2,7 +2,7 @@ import { WarningCircle } from '@phosphor-icons/react';
 import './InputField.css';
 
 
-function InputField( { label, type = 'text', id, name, register, validation, error } ) {
+function InputField( { label, type = 'text', id, name, placeholder, register, validation, error } ) {
     return (
         <div className="input-field">
             <label htmlFor={id} className="input-field__label">
@@ -12,6 +12,7 @@ function InputField( { label, type = 'text', id, name, register, validation, err
                 className="input-field__field"
                 type={type}
                 id={id}
+                placeholder={placeholder}
                 {...register(name, validation)}
             />
             {error &&
