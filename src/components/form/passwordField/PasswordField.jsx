@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import InputField from '../inputField/InputField.jsx';
 import isPasswordValid from '../../../helpers/isPasswordValid.js';
-import Button from "../../buttons/button/Button.jsx";
+import Button from '../../buttons/button/Button.jsx';
 import './PasswordField.css';
 
 function PasswordField() {
