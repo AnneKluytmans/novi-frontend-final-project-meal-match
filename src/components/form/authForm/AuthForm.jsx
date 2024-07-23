@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
+import Logo from '../../logo/Logo.jsx';
 import Button from '../../buttons/button/Button.jsx';
 import './AuthForm.css';
 
 
-function AuthForm({ children, buttonText } ) {
+function AuthForm({ title, children, buttonText, primaryLinkText, primaryLink, primaryLinkName, secondaryLinkText, secondaryLink, secondaryLinkName } ) {
     const methods = useForm({
         mode: 'onTouched',
     });
@@ -14,6 +16,10 @@ function AuthForm({ children, buttonText } ) {
 
     return (
         <div className="form__container">
+            <div className="form__header">
+                <span className="form__logo-wrapper"><Logo /></span>
+                <h4 className="form__title">{title}</h4>
+            </div>
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(handleFormSubmit)} noValidate>
                     {children}
@@ -25,6 +31,12 @@ function AuthForm({ children, buttonText } ) {
                     </Button>
                 </form>
             </FormProvider>
+            <div className="form__links">
+                <p>{primaryLinkText} <Link to={primaryLink}>{primaryLinkName}</Link></p>
+                <p>{secondaryLinkText} <Link to={secondaryLink}>{secondaryLinkName}</Link></p>
+            </div>
+            <p>By continuing you agree to Meal Match’s <Link to="/terms-and-policy">terms</Link> and acknowledge you’ve
+                read our <Link to="/terms-and-policy">privacy policy</Link></p>
         </div>
     );
 }
