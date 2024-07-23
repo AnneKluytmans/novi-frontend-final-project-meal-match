@@ -31,6 +31,7 @@
     border-radius: 0.5rem;
     box-shadow: 0 2px 5px rgba(1, 47, 30, 0.4);
 
+    max-width: 24rem;
     padding: 0.5rem 0.8rem;
     margin: 0 0 0.25rem;
     display: flex;
@@ -40,5 +41,4 @@
 
 .input-field__error p {
     font-size: 0.875rem;
-    max-width: 20rem;
 }
