@@ -15,7 +15,6 @@ function SignUp() {
                 primaryLinkText="Already a member?"
                 primaryLink="/sign-in"
                 primaryLinkName="Sign In"
-                className="sign-up-form"
             >
                 <UsernameField />
                 <EmailField />

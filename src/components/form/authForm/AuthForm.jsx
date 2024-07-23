@@ -18,7 +18,7 @@ function AuthForm({ title, children, buttonText, primaryLinkText, primaryLink, p
         <div className="form__container">
             <div className="form__header">
                 <span className="form__logo-wrapper"><Logo /></span>
-                <h4>{title}</h4>
+                <h5>{title}</h5>
             </div>
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(handleFormSubmit)} noValidate>
