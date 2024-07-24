@@ -4,9 +4,9 @@ import Button from "../../buttons/button/Button.jsx";
 
 function DropdownItemProfile( { title, personalDetail, onClick, buttonText } ) {
     return (
-        <div className="profile-dropdown-item">
+        <div className="dropdown-item-profile">
             <div className="personal-details-wrapper">
-                <h5><em>{title}</em></h5>
+                <h5>{title}</h5>
                 <p>{personalDetail}</p>
             </div>
             <Button
