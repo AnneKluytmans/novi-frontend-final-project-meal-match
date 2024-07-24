@@ -1,4 +1,4 @@
-import LogoIcon from '../../assets/icons/logo-icon.svg?react';
+import LogoIcon from '../../../assets/icons/logo-icon.svg?react';
 import './Logo.css';
 
 

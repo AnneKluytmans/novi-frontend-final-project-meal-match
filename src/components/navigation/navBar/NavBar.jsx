@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { User, Heart, SignOut } from '@phosphor-icons/react';
-import Logo from '../../logo/Logo.jsx';
+import Logo from '../../misc/logo/Logo.jsx';
 import Button from '../../buttons/button/Button.jsx';
 import NavLinkItem from '../navLinkItem/NavLinkItem.jsx';
 import DropdownItem from '../dropdownItem/DropdownItem.jsx';
