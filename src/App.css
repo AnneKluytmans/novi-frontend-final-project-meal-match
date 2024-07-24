@@ -41,6 +41,15 @@
     max-width: 40rem;
 }
 
+.go-to-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
 /* ------------------------------- 2. Main -------------------------------- */
 
 main {

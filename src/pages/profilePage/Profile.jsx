@@ -1,9 +1,11 @@
-import {CaretDown, CaretUp, User} from '@phosphor-icons/react';
+import { Link } from 'react-router-dom';
+import { CaretDown, CaretUp, CaretRight, Heart, Trash, User } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/sectionDivider/SectionDivider.jsx';
 import Dropdown from '../../components/dropdowns/dropdown/Dropdown.jsx';
 import DropdownItemProfile from '../../components/dropdowns/dropdownItemProfile/DropdownItemProfile.jsx';
 import './Profile.css';
+import Button from "../../components/buttons/button/Button.jsx";
 
 
 function Profile() {
@@ -16,11 +18,15 @@ function Profile() {
     }
 
     function resetEmail() {
-        console.log("Reset Email adress");
+        console.log("Reset email address");
     }
 
     function resetPassword() {
-        console.log("Reset Password");
+        console.log("Reset password");
+    }
+
+    function deleteAccount() {
+        console.log("Account is deleted");
     }
 
     return (
@@ -31,7 +37,7 @@ function Profile() {
                 icon={<User className="header__icon" />}
             />
             <div className="outer-content-container">
-                <section className="personal-details-section inner-content-container__column">
+                <section className="inner-content-container__column">
                     <SectionDivider title="Personal details" />
                     <Dropdown
                         title="Your Personal Details"
@@ -58,6 +64,20 @@ function Profile() {
                             buttonText="Reset password"
                         />
                     </Dropdown>
+                    <div className="btn-link-wrapper">
+                        <Button
+                            onClick={deleteAccount}
+                            className="btn btn__transparent"
+                        >
+                            <Trash size={24} />
+                            Delete Account
+                        </Button>
+                        <Link to="/favorite-recipes" className="go-to-link">
+                            <CaretRight size={22} />
+                            Go to your favorite recipes
+                            <Heart size={22} />
+                        </Link>
+                    </div>
                 </section>
             </div>
         </>

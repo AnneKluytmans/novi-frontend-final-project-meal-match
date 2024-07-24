@@ -32,4 +32,8 @@
     color: var(--primary-dark);
     font-size: 0.8rem;
     border: 1px solid var(--primary-dark);
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
