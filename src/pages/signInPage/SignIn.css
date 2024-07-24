@@ -2,5 +2,7 @@
 
 .sign-in-section {
     background-color: var(--primary);
-    min-height: 75vh;
+    min-height: 90vh;
+
+    align-items: center;
 }
