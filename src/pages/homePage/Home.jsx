@@ -9,6 +9,7 @@ import Header from '../../components/header/Header.jsx';
 import EmailField from '../../components/form/emailField/EmailField.jsx';
 import UsernameField from '../../components/form/usernameField/UsernameField.jsx';
 import PasswordField from '../../components/form/passwordField/PasswordField.jsx';
+import ConfirmPasswordField from '../../components/form/passwordField/ConfirmPasswordField.jsx';
 import './Home.css';
 
 
@@ -44,6 +45,7 @@ function Home() {
                           <EmailField />
                           <UsernameField />
                           <PasswordField />
+                          <ConfirmPasswordField />
                           <Button
                               type="submit"
                               className="btn btn__default"
