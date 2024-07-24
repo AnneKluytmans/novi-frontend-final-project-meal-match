@@ -34,10 +34,10 @@ function Profile() {
                 <section className="personal-details-section inner-content-container__column">
                     <SectionDivider title="Personal details" />
                     <Dropdown
-                        title="Personal details"
-                        openIcon={<CaretUp size={22}/>}
-                        closedIcon={<CaretDown size={22}/>}
-                        className="personal-details-dropdown"
+                        title="Your Personal Details"
+                        openIcon={<CaretUp size={28}/>}
+                        closedIcon={<CaretDown size={28}/>}
+                        className="dropdown__profile-page"
                     >
                         <DropdownItemProfile
                             title="Username"
