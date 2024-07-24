@@ -1,1 +1,46 @@
 /* ------------------------------- Input field styling -------------------------------- */
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-field__label {
+    font-family: "Montserrat", "Arial", "Helvetica", sans-serif;
+    font-weight: 500;
+    margin-left: 0.25rem;
+}
+
+.input-field__field {
+    opacity: 0.8;
+    background-color: var(--light);
+    border: 1px solid var(--dark);
+    border-radius: 0.75rem;
+
+    padding: 0.75rem;
+    width: 24rem;
+}
+
+.input-field__field:focus {
+    outline: none;
+    border: 2px solid var(--primary-dark);
+    opacity: 1;
+}
+
+.input-field__error {
+    background-color: var(--light);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(1, 47, 30, 0.4);
+
+    max-width: 24rem;
+    padding: 0.5rem 0.8rem;
+    margin: 0 0 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.input-field__error p {
+    font-size: 0.875rem;
+}
