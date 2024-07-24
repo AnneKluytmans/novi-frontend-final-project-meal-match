@@ -8,6 +8,7 @@ import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.
 import Header from '../../components/header/Header.jsx';
 import EmailField from '../../components/form/emailField/EmailField.jsx';
 import './Home.css';
+import UsernameField from "../../components/form/usernameField/UsernameField.jsx";
 
 
 
@@ -40,6 +41,7 @@ function Home() {
                   <FormProvider {...methods}>
                       <form onSubmit={methods.handleSubmit(handleFormSubmit)} noValidate>
                           <EmailField />
+                          <UsernameField />
                           <Button
                               type="submit"
                               className="btn btn__default"
