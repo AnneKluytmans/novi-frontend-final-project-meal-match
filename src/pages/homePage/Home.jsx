@@ -1,3 +1,4 @@
+import { useForm, FormProvider } from 'react-hook-form';
 import { House } from '@phosphor-icons/react';
 import Button from '../../components/buttons/button/Button.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
@@ -5,10 +6,20 @@ import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import Logo from '../../components/misc/logo/Logo.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Header from '../../components/header/Header.jsx';
+import EmailField from '../../components/form/emailField/EmailField.jsx';
 import './Home.css';
 
 
+
 function Home() {
+    const methods = useForm({
+        mode: 'onTouched',
+    });
+
+    function handleFormSubmit(data) {
+        console.log(data);
+    }
+
     return (
       <>
           <Header
@@ -26,6 +37,17 @@ function Home() {
                   >
                       Try it now
                   </Button>
+                  <FormProvider {...methods}>
+                      <form onSubmit={methods.handleSubmit(handleFormSubmit)} noValidate>
+                          <EmailField />
+                          <Button
+                              type="submit"
+                              className="btn btn__default"
+                          >
+                              send
+                          </Button>
+                      </form>
+                  </FormProvider>
                   <SectionDivider title="Errors"/>
                   <Loader text="Finding delicious recipes just for you...🍝"/>
                   <Loader />
