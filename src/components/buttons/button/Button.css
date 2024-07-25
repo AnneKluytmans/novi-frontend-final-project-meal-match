@@ -25,3 +25,15 @@
     background: var(--dark);
     background: linear-gradient(90deg, var(--dark) 0%, var(--primary-dark) 100%);
 }
+
+
+.btn__transparent {
+    background-color: var(--light);
+    color: var(--primary-dark);
+    font-size: 0.8rem;
+    border: 1px solid var(--primary-dark);
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
