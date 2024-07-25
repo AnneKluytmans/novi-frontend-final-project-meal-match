@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Button from '../../buttons/button/Button.jsx';
 import './ConfirmMessage.css';
 
 function ConfirmMessage( { message, onConfirm, onCancel, autoClose } ) {
@@ -20,9 +21,19 @@ function ConfirmMessage( { message, onConfirm, onCancel, autoClose } ) {
             <div className="confirm-message">
                 <h5>{message}</h5>
                 {onConfirm && onCancel ? (
-                    <div className="confirm-message-buttons">
-                        <button onClick={onConfirm} className="confirm-button">Yes</button>
-                        <button onClick={onCancel} className="cancel-button">Cancel</button>
+                    <div>
+                        <Button
+                            onClick={onCancel}
+                            className="cancel-btn"
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={onConfirm}
+                            className="confirm-btn"
+                        >
+                            Yes
+                        </Button>
                     </div>
                 ) : null}
             </div>

@@ -96,7 +96,7 @@ function Profile() {
                     {resetPasswordMessage && (
                         <ConfirmMessage
                             message="You're password is successfully changed"
-                            autoClose={3000}
+                            autoClose={2000}
                         />
                     )}
                 </div>
