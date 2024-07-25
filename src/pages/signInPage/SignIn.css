@@ -1,1 +1,8 @@
 /* ------------------------------- Sign in page styling -------------------------------- */
+
+.sign-in-section {
+    background-color: var(--primary);
+    min-height: 90vh;
+
+    align-items: center;
+}

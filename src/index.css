@@ -14,7 +14,7 @@
 
 :root {
     --primary: #D8F499;
-    --primary-light: rgba(216, 244, 153, 0.4);
+    --primary-light: #EBFACC;
     --primary-dark: #1A7453;
     --secondary-orange: #F87E39;
     --secondary-pink: #F2686D;
@@ -60,7 +60,7 @@ button, input, select, textarea {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Montserrat", "Arial", "Helvetica", sans-serif;
-    margin: 1rem 0;
+    margin: 0.75rem 0;
 }
 
 
@@ -82,12 +82,12 @@ h3 {
 }
 
 h4 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 500;
 }
 
 h5 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
 }
 
@@ -120,6 +120,15 @@ a:visited {
 a:hover {
     color: var(--secondary-orange);
     font-weight: 600;
+}
+
+.go-to-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    margin-bottom: 1rem;
 }
 
 button {

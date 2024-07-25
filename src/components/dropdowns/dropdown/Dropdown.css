@@ -2,6 +2,7 @@
     Table of Contents
     1. Global dropdown styling
     2. Dropdowns NavBar styling
+    3. Dropdown Profile page styling
  ////////////////////////*/
 
 /* ------------------------------- 1. Global dropdown styling -------------------------------- */
@@ -102,4 +103,28 @@
 
 .dropdown__hamburger-menu .dropdown__content {
     margin-top: 1rem;
+}
+
+
+
+/* ------------------------------- 3. Dropdown Profile page styling -------------------------------- */
+
+.dropdown__profile-page .dropdown__header {
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--primary-dark);
+
+    padding: 0 0.25rem 0.5rem 0;
+    gap: 3rem;
+}
+
+.dropdown__profile-page .dropdown__icon {
+    stroke: var(--primary-dark);
+    stroke-width: 8;
+}
+
+.dropdown__profile-page .dropdown__header:hover {
+    border-bottom: 2px solid var(--primary-dark);
+    font-weight: 500;
 }
