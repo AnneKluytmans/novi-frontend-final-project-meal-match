@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { User, Heart, SignOut } from '@phosphor-icons/react';
+import { AuthContext } from '../../../context/AuthContext.jsx';
 import Logo from '../../misc/logo/Logo.jsx';
 import Button from '../../buttons/button/Button.jsx';
 import NavLinkItem from '../navLinkItem/NavLinkItem.jsx';
@@ -10,7 +12,7 @@ import './NavBar.css';
 
 
 function NavBar() {
-    const isAuth = true;
+    const { isAuth } = useContext(AuthContext);
 
     function signOut(){
         console.log("The user is signed out");
