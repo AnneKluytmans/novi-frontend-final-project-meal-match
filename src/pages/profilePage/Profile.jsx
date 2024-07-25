@@ -1,13 +1,19 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { CaretDown, CaretUp, CaretRight, Heart, Trash, User } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Dropdown from '../../components/dropdowns/dropdown/Dropdown.jsx';
 import DropdownItemProfile from '../../components/dropdowns/dropdownItemProfile/DropdownItemProfile.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
+import ConfirmMessage from '../../components/misc/confirmMessage/ConfirmMessage.jsx';
 import './Profile.css';
 
+
 function Profile() {
+    const [deleteAccountConfirm, toggleDeleteAccountConfirm] = useState(false);
+    const [resetPasswordMessage, toggleResetPasswordMessage] = useState(false);
+
     const username = "Davide Gallo";
     const email = "davidegallo@hotmail.com";
     const password = "1bA23?jh6yJe9!";
@@ -22,10 +28,13 @@ function Profile() {
 
     function resetPassword() {
         console.log("Reset password");
+        toggleResetPasswordMessage(false);
+        setTimeout(() => toggleResetPasswordMessage(true), 0);
     }
 
     function deleteAccount() {
         console.log("Account is deleted");
+        toggleDeleteAccountConfirm(false);
     }
 
     return (
@@ -65,18 +74,31 @@ function Profile() {
                     </Dropdown>
                     <div className="btn-link-wrapper">
                         <Button
-                            onClick={deleteAccount}
+                            onClick={() => toggleDeleteAccountConfirm(true)}
                             className="btn btn__transparent"
                         >
                             <Trash size={24} />
                             Delete Account
                         </Button>
+                        {deleteAccountConfirm && (
+                            <ConfirmMessage
+                                message="Are you sure you want to delete your account?"
+                                onConfirm={deleteAccount}
+                                onCancel={() => toggleDeleteAccountConfirm(false)}
+                            />
+                        )}
                         <Link to="/favorite-recipes" className="go-to-link">
                             <CaretRight size={22} />
                             Go to your favorite recipes
                             <Heart size={22} />
                         </Link>
                     </div>
+                    {resetPasswordMessage && (
+                        <ConfirmMessage
+                            message="You're password is successfully changed"
+                            autoClose={3000}
+                        />
+                    )}
                 </div>
             </section>
         </>
