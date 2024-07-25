@@ -3,6 +3,7 @@ import { CaretDown, CaretUp, CaretRight, Heart, Trash, User } from '@phosphor-ic
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Dropdown from '../../components/dropdowns/dropdown/Dropdown.jsx';
+import DropdownItemProfile from '../../components/dropdowns/dropdownItemProfile/DropdownItemProfile.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
 import './Profile.css';
 
@@ -10,6 +11,18 @@ function Profile() {
     const username = "Davide Gallo";
     const email = "davidegallo@hotmail.com";
     const password = "1bA23?jh6yJe9!";
+
+    function resetUsername() {
+        console.log("Reset username");
+    }
+
+    function resetEmail() {
+        console.log("Reset email address");
+    }
+
+    function resetPassword() {
+        console.log("Reset password");
+    }
 
     function deleteAccount() {
         console.log("Account is deleted");
@@ -31,9 +44,24 @@ function Profile() {
                         closedIcon={<CaretDown size={28}/>}
                         className="dropdown__profile-page"
                     >
-                        <h4>{username}</h4>
-                        <h4>{email}</h4>
-                        <h4>{password}</h4>
+                        <DropdownItemProfile
+                            title="Username"
+                            personalDetail={username}
+                            onClick={resetUsername}
+                            buttonText="Reset username"
+                        />
+                        <DropdownItemProfile
+                            title="E-mail"
+                            personalDetail={email}
+                            onClick={resetEmail}
+                            buttonText="Reset email"
+                        />
+                        <DropdownItemProfile
+                            title="Password"
+                            personalDetail={password}
+                            onClick={resetPassword}
+                            buttonText="Reset password"
+                        />
                     </Dropdown>
                     <div className="btn-link-wrapper">
                         <Button

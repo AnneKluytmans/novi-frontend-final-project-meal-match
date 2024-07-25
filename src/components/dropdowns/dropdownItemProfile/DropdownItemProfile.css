@@ -1,0 +1,12 @@
+/* ------------------------------- Dropdown Item Profile Page styling -------------------------------- */
+
+.dropdown-item-profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 5rem;
+
+    padding: 1rem;
+    width: 100%;
+}
