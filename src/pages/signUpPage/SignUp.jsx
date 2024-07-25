@@ -8,7 +8,7 @@ import './SignUp.css';
 
 function SignUp() {
     return (
-        <div className="sign-up-section outer-content-container">
+        <section className="sign-up-section outer-content-container">
             <AuthForm
                 title="Sign up to Meal Match to save all your favorite recipes in one place!"
                 buttonText="Sign up"
@@ -21,7 +21,7 @@ function SignUp() {
                 <PasswordField />
                 <ConfirmPasswordField />
             </AuthForm>
-        </div>
+        </section>
     );
 }
 

@@ -1,4 +1,3 @@
-import { useForm, FormProvider } from 'react-hook-form';
 import { House } from '@phosphor-icons/react';
 import Button from '../../components/buttons/button/Button.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
@@ -16,7 +15,7 @@ function Home() {
           <Header
               title="Home Page"
               subtitle="Welcome to Meal Match. Start your culinary adventure."
-              icon={<House size={120} />}
+              icon={<House className="header__icon"/>}
           />
           <div className="outer-content-container">
               <section className="home-section inner-content-container__column">

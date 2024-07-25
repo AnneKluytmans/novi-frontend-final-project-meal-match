@@ -5,7 +5,7 @@ import './SignIn.css';
 
 function SignIn() {
     return (
-        <div className="sign-in-section outer-content-container">
+        <section className="sign-in-section outer-content-container">
             <AuthForm
                 title="Sign in to access your saved recipes and to save more favorite recipes."
                 buttonText="Sign in"
@@ -16,7 +16,7 @@ function SignIn() {
                 <UsernameField/>
                 <PasswordField/>
             </AuthForm>
-        </div>
+        </section>
     );
 }
 
