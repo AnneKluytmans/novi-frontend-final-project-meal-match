@@ -5,14 +5,10 @@ import Button from '../../buttons/button/Button.jsx';
 import './AuthForm.css';
 
 
-function AuthForm({ title, children, buttonText, primaryLinkText, primaryLink, primaryLinkName, secondaryLinkText, secondaryLink, secondaryLinkName } ) {
+function AuthForm({ title, children, buttonText, handleFormSubmit, primaryLink, secondaryLink } ) {
     const methods = useForm({
         mode: 'onTouched',
     });
-
-    function handleFormSubmit(data) {
-        console.log(data);
-    }
 
     return (
         <div className="form__container">
@@ -32,8 +28,8 @@ function AuthForm({ title, children, buttonText, primaryLinkText, primaryLink, p
                 </form>
             </FormProvider>
             <div className="form__links">
-                <p>{primaryLinkText} <Link to={primaryLink}>{primaryLinkName}</Link></p>
-                <p>{secondaryLinkText} <Link to={secondaryLink}>{secondaryLinkName}</Link></p>
+                {primaryLink}
+                {secondaryLink}
             </div>
             <p className="form__terms-policy">By continuing you agree to Meal Match’s
                 <Link to="/terms-and-policy"> terms </Link> and acknowledge you’ve read our
