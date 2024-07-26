@@ -53,6 +53,10 @@ function SignUp() {
         } catch (e) {
             console.error(e);
             toggleError(true);
+
+            setTimeout(() => {
+                toggleError(false);
+            }, 7000);
         } finally {
             toggleLoading(false);
         }
@@ -60,21 +64,26 @@ function SignUp() {
 
     return (
         <section className="sign-up-section outer-content-container">
-            <div className="inner-content-container__column">
-                {loading && <Loader text="Cooking up a fresh new account for you... 🍳✨"/>}
-                {error && <ErrorMessage message="Something went wrong while setting up your profile...🍰❌ Please try again later!"/>}
-                {succesMessage && <ConfirmMessage message="Hooray! Your profile is now live and sizzling! 🥳🔥 You’re all set to explore!" autoClose={2500}/>}
-                <AuthForm
-                    title="Sign up to Meal Match to save all your favorite recipes in one place!"
-                    buttonText="Sign up"
-                    handleFormSubmit={handleFormSubmit}
-                    primaryLink={<p>Already a member? <Link to="/sign-in">Sign In</Link></p>}
-                >
-                    <UsernameField />
-                    <EmailField />
-                    <PasswordField />
-                    <ConfirmPasswordField />
-                </AuthForm>
+            <div className="sign-up-section__container inner-content-container__column">
+                {loading ? (
+                    <Loader text="Cooking up a fresh new account for you... 🍳✨"/>
+                ) : error ? (
+                    <ErrorMessage message="Something went wrong while setting up your profile...🍰❌ Please try again later!"/>
+                ) : succesMessage ? (
+                    <ConfirmMessage message="Hooray! Your profile is now live and sizzling! 🥳🔥 You’re all set to explore!" autoClose={2500}/>
+                ) : (
+                    <AuthForm
+                        title="Sign up to Meal Match to save all your favorite recipes in one place!"
+                        buttonText="Sign up"
+                        handleFormSubmit={handleFormSubmit}
+                        primaryLink={<p>Already a member? <Link to="/sign-in">Sign In</Link></p>}
+                    >
+                        <UsernameField />
+                        <EmailField />
+                        <PasswordField />
+                        <ConfirmPasswordField />
+                    </AuthForm>
+                )}
             </div>
         </section>
     );

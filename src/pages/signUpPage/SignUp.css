@@ -4,3 +4,10 @@
     background-color: var(--primary);
     min-height: 90vh;
 }
+
+.sign-up-section__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
