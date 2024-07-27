@@ -1,7 +1,9 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import Loader from '../components/misc/loader/Loader.jsx';
+import isTokenValid from '../helpers/isTokenValid.js';
 import { API_KEY_AUTH, API_URL_AUTH } from '../constants/apiConfig.js';
 
 
@@ -11,6 +13,7 @@ function AuthContextProvider( { children } ) {
     const [ isAuth, setIsAuth ] = useState({
         isAuth: false,
         user: null,
+        status: 'pending',
     });
 
     const [loading, toggleLoading] = useState(false);
@@ -18,6 +21,24 @@ function AuthContextProvider( { children } ) {
     const [success, toggleSuccess] = useState(false);
 
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        if(token && isTokenValid(token)) {
+            console.log("Token valid");
+            const decodedToken = jwtDecode(token);
+            void fetchUserData(decodedToken.sub, token);
+        } else {
+            console.log("Token not valid");
+            setIsAuth({
+                isAuth: false,
+                user: null,
+                status: 'done',
+            });
+        }
+    }, []);
 
     function login(JWT) {
         console.log(JWT);
@@ -49,7 +70,8 @@ function AuthContextProvider( { children } ) {
                 user: {
                     username: response.data.username,
                     email: response.data.email,
-                }
+                },
+                status: 'done',
             });
 
             console.log("User is logged in");
@@ -66,6 +88,7 @@ function AuthContextProvider( { children } ) {
             setIsAuth({
                 isAuth: false,
                 user: null,
+                status: 'done',
             });
 
             setTimeout(() => {
@@ -82,6 +105,7 @@ function AuthContextProvider( { children } ) {
         setIsAuth({
             isAuth: false,
             user: null,
+            status: 'done',
         });
 
         navigate('/');
@@ -99,7 +123,7 @@ function AuthContextProvider( { children } ) {
 
     return (
         <AuthContext.Provider value={authContextData}>
-            {children}
+            { isAuth.status === 'done' ? children : <Loader text="Getting your account details ready... 🍰⏳" /> }
         </AuthContext.Provider>
     );
 }
