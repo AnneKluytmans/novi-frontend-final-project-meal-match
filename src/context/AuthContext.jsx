@@ -52,6 +52,7 @@ function AuthContextProvider( { children } ) {
                 }
             });
 
+            console.log("User is logged in");
             toggleSuccess(true);
 
             if ( redirectUrl ) {
@@ -66,15 +67,31 @@ function AuthContextProvider( { children } ) {
                 isAuth: false,
                 user: null,
             });
+
+            setTimeout(() => {
+                toggleError(false);
+            }, 7000);
         } finally {
             toggleLoading(false);
         }
+    }
+
+    function logout() {
+        console.log('User is logged out');
+        localStorage.clear();
+        setIsAuth({
+            isAuth: false,
+            user: null,
+        });
+
+        navigate('/');
     }
 
     const authContextData = {
         isAuth: isAuth.isAuth,
         user: isAuth.user,
         login: login,
+        logout: logout,
         loading: loading,
         error: error,
         success: success,
