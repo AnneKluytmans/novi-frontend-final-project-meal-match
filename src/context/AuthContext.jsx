@@ -13,6 +13,10 @@ function AuthContextProvider( { children } ) {
         user: null,
     });
 
+    const [loading, toggleLoading] = useState(false);
+    const [error, toggleError] = useState(false);
+    const [success, toggleSuccess] = useState(false);
+
     const navigate = useNavigate();
 
     function login(JWT) {
@@ -26,6 +30,10 @@ function AuthContextProvider( { children } ) {
     }
 
     async function fetchUserData(id, token, redirectUrl) {
+        toggleError(false);
+        toggleLoading(true);
+        toggleSuccess(false);
+
         try {
             const response = await axios.get(`${API_URL_AUTH}/users/${ id }`, {
                 headers: {
@@ -44,6 +52,8 @@ function AuthContextProvider( { children } ) {
                 }
             });
 
+            toggleSuccess(true);
+
             if ( redirectUrl ) {
                 setTimeout(() => {
                     navigate( redirectUrl );
@@ -51,10 +61,13 @@ function AuthContextProvider( { children } ) {
             }
         } catch (e) {
             console.error(e);
+            toggleError(true);
             setIsAuth({
                 isAuth: false,
                 user: null,
             });
+        } finally {
+            toggleLoading(false);
         }
     }
 
@@ -62,6 +75,9 @@ function AuthContextProvider( { children } ) {
         isAuth: isAuth.isAuth,
         user: isAuth.user,
         login: login,
+        loading: loading,
+        error: error,
+        success: success,
     }
 
     return (

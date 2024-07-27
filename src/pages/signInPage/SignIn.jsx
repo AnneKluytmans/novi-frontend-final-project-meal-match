@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import AuthForm from '../../components/form/authForm/AuthForm.jsx';
@@ -15,17 +15,13 @@ import './SignIn.css';
 function SignIn() {
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    const [succesMessage, toggleSuccesMessage] = useState(false);
 
-    const { login } = useContext(AuthContext);
-
-    const navigate = useNavigate();
+    const { login, loading: contextLoading, error: contextError, success: contextSuccess } = useContext(AuthContext);
 
     async function handleFormSubmit(data) {
         console.log(data);
         toggleError(false);
         toggleLoading(true);
-        toggleSuccesMessage(false);
 
         try {
             const response = await axios.post(`${API_URL_AUTH}/users/authenticate`, {
@@ -40,11 +36,6 @@ function SignIn() {
 
             console.log(response.data);
             login(response.data.jwt);
-            toggleSuccesMessage(true);
-
-            setTimeout(() => {
-                navigate('/');
-            }, 3000);
         } catch (e) {
             console.error(e);
             toggleError(true);
@@ -60,11 +51,11 @@ function SignIn() {
     return (
         <section className="sign-in-section outer-content-container">
             <div className="sign-in-section__container inner-content-container__column">
-                {loading ? (
+                {contextLoading || loading ? (
                     <Loader text="Whisking you into your account... 🍰✨ Hang tight!"/>
-                ) : error ? (
+                ) : contextError || error ? (
                     <ErrorMessage message="Oh no! Our chef couldn't authenticate your details... 🔑❌ Please double-check your username and password and try again!"/>
-                ) : succesMessage ? (
+                ) : contextSuccess ? (
                     <ConfirmMessage message="Welcome back! You’ve successfully logged in! 🥳🍴Let's get started!" autoClose={2500}/>
                 ) : (
                     <AuthForm
@@ -79,7 +70,7 @@ function SignIn() {
                 )}
             </div>
         </section>
-);
+    );
 }
 
 export default SignIn;
