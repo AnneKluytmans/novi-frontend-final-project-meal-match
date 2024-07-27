@@ -41,7 +41,7 @@ function SignUp() {
             }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-API-Key': API_KEY_AUTH,
+                    'X-Api-Key': API_KEY_AUTH,
                 }
             });
 

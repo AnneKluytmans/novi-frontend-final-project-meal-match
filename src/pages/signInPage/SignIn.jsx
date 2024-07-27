@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext';
 import AuthForm from '../../components/form/authForm/AuthForm.jsx';
 import UsernameField from '../../components/form/usernameField/UsernameField.jsx';
 import PasswordField from '../../components/form/passwordField/PasswordField.jsx';
@@ -15,6 +16,8 @@ function SignIn() {
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const [succesMessage, toggleSuccesMessage] = useState(false);
+
+    const { login } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -31,12 +34,12 @@ function SignIn() {
             }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-API-Key': API_KEY_AUTH,
+                    'X-Api-Key': API_KEY_AUTH,
                 }
             });
 
             console.log(response.data);
-            console.log('Login was successful');
+            login(response.data.jwt);
             toggleSuccesMessage(true);
 
             setTimeout(() => {
@@ -60,7 +63,7 @@ function SignIn() {
                 {loading ? (
                     <Loader text="Whisking you into your account... 🍰✨ Hang tight!"/>
                 ) : error ? (
-                    <ErrorMessage message="Oh no! Our chef couldn't authenticate your details... 🔑❌ Please double-check and try again!"/>
+                    <ErrorMessage message="Oh no! Our chef couldn't authenticate your details... 🔑❌ Please double-check your username and password and try again!"/>
                 ) : succesMessage ? (
                     <ConfirmMessage message="Welcome back! You’ve successfully logged in! 🥳🍴Let's get started!" autoClose={2500}/>
                 ) : (
