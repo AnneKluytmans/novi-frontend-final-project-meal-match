@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from "axios";
+import axios from 'axios';
 import AuthForm from '../../components/form/authForm/AuthForm.jsx';
 import UsernameField from '../../components/form/usernameField/UsernameField.jsx';
 import EmailField from '../../components/form/emailField/EmailField.jsx';
@@ -22,6 +22,7 @@ function SignUp() {
 
     async function handleFormSubmit(data) {
         console.log(data);
+
         toggleError(false);
         toggleLoading(true);
         toggleSuccesMessage(false);
