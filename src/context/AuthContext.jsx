@@ -48,6 +48,7 @@ function AuthContextProvider( { children } ) {
         console.log(decodedToken);
 
         void fetchUserData(decodedToken.sub, JWT, '/');
+        console.log("User is logged in");
     }
 
     async function fetchUserData(id, token, redirectUrl) {
@@ -65,17 +66,17 @@ function AuthContextProvider( { children } ) {
                 },
             });
 
-            console.log(response.data);
             setIsAuth({
                 isAuth: true,
                 user: {
                     username: response.data.username,
                     email: response.data.email,
+                    password: response.data.password,
                 },
                 status: 'done',
             });
 
-            console.log("User is logged in");
+            console.log("User data is fetched:", response.data);
             toggleSuccess(true);
 
             setTimeout(() => {
@@ -88,7 +89,7 @@ function AuthContextProvider( { children } ) {
                 }, 2500);
             }
         } catch (e) {
-            console.error(e);
+            console.error("User data is not fetched:", e);
             toggleError(true);
             setIsAuth({
                 isAuth: false,

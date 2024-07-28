@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { CaretDown, CaretUp, CaretRight, Heart, Trash, User } from '@phosphor-icons/react';
+import { AuthContext } from '../../context/AuthContext';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Dropdown from '../../components/dropdowns/dropdown/Dropdown.jsx';
@@ -11,12 +12,15 @@ import './Profile.css';
 
 
 function Profile() {
+    const [deleteAccountSuccess, toggleDeleteAccountSuccess] = useState(false);
     const [deleteAccountConfirm, toggleDeleteAccountConfirm] = useState(false);
     const [resetPasswordMessage, toggleResetPasswordMessage] = useState(false);
 
-    const username = "Davide Gallo";
-    const email = "davidegallo@hotmail.com";
-    const password = "1bA23?jh6yJe9!";
+    const { user, logout } = useContext(AuthContext);
+
+    const username = user.username;
+    const email = user.email;
+    const password = "secret";
 
     function resetUsername() {
         console.log("Reset username");
@@ -33,8 +37,13 @@ function Profile() {
     }
 
     function deleteAccount() {
+        //Within the NOVI backend, users do not have the right to delete their accounts.
+        //Due to the backend's restrictions the deleteAccount function below is a placeholder, meant to simulate the user experience of deleting an account.
         console.log("Account is deleted");
         toggleDeleteAccountConfirm(false);
+        toggleDeleteAccountSuccess(true);
+
+        setTimeout(() => logout(), 3000);
     }
 
     return (
@@ -85,6 +94,12 @@ function Profile() {
                                 message="Are you sure you want to delete your account?"
                                 onConfirm={deleteAccount}
                                 onCancel={() => toggleDeleteAccountConfirm(false)}
+                            />
+                        )}
+                        {deleteAccountSuccess && (
+                            <ConfirmMessage
+                                message="Your account has been successfully removed! 🎉🍪 We’ll miss you!"
+                                autoClose={3000}
                             />
                         )}
                         <Link to="/favorite-recipes" className="go-to-link">
