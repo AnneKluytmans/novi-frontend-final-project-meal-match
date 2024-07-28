@@ -60,7 +60,8 @@ function AuthContextProvider( { children } ) {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-Api-Key': API_KEY_AUTH,
-                    Authorization: `Bearer ${ token }`,
+                    'accept': '*/*',
+                    'Authorization': `Bearer ${ token }`,
                 },
             });
 
@@ -77,10 +78,14 @@ function AuthContextProvider( { children } ) {
             console.log("User is logged in");
             toggleSuccess(true);
 
+            setTimeout(() => {
+                toggleSuccess(false);
+            }, 3000);
+
             if ( redirectUrl ) {
                 setTimeout(() => {
                     navigate( redirectUrl );
-                }, 3000);
+                }, 2500);
             }
         } catch (e) {
             console.error(e);

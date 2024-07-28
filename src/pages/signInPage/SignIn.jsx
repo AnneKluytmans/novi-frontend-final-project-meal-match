@@ -19,7 +19,6 @@ function SignIn() {
     const { login, loading: contextLoading, error: contextError, success: contextSuccess } = useContext(AuthContext);
 
     async function handleFormSubmit(data) {
-        console.log(data);
         toggleError(false);
         toggleLoading(true);
 
@@ -34,10 +33,10 @@ function SignIn() {
                 }
             });
 
-            console.log(response.data);
+            console.log('JWT token received:', response.data);
             login(response.data.jwt);
         } catch (e) {
-            console.error(e);
+            console.error('Error during sign-in:', e);
             toggleError(true);
 
             setTimeout(() => {

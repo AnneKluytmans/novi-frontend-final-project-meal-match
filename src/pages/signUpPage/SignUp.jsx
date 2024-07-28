@@ -21,21 +21,19 @@ function SignUp() {
     const navigate = useNavigate();
 
     async function handleFormSubmit(data) {
-        console.log(data);
-
         toggleError(false);
         toggleLoading(true);
         toggleSuccesMessage(false);
 
         try {
-            await axios.post(`${API_URL_AUTH}/users`, {
+            const response = await axios.post(`${API_URL_AUTH}/users`, {
                 username: data.username,
                 email: data.email,
                 password: data.password,
                 info: "",
                 authorities: [
                     {
-                        authority: "user"
+                        authority: "USER"
                     }
                 ]
             }, {
@@ -45,14 +43,14 @@ function SignUp() {
                 }
             });
 
-            console.log('Registration successful');
+            console.log('Registration successful:', response.data);
             toggleSuccesMessage(true);
 
             setTimeout(() => {
                 navigate('/sign-in');
             }, 3000);
         } catch (e) {
-            console.error(e);
+            console.error('Error during sign-up:', e);
             toggleError(true);
 
             setTimeout(() => {
