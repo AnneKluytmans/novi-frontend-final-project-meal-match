@@ -8,6 +8,7 @@ import PasswordField from '../../components/form/passwordField/PasswordField.jsx
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import ConfirmMessage from '../../components/misc/confirmMessage/ConfirmMessage.jsx';
+import Overlay from '../../components/misc/overlay/Overlay.jsx';
 import { API_KEY_AUTH, API_URL_AUTH } from '../../constants/apiConfig.js';
 import './SignIn.css';
 
@@ -49,14 +50,19 @@ function SignIn() {
 
     return (
         <section className="sign-in-section outer-content-container">
-            <div className="sign-in-section__container inner-content-container__column">
-                {contextLoading || loading ? (
+            <Overlay show={loading || contextLoading || error || contextError || contextSuccess}>
+                {contextLoading || loading &&
                     <Loader text="Whisking you into your account... 🍰✨ Hang tight!"/>
-                ) : contextError || error ? (
-                    <ErrorMessage message="Oh no! Our chef couldn't authenticate your details... 🔑❌ Please double-check your username and password and try again!"/>
-                ) : contextSuccess ? (
-                    <ConfirmMessage message="Welcome back! You’ve successfully logged in! 🥳🍴Let's get started!" autoClose={2500}/>
-                ) : (
+                }
+                {contextError || error &&
+                    <ErrorMessage message="Oh no! Our chef couldn't authenticate your details... 🔑❌
+                    Please double-check your username and password and try again!"/>
+                }
+                {contextSuccess &&
+                    <ConfirmMessage message="Welcome back! You’ve successfully logged in! 🥳🍴Let's get started!"/>
+                }
+            </Overlay>
+            <div className="sign-in-section__container inner-content-container__column">
                     <AuthForm
                         title="Sign in to access your saved recipes and to save more favorite recipes."
                         buttonText="Sign in"
@@ -66,7 +72,6 @@ function SignIn() {
                         <UsernameField/>
                         <PasswordField/>
                     </AuthForm>
-                )}
             </div>
         </section>
     );

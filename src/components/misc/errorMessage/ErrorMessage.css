@@ -7,14 +7,16 @@
 /* ------------------------------- Error Message styling -------------------------------- */
 
 .error-message {
-    border: 1px dashed var(--secondary-orange);
-    border-radius: 1rem;
     color: var(--secondary-orange);
     text-align: center;
+    background-color: var(--light);
+    border: 2px dashed var(--secondary-orange);
+    border-radius: 1rem;
 
     padding: 1rem 3rem;
     margin: 3rem 1rem;
     animation: blink 3s ease-in-out;
+    z-index: 5000;
 }
 
 @keyframes blink {

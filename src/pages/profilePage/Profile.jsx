@@ -16,6 +16,7 @@ import Button from '../../components/buttons/button/Button.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import ConfirmMessage from '../../components/misc/confirmMessage/ConfirmMessage.jsx';
+import Overlay from '../../components/misc/overlay/Overlay.jsx';
 import { API_KEY_AUTH, API_URL_AUTH } from '../../constants/apiConfig.js';
 import './Profile.css';
 
@@ -56,6 +57,10 @@ function Profile() {
             console.log('User data is updated:', response.data);
             toggleSuccess(true);
 
+            setTimeout(() => {
+                toggleSuccess(false);
+            }, 3000);
+
             if (field === 'username') {
                 alert("Username has been updated. Please log in again with your new username.");
                 logout('/sign-in'); // Clears the session and redirects to the login page
@@ -87,7 +92,10 @@ function Profile() {
         toggleDeleteAccountConfirm(false);
         toggleDeleteAccountSuccess(true);
 
-        setTimeout(() => logout(), 3000);
+        setTimeout(() => {
+            toggleDeleteAccountSuccess(false);
+            logout()
+        }, 3000);
     }
 
     return (
@@ -98,11 +106,13 @@ function Profile() {
                 icon={<User className="header__icon"/>}
             />
             <section className="outer-content-container">
-                <div className="inner-content-container__column">
-                    <SectionDivider title="Personal details"/>
+                <Overlay show={loading || error || success}>
                     {loading && <Loader text="Mixing the perfect blend for your updated profile... 🍰✨ Please wait!" />}
                     {error && <ErrorMessage message="Oh no! The recipe for your updates didn’t go as planned... 🍪️❌ Please give it another shot!" />}
-                    {success && <ConfirmMessage message="Awesome! Your information is refreshed and sizzling! 🥳🔥" autoClose={2500} />}
+                    {success && <ConfirmMessage message="Awesome! Your information is refreshed and sizzling! 🥳🔥" />}
+                </Overlay>
+                <div className="inner-content-container__column">
+                    <SectionDivider title="Personal details"/>
                     <Dropdown
                         title="Your Personal Details"
                         openIcon={<CaretUp size={28}/>}
@@ -128,40 +138,42 @@ function Profile() {
                             buttonText="Reset password"
                         />
                     </Dropdown>
-                    {resetField === 'username' && (
-                        <ConfirmMessage message="Update your username">
-                            <FormProvider {...methods}>
-                                <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
-                                    <UsernameField />
-                                    <Button className="cancel-btn" type="button" onClick={() => setResetField(null)}>Cancel</Button>
-                                    <Button className="confirm-btn" type="submit">Save</Button>
-                                </form>
-                            </FormProvider>
-                        </ConfirmMessage>
-                    )}
-                    {resetField === 'email' && (
-                        <ConfirmMessage message="Update your e-mail address">
-                            <FormProvider {...methods}>
-                                <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
-                                    <EmailField />
-                                    <Button className="cancel-btn" type="button" onClick={() => setResetField(null)}>Cancel</Button>
-                                    <Button className="confirm-btn" type="submit">Save</Button>
-                                </form>
-                            </FormProvider>
-                        </ConfirmMessage>
-                    )}
-                    {resetField === 'password' && (
-                        <ConfirmMessage message="Update your password">
-                            <FormProvider {...methods}>
-                                <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
-                                    <PasswordField />
-                                    <ConfirmPasswordField />
-                                    <Button className="cancel-btn" type="button" onClick={() => setResetField(null)}>Cancel</Button>
-                                    <Button className="confirm-btn" type="submit">Save</Button>
-                                </form>
-                            </FormProvider>
-                        </ConfirmMessage>
-                    )}
+                    <Overlay show={resetField !== null}>
+                        {resetField === 'username' && (
+                            <ConfirmMessage message="Update your username">
+                                <FormProvider {...methods}>
+                                    <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
+                                        <UsernameField />
+                                        <Button className="cancel-btn" type="button" onClick={() => setResetField(null)}>Cancel</Button>
+                                        <Button className="confirm-btn" type="submit">Save</Button>
+                                    </form>
+                                </FormProvider>
+                            </ConfirmMessage>
+                        )}
+                        {resetField === 'email' && (
+                            <ConfirmMessage message="Update your e-mail address">
+                                <FormProvider {...methods}>
+                                    <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
+                                        <EmailField />
+                                        <Button className="cancel-btn" type="button" onClick={() => setResetField(null)}>Cancel</Button>
+                                        <Button className="confirm-btn" type="submit">Save</Button>
+                                    </form>
+                                </FormProvider>
+                            </ConfirmMessage>
+                        )}
+                        {resetField === 'password' && (
+                            <ConfirmMessage message="Update your password">
+                                <FormProvider {...methods}>
+                                    <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
+                                        <PasswordField />
+                                        <ConfirmPasswordField />
+                                        <Button className="cancel-btn" type="button" onClick={() => setResetField(null)}>Cancel</Button>
+                                        <Button className="confirm-btn" type="submit">Save</Button>
+                                    </form>
+                                </FormProvider>
+                            </ConfirmMessage>
+                        )}
+                    </Overlay>
                     <div className="btn-link-wrapper">
                         <Button
                             onClick={() => toggleDeleteAccountConfirm(true)}
@@ -171,17 +183,20 @@ function Profile() {
                             Delete Account
                         </Button>
                         {deleteAccountConfirm && (
-                            <ConfirmMessage
-                                message="Are you sure you want to delete your account?"
-                                onConfirm={deleteAccount}
-                                onCancel={() => toggleDeleteAccountConfirm(false)}
-                            />
+                            <Overlay show={deleteAccountConfirm}>
+                                <ConfirmMessage
+                                    message="Are you sure you want to delete your account?"
+                                    onConfirm={deleteAccount}
+                                    onCancel={() => toggleDeleteAccountConfirm(false)}
+                                />
+                            </Overlay>
                         )}
                         {deleteAccountSuccess && (
-                            <ConfirmMessage
-                                message="Your account has been successfully removed! 🎉🍪 We’ll miss you!"
-                                autoClose={3000}
-                            />
+                            <Overlay show={deleteAccountSuccess}>
+                                <ConfirmMessage
+                                    message="Your account has been successfully removed! 🎉🍪 We’ll miss you!"
+                                />
+                            </Overlay>
                         )}
                         <Link to="/favorite-recipes" className="go-to-link">
                             <CaretRight size={22} />

@@ -9,6 +9,7 @@ import ConfirmPasswordField from '../../components/form/passwordField/ConfirmPas
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import ConfirmMessage from '../../components/misc/confirmMessage/ConfirmMessage.jsx';
+import Overlay from '../../components/misc/overlay/Overlay.jsx';
 import { API_KEY_AUTH, API_URL_AUTH } from '../../constants/apiConfig.js';
 import './SignUp.css';
 
@@ -16,14 +17,14 @@ import './SignUp.css';
 function SignUp() {
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    const [succesMessage, toggleSuccesMessage] = useState(false);
+    const [success, toggleSuccess] = useState(false);
 
     const navigate = useNavigate();
 
     async function handleFormSubmit(data) {
         toggleError(false);
         toggleLoading(true);
-        toggleSuccesMessage(false);
+        toggleSuccess(false);
 
         try {
             const response = await axios.post(`${API_URL_AUTH}/users`, {
@@ -44,10 +45,11 @@ function SignUp() {
             });
 
             console.log('Registration successful:', response.data);
-            toggleSuccesMessage(true);
+            toggleSuccess(true);
 
             setTimeout(() => {
                 navigate('/sign-in');
+                toggleSuccess(false);
             }, 3000);
         } catch (e) {
             console.error('Error during sign-up:', e);
@@ -63,26 +65,30 @@ function SignUp() {
 
     return (
         <section className="sign-up-section outer-content-container">
-            <div className="sign-up-section__container inner-content-container__column">
-                {loading ? (
+            <Overlay show={loading || error || success }>
+                {loading &&
                     <Loader text="Cooking up a fresh new account for you... 🍳✨"/>
-                ) : error ? (
-                    <ErrorMessage message="Something went wrong while setting up your profile...🍰❌ Please try again later!"/>
-                ) : succesMessage ? (
-                    <ConfirmMessage message="Hooray! Your profile is now live and sizzling! 🥳🔥 You’re all set to explore!" autoClose={2500}/>
-                ) : (
-                    <AuthForm
-                        title="Sign up to Meal Match to save all your favorite recipes in one place!"
-                        buttonText="Sign up"
-                        handleFormSubmit={handleFormSubmit}
-                        primaryLink={<p>Already a member? <Link to="/sign-in">Sign In</Link></p>}
-                    >
-                        <UsernameField />
-                        <EmailField />
-                        <PasswordField />
-                        <ConfirmPasswordField />
-                    </AuthForm>
-                )}
+                }
+                {error &&
+                    <ErrorMessage message="Something went wrong while setting up your profile...🍰❌
+                    Please try again later!"/>
+                }
+                {success &&
+                    <ConfirmMessage message="Hooray! Your profile is now live and sizzling! 🥳🔥 You’re all set to explore!"/>
+                }
+            </Overlay>
+            <div className="sign-up-section__container inner-content-container__column">
+                <AuthForm
+                    title="Sign up to Meal Match to save all your favorite recipes in one place!"
+                    buttonText="Sign up"
+                    handleFormSubmit={handleFormSubmit}
+                    primaryLink={<p>Already a member? <Link to="/sign-in">Sign In</Link></p>}
+                >
+                    <UsernameField />
+                    <EmailField />
+                    <PasswordField />
+                    <ConfirmPasswordField />
+                </AuthForm>
             </div>
         </section>
     );
