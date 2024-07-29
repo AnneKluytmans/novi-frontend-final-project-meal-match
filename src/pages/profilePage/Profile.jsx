@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import axios from 'axios';
 import { CaretDown, CaretUp, CaretRight, Heart, Trash, User } from '@phosphor-icons/react';
@@ -31,12 +31,45 @@ function Profile() {
 
     const { user, logout, toggleFetchNewData, fetchNewData } = useContext(AuthContext);
 
+    const { username, email } = user
     const token = localStorage.getItem('token');
-    const username = user.username;
-    const email = user.email;
-    const password = "secret";
+    const source = axios.CancelToken.source();
 
     const methods = useForm();
+
+    useEffect(() => {
+        // Clean up function to cancel ongoing Axios requests on component unmount
+        return function cleanup() {
+            source.cancel();
+        }
+    }, []);
+
+    useEffect(() => {
+        let successTimeout;
+        let errorTimeout;
+        let deleteAccountSuccessTimeout;
+
+        if (success) {
+            successTimeout = setTimeout(() => toggleSuccess(false), 3000);
+        }
+
+        if (error) {
+            errorTimeout = setTimeout(() => toggleError(false), 7000);
+        }
+
+        if (deleteAccountSuccess) {
+            deleteAccountSuccessTimeout = setTimeout(() => {
+                toggleDeleteAccountSuccess(false);
+                logout();
+            }, 3000);
+        }
+
+        return () => {
+            clearTimeout(successTimeout);
+            clearTimeout(errorTimeout);
+            clearTimeout(deleteAccountSuccessTimeout);
+        };
+    }, [success, error, deleteAccountSuccess, logout]);
 
     async function updateUserData(data, field) {
         toggleError(false);
@@ -52,14 +85,11 @@ function Profile() {
                     'X-Api-Key': API_KEY_AUTH,
                     'Authorization': `Bearer ${ token }`,
                 },
+                cancelToken: source.token,
             });
 
             console.log('User data is updated:', response.data);
             toggleSuccess(true);
-
-            setTimeout(() => {
-                toggleSuccess(false);
-            }, 3000);
 
             if (field === 'username') {
                 alert("Username has been updated. Please log in again with your new username.");
@@ -70,7 +100,6 @@ function Profile() {
         } catch (e) {
             console.error('User data is not updated:', e);
             toggleError(true);
-            setTimeout(() => toggleError(false), 7000);
         } finally {
             toggleLoading(false);
             setResetField(null);
@@ -91,11 +120,6 @@ function Profile() {
         console.log("Account is deleted");
         toggleDeleteAccountConfirm(false);
         toggleDeleteAccountSuccess(true);
-
-        setTimeout(() => {
-            toggleDeleteAccountSuccess(false);
-            logout()
-        }, 3000);
     }
 
     return (
@@ -133,7 +157,7 @@ function Profile() {
                         />
                         <DropdownItemProfile
                             title="Password"
-                            personalDetail={password}
+                            personalDetail={"secret password"}
                             onClick={() => setResetField("password")}
                             buttonText="Reset password"
                         />

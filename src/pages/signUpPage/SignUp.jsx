@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthForm from '../../components/form/authForm/AuthForm.jsx';
@@ -19,7 +19,37 @@ function SignUp() {
     const [loading, toggleLoading] = useState(false);
     const [success, toggleSuccess] = useState(false);
 
+    const source = axios.CancelToken.source();
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Clean up function to cancel ongoing Axios requests on component unmount
+        return function cleanup() {
+            source.cancel();
+        }
+    }, []);
+
+    useEffect(() => {
+        let successTimeout;
+        let errorTimeout;
+
+        if (success) {
+            successTimeout = setTimeout(() => {
+                navigate('/sign-in');
+                toggleSuccess(false);
+            }, 3000);
+        }
+
+        if (error) {
+            errorTimeout = setTimeout(() => toggleError(false), 7000);
+        }
+
+        return () => {
+            clearTimeout(successTimeout);
+            clearTimeout(errorTimeout);
+        };
+    }, [success, error]);
 
     async function handleFormSubmit(data) {
         toggleError(false);
@@ -41,23 +71,15 @@ function SignUp() {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-Api-Key': API_KEY_AUTH,
-                }
+                },
+                cancelToken: source.token,
             });
 
             console.log('Registration successful:', response.data);
             toggleSuccess(true);
-
-            setTimeout(() => {
-                navigate('/sign-in');
-                toggleSuccess(false);
-            }, 3000);
         } catch (e) {
             console.error('Error during sign-up:', e);
             toggleError(true);
-
-            setTimeout(() => {
-                toggleError(false);
-            }, 7000);
         } finally {
             toggleLoading(false);
         }

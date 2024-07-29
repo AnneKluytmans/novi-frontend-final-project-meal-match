@@ -23,6 +23,23 @@ function AuthContextProvider( { children } ) {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        let successTimeout;
+        let errorTimeout;
+
+        if (success) {
+            successTimeout = setTimeout(() => toggleSuccess(false), 3000);
+        }
+
+        if (error) {
+            errorTimeout = setTimeout(() => toggleError(false), 7000);
+        }
+
+        return () => {
+            clearTimeout(successTimeout);
+            clearTimeout(errorTimeout);
+        };
+    }, [success, error]);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -89,10 +106,6 @@ function AuthContextProvider( { children } ) {
             console.log("User data is fetched:", response.data);
             toggleSuccess(true);
 
-            setTimeout(() => {
-                toggleSuccess(false);
-            }, 3000);
-
             if ( redirectUrl ) {
                 setTimeout(() => {
                     navigate( redirectUrl );
@@ -106,16 +119,12 @@ function AuthContextProvider( { children } ) {
                 user: null,
                 status: 'done',
             });
-
-            setTimeout(() => {
-                toggleError(false);
-            }, 7000);
         } finally {
             toggleLoading(false);
         }
     }
 
-    function logout( redirectUrl ) {
+    function logout( redirectUrl='/' ) {
         console.log('User is logged out');
         localStorage.clear();
         setIsAuth({
@@ -124,11 +133,7 @@ function AuthContextProvider( { children } ) {
             status: 'done',
         });
 
-        if ( redirectUrl ) {
-                navigate(redirectUrl);
-            } else {
-            navigate('/');
-        }
+        navigate(redirectUrl);
     }
 
     const authContextData = {

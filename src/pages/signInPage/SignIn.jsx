@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
@@ -19,6 +19,27 @@ function SignIn() {
 
     const { login, loading: contextLoading, error: contextError, success: contextSuccess } = useContext(AuthContext);
 
+    const source = axios.CancelToken.source();
+
+    useEffect(() => {
+        // Clean up function to cancel ongoing Axios requests on component unmount
+        return function cleanup() {
+            source.cancel();
+        }
+    }, []);
+
+    useEffect(() => {
+        let errorTimeout;
+
+        if (error) {
+            errorTimeout = setTimeout(() => toggleError(false), 7000);
+        }
+
+        return () => {
+            clearTimeout(errorTimeout);
+        };
+    }, [error]);
+
     async function handleFormSubmit(data) {
         toggleError(false);
         toggleLoading(true);
@@ -31,7 +52,8 @@ function SignIn() {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-Api-Key': API_KEY_AUTH,
-                }
+                },
+                cancelToken: source.token,
             });
 
             console.log('JWT token received:', response.data);
@@ -39,10 +61,6 @@ function SignIn() {
         } catch (e) {
             console.error('Error during sign-in:', e);
             toggleError(true);
-
-            setTimeout(() => {
-                toggleError(false);
-            }, 7000);
         } finally {
             toggleLoading(false);
         }

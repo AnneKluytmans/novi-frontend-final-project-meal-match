@@ -9,6 +9,7 @@ import DropdownItem from '../dropdownItem/DropdownItem.jsx';
 import DropdownNavigation from '../dropdownNavigation/DropdownNavigation.jsx';
 import HamburgerMenu from '../hamburgerMenu/HamburgerMenu.jsx';
 import ConfirmMessage from '../../misc/confirmMessage/ConfirmMessage.jsx';
+import Overlay from '../../misc/overlay/Overlay.jsx';
 import './NavBar.css';
 
 
@@ -104,11 +105,13 @@ function NavBar() {
                 </div>
             </nav>
             {showConfirm && (
-                <ConfirmMessage
-                    message="Are you sure you want to log out?"
-                    onConfirm={confirmLogout}
-                    onCancel={cancelLogout}
-                />
+                <Overlay show={showConfirm}>
+                    <ConfirmMessage
+                        message="Are you sure you want to log out?"
+                        onConfirm={confirmLogout}
+                        onCancel={cancelLogout}
+                    />
+                </Overlay>
             )}
         </>
     );
