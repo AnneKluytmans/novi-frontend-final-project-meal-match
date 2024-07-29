@@ -19,6 +19,7 @@ function AuthContextProvider( { children } ) {
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
     const [success, toggleSuccess] = useState(false);
+    const [fetchNewData, toggleFetchNewData] = useState(false);
 
     const navigate = useNavigate();
 
@@ -39,6 +40,16 @@ function AuthContextProvider( { children } ) {
             });
         }
     }, []);
+
+
+    useEffect( () => {
+        const token = localStorage.getItem('token');
+
+        if(token) {
+            const decodedToken = jwtDecode(token);
+            void fetchUserData(decodedToken.sub, token);
+        }
+    }, [fetchNewData]);
 
     function login(JWT) {
         console.log(JWT);
@@ -71,7 +82,6 @@ function AuthContextProvider( { children } ) {
                 user: {
                     username: response.data.username,
                     email: response.data.email,
-                    password: response.data.password,
                 },
                 status: 'done',
             });
@@ -105,7 +115,7 @@ function AuthContextProvider( { children } ) {
         }
     }
 
-    function logout() {
+    function logout( redirectUrl ) {
         console.log('User is logged out');
         localStorage.clear();
         setIsAuth({
@@ -114,7 +124,11 @@ function AuthContextProvider( { children } ) {
             status: 'done',
         });
 
-        navigate('/');
+        if ( redirectUrl ) {
+                navigate(redirectUrl);
+            } else {
+            navigate('/');
+        }
     }
 
     const authContextData = {
@@ -122,6 +136,8 @@ function AuthContextProvider( { children } ) {
         user: isAuth.user,
         login: login,
         logout: logout,
+        toggleFetchNewData: toggleFetchNewData,
+        fetchNewData: fetchNewData,
         loading: loading,
         error: error,
         success: success,

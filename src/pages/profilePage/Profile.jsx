@@ -28,7 +28,7 @@ function Profile() {
     const [deleteAccountSuccess, toggleDeleteAccountSuccess] = useState(false);
     const [deleteAccountConfirm, toggleDeleteAccountConfirm] = useState(false);
 
-    const { user, logout } = useContext(AuthContext);
+    const { user, logout, toggleFetchNewData, fetchNewData } = useContext(AuthContext);
 
     const token = localStorage.getItem('token');
     const username = user.username;
@@ -56,6 +56,12 @@ function Profile() {
             console.log('User data is updated:', response.data);
             toggleSuccess(true);
 
+            if (field === 'username') {
+                alert("Username has been updated. Please log in again with your new username.");
+                logout('/sign-in'); // Clears the session and redirects to the login page
+            } else {
+                toggleFetchNewData(!fetchNewData);
+            }
         } catch (e) {
             console.error('User data is not updated:', e);
             toggleError(true);
