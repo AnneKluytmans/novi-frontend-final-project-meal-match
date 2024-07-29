@@ -1,5 +1,6 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import {useState, useEffect, useContext} from 'react';
+import { AuthContext } from './context/AuthContext.jsx';
 import Home from './pages/homePage/Home.jsx';
 import SignIn from './pages/signInPage/SignIn.jsx';
 import SignUp from './pages/signUpPage/SignUp.jsx';
@@ -20,6 +21,8 @@ import './App.css';
 
 
 function App() {
+  const { isAuth } = useContext(AuthContext);
+
   const [footerClassName, setFooterClassName] = useState('');
   const location = useLocation();
 
@@ -43,8 +46,8 @@ function App() {
             <Route path="/ingredient-search" element={<IngredientSearch/>}/>
             <Route path="/all-recipes" element={<AllRecipes/>}/>
             <Route path="/recipe-details/:id" element={<RecipeDetails/>}/>
-            <Route path="/favorite-recipes" element={<FavoriteRecipes/>}/>
-            <Route path="/profile" element={<Profile/>}/>
+            <Route path="/favorite-recipes" element={isAuth ? <FavoriteRecipes/> : <Navigate to="/"/>}/>
+            <Route path="/profile" element={isAuth ? <Profile /> : <Navigate to="/"/>}/>
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/faq" element={<Faq/>}/>
             <Route path="/terms-and-policy" element={<TermsAndPolicy/>}/>
