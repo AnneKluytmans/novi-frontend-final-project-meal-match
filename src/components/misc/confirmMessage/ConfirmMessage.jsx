@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Button from '../../buttons/button/Button.jsx';
 import './ConfirmMessage.css';
 
-function ConfirmMessage( { message, onConfirm, onCancel, autoClose } ) {
+function ConfirmMessage( { message, children, onConfirm, onCancel, autoClose } ) {
     const [messageVisible, setMessageVisible] = useState(true);
 
     useEffect(() => {
@@ -20,6 +20,7 @@ function ConfirmMessage( { message, onConfirm, onCancel, autoClose } ) {
         <div className="confirm-message-overlay">
             <div className="confirm-message">
                 <h5>{message}</h5>
+                <div>{children}</div>
                 {onConfirm && onCancel ? (
                     <div>
                         <Button
