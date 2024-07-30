@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import InspirationIcon from '../../assets/icons/inspiration-icon.svg?react';
 import IngredientsIcon from '../../assets/icons/ingredients-icon.svg?react';
-import dishes from '../../assets/variety-of-dishes.jpg';
+import headerImage from '../../assets/variety-of-dishes.jpg';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
 import FeatureCard from '../../components/cards/featureCard/FeatureCard.jsx';
@@ -25,7 +25,7 @@ function Home() {
                         </Button>
                     </div>
                     <span className="home-header__content-image-wrapper">
-                        <img src={dishes} alt="food photo's made by delicious nl" className="home-header__content-image"/>
+                        <img src={headerImage} alt="Colourful dishes made by Delicious NL" className="home-header__content-image"/>
                     </span>
                 </div>
             </header>
@@ -58,7 +58,6 @@ function Home() {
                             redirectUrl="/all-recipes"
                         />
                     </div>
-
                 </div>
             </section>
             <section className="quote-section outer-content-container">

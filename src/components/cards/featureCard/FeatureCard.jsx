@@ -5,7 +5,7 @@ import './FeatureCard.css';
 function FeatureCard( { icon, title, description, buttonText, redirectUrl } ) {
     const navigate = useNavigate();
     return (
-        <article className="feature-card">
+        <Button className="feature-card" onClick={ () => navigate(redirectUrl) }>
             <span className="feature-card__icon-wrapper">{icon}</span>
             <div className="feature-card__text">
                 <h2>{title}</h2>
@@ -14,7 +14,7 @@ function FeatureCard( { icon, title, description, buttonText, redirectUrl } ) {
             <Button className="btn btn__dark" onClick={ () => navigate(redirectUrl) }>
                 {buttonText}
             </Button>
-        </article>
+        </Button>
     );
 }
 
