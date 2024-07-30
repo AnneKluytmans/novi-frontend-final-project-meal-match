@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { MagnifyingGlass } from '@phosphor-icons/react';
+import { MagnifyingGlass, Quotes } from '@phosphor-icons/react';
 import InspirationIcon from '../../assets/icons/inspiration-icon.svg?react';
 import IngredientsIcon from '../../assets/icons/ingredients-icon.svg?react';
 import headerImage from '../../assets/variety-of-dishes.jpg';
+import mexicanTacos from '../../assets/mexican-tacos.jpg';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
 import FeatureCard from '../../components/cards/featureCard/FeatureCard.jsx';
@@ -62,7 +63,16 @@ function Home() {
             </section>
             <section className="quote-section outer-content-container">
                 <div className="inner-content-container__row">
-                    <h3>Quote</h3>
+                    <span className="quote__image-wrapper">
+                        <img src={mexicanTacos} alt="Colourful plate with mexicanTacos made by Delicious NL" className="quote__image"/>
+                    </span>
+                    <div className="quote__quote-wrapper">
+                        <h2 className="quote__text">
+                            Transform everyday cooking with Meal Match. Discover new flavors,
+                            enjoy simple recipes, and make every meal an adventure!
+                        </h2>
+                        <Quotes size={56} weight="fill" className="quote__quote-icon"/>
+                    </div>
                 </div>
             </section>
             <section className="popular-recipes-section outer-content-container">

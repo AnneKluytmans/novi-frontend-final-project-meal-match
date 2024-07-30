@@ -61,6 +61,13 @@ main {
     }
 }
 
+@media screen and (max-width: 920px) {
+    .quote-section .inner-content-container__row {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 @media screen and (max-width: 678px) {
     .inner-content-container__row {
         flex-direction: column-reverse;
