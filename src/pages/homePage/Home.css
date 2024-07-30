@@ -45,6 +45,16 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* ----------------------------------------- 1.2 Features section --------------------------------------- */
+
+.features__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+}
+
 
 
 /* ----------------------------------- 2. Home page Mediaqueries --------------------------------------- */
