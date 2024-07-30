@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MagnifyingGlass, Quotes } from '@phosphor-icons/react';
 import InspirationIcon from '../../assets/icons/inspiration-icon.svg?react';
 import IngredientsIcon from '../../assets/icons/ingredients-icon.svg?react';
 import headerImage from '../../assets/variety-of-dishes.jpg';
 import mexicanTacos from '../../assets/mexican-tacos.jpg';
+import gadoGado from '../../assets/gado-gado.jpg';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
 import FeatureCard from '../../components/cards/featureCard/FeatureCard.jsx';
@@ -11,7 +13,20 @@ import './Home.css';
 
 
 function Home() {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
     const navigate = useNavigate();
+
+    const images = [mexicanTacos, gadoGado];
+
+    // Timer to switch images in quote-section every 3 seconds
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 3000); // Change image every 3 seconds
+
+        return () => clearInterval(timer); // Clean up the timer on component unmount
+    }, [images.length]);
 
     return (
         <>
@@ -64,7 +79,12 @@ function Home() {
             <section className="quote-section outer-content-container">
                 <div className="inner-content-container__row">
                     <span className="quote__image-wrapper">
-                        <img src={mexicanTacos} alt="Colourful plate with mexicanTacos made by Delicious NL" className="quote__image"/>
+                        <img
+                            src={images[currentImageIndex]}
+                            alt="Colourful plate made by Delicious NL"
+                            className="quote__image"
+                            key={currentImageIndex}
+                        />
                     </span>
                     <div className="quote__quote-wrapper">
                         <h2 className="quote__text">
