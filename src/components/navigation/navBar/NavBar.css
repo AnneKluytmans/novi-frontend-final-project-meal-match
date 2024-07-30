@@ -92,7 +92,7 @@
 
 
 .sign-out__btn {
-    font-size: 1.1rem;
+    letter-spacing: 1px;
     color: var(--primary-dark);
     text-align: left;
     width: 100%;

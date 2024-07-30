@@ -6,7 +6,7 @@ function DropdownItem({ to, name } ) {
         <NavLink to={to} className={({ isActive }) =>
             `dropdown__item ${isActive ? 'active-dropdown-item' : 'default-dropdown-item'}`
         }>
-            <p>{name}</p>
+            <h5>{name}</h5>
         </NavLink>
     );
 }
