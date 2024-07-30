@@ -1,1 +1,65 @@
-/* ----------------------------------- Home page styling --------------------------------------- */
+/*////////////////////////
+    Table of Contents
+    1. Home page styling
+       1.1 Header
+       1.2 Features section
+       1.3 Quote section
+       1.4 Popular recipes section
+       1.5 Testimonials section
+    2. Home page Mediaqueries
+ ////////////////////////*/
+
+/* ----------------------------------- 1. Home page styling --------------------------------------- */
+
+/* ----------------------------------------- 1.1 Header --------------------------------------- */
+
+.home-header {
+    background-color: var(--primary);
+}
+
+.home-header__content {
+    display: flex;
+}
+
+.home-header__content-text {
+    flex-basis: 45rem;
+    margin-right: 3rem;
+}
+
+.home-header__content-text span {
+    color: var(--primary-dark);
+}
+
+.home-header__content-text .btn,
+.home-header__content-text h3 {
+    margin-top: 1.5rem;
+}
+
+
+.home-header__content-image-wrapper {
+    flex-basis: 32rem;
+}
+
+.home-header__content-image {
+    border-radius: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* ----------------------------------- 2. Home page Mediaqueries --------------------------------------- */
+
+@media screen and (max-width: 992px) {
+    .home-header__content-text {
+        flex-basis: auto;
+        text-align: center;
+    }
+
+    .home-header__content-image-wrapper {
+        flex-basis: auto;
+    }
+
+    .home-header__content-image {
+        max-height: 18rem;
+    }
+}
