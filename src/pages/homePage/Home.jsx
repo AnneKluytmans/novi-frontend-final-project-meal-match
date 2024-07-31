@@ -6,10 +6,14 @@ import IngredientsIcon from '../../assets/icons/ingredients-icon.svg?react';
 import headerImage from '../../assets/variety-of-dishes.jpg';
 import mexicanTacos from '../../assets/mexican-tacos.jpg';
 import gadoGado from '../../assets/gado-gado.jpg';
+import avatarEvie from '../../assets/avatars/avatar-evie-van-vliet.jpg';
+import avatarDavide from '../../assets/avatars/avatar-davide-gallo.jpg';
+import avatarOlly from '../../assets/avatars/avatar-olly-hawthorne.jpg';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
 import FeatureCard from '../../components/cards/featureCard/FeatureCard.jsx';
 import './Home.css';
+import TestimonialCard from "../../components/cards/testimonialCard/TestimonialCard.jsx";
 
 
 function Home() {
@@ -28,7 +32,7 @@ function Home() {
                     observer.unobserve(quoteSectionRef.current); // Stop observing when quote section is visible
                 }
             },
-            { threshold: 0.5 }
+            { threshold: 0.3 }
         );
 
         if (quoteSectionRef.current) {
@@ -123,7 +127,27 @@ function Home() {
             <section className="testimonials-section outer-content-container">
                 <div className="inner-content-container__column">
                     <SectionDivider title="What users say"/>
-                    <h3>What users say</h3>
+                    <TestimonialCard
+                        avatar={avatarEvie}
+                        name="Evie van Vliet"
+                        profession="Corporate lawyer"
+                        review="Meal Match is a lifesaver! It offers a fantastic range of vegetarian recipes and makes
+                        it simple to find and save my favorites. Perfect for anyone who loves cooking!"
+                    />
+                    <TestimonialCard
+                        avatar={avatarDavide}
+                        name="Davide Gallo"
+                        profession="High school teacher"
+                        review="Meal Match is a game-changer. It’s so easy to find recipes based on what I have at home,
+                        adding much-needed variety to my meals. A must-have for anyone stuck in a cooking rut!"
+                    />
+                    <TestimonialCard
+                        avatar={avatarOlly}
+                        name="Olly Hawthorne"
+                        profession="Graphic designer"
+                        review="Meal Match has made cooking fun again! It’s like having a personal chef in my pocket,
+                        helping me find recipes that perfectly match my mood and ingredients. Highly recommended!"
+                    />
                 </div>
             </section>
         </>
