@@ -63,6 +63,15 @@
     border-top: 2px solid var(--primary-dark);
     border-bottom: 2px solid var(--primary-dark);
     margin: 1rem 0;
+
+    opacity: 0;
+    transform: translateX(100px);
+    transition: opacity 3s ease-out, transform 3s ease-out;
+}
+
+.quote-section.visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .quote__image-wrapper {

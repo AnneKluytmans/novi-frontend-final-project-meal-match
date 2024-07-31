@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MagnifyingGlass, Quotes } from '@phosphor-icons/react';
 import InspirationIcon from '../../assets/icons/inspiration-icon.svg?react';
@@ -14,10 +14,29 @@ import './Home.css';
 
 function Home() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const images = [mexicanTacos, gadoGado];
 
+    const quoteSectionRef = useRef(null);
     const navigate = useNavigate();
 
-    const images = [mexicanTacos, gadoGado];
+    //Observer to check if the quote section is visible
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    quoteSectionRef.current.classList.add('visible');
+                    observer.unobserve(quoteSectionRef.current); // Stop observing when quote section is visible
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        if (quoteSectionRef.current) {
+            observer.observe(quoteSectionRef.current);
+        }
+
+        return () => observer.disconnect(); // Clean up the observation on component unmount
+    }, []);
 
     // Timer to switch images in quote-section every 3 seconds
     useEffect(() => {
@@ -76,7 +95,7 @@ function Home() {
                     </div>
                 </div>
             </section>
-            <section className="quote-section outer-content-container">
+            <section className="quote-section outer-content-container" ref={quoteSectionRef}>
                 <div className="inner-content-container__row">
                     <span className="quote__image-wrapper">
                         <img
