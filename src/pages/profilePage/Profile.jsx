@@ -29,22 +29,24 @@ function Profile() {
     const [deleteAccountSuccess, toggleDeleteAccountSuccess] = useState(false);
     const [deleteAccountConfirm, toggleDeleteAccountConfirm] = useState(false);
 
-    const { user, logout, toggleFetchNewData, fetchNewData } = useContext(AuthContext);
+    const { user, logout, fetchUserData } = useContext(AuthContext);
 
     const { username, email } = user
     const token = localStorage.getItem('token');
-    const source = axios.CancelToken.source();
 
     const methods = useForm();
+    const controller = new AbortController();
 
     useEffect(() => {
-        // Clean up function to cancel ongoing Axios requests on component unmount
+        // Cancels ongoing Axios requests on component unmount
         return function cleanup() {
-            source.cancel();
+            console.log('Unmount effect is triggered. Abort ongoing axios requests');
+            controller.abort();
         }
     }, []);
 
     useEffect(() => {
+        // Automatically hides success and error messages after a set duration
         let successTimeout;
         let errorTimeout;
         let deleteAccountSuccessTimeout;
@@ -64,7 +66,8 @@ function Profile() {
             }, 3000);
         }
 
-        return () => {
+        return function cleanup() {
+            console.log('Unmount effect is triggered. Clean up timers');
             clearTimeout(successTimeout);
             clearTimeout(errorTimeout);
             clearTimeout(deleteAccountSuccessTimeout);
@@ -85,7 +88,7 @@ function Profile() {
                     'X-Api-Key': API_KEY_AUTH,
                     'Authorization': `Bearer ${ token }`,
                 },
-                cancelToken: source.token,
+                signal: controller.signal,
             });
 
             console.log('User data is updated:', response.data);
@@ -95,7 +98,7 @@ function Profile() {
                 alert("Username has been updated. Please log in again with your new username.");
                 logout('/sign-in'); // Clears the session and redirects to the login page
             } else {
-                toggleFetchNewData(!fetchNewData);
+                fetchUserData(username, token);
             }
         } catch (e) {
             console.error('User data is not updated:', e);

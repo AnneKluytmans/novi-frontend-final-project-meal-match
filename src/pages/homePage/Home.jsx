@@ -30,6 +30,9 @@ function Home() {
     const navigate = useNavigate();
 
     useEffect ( () => {
+        // Fetches popular recipes from spoonacular API
+        const controller = new AbortController();
+
         async function fetchPopularRecipes() {
             toggleError(false);
             toggleLoading(true);
@@ -46,7 +49,8 @@ function Home() {
                         sortDirection: 'desc',
                         number: 6,
                         apiKey: API_KEY_SPOONACULAR,
-                    }
+                    },
+                    signal: controller.signal,
                 });
 
                 console.log('Popular Recipes are fetched:', response.data);
@@ -59,12 +63,18 @@ function Home() {
             }
         }
 
-        fetchPopularRecipes();
+        // fetchPopularRecipes();
+
+        return function cleanup() {
+            console.log('Unmount effect is triggered. Abort ongoing axios requests');
+            controller.abort();
+        };
 
     }, []);
 
-    //Observer to check if the quote section is visible
+
     useEffect(() => {
+        //Set up IntersectionObserver to check if the quote section is visible
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -79,16 +89,23 @@ function Home() {
             observer.observe(quoteSectionRef.current);
         }
 
-        return () => observer.disconnect(); // Clean up the observation on component unmount
+        return function cleanup() {
+            console.log('Unmount effect is triggered. Clean up timer');
+            observer.disconnect();
+        }
     }, []);
 
-    // Timer to switch images in quote-section every 3 seconds
+
     useEffect(() => {
+        // Automatically switches images in quote-section every 3 seconds
         const timer = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
         }, 3000); // Change image every 3 seconds
 
-        return () => clearInterval(timer); // Clean up the timer on component unmount
+        return function cleanup() {
+            console.log('Unmount effect is triggered. Clean up interval');
+            clearInterval(timer);
+        }
     }, [images.length]);
 
     return (

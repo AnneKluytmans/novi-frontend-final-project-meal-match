@@ -19,11 +19,20 @@ function AuthContextProvider( { children } ) {
     const [loading, toggleLoading] = useState(false);
     const [error, toggleError] = useState(false);
     const [success, toggleSuccess] = useState(false);
-    const [fetchNewData, toggleFetchNewData] = useState(false);
 
     const navigate = useNavigate();
+    const controller = new AbortController();
 
     useEffect(() => {
+        // Cancels ongoing Axios requests on component unmount
+        return function cleanup() {
+            console.log('Unmount effect is triggered. Abort ongoing axios requests');
+            controller.abort();
+        }
+    }, []);
+
+    useEffect(() => {
+        // Automatically hides success and error messages after a set duration
         let successTimeout;
         let errorTimeout;
 
@@ -35,13 +44,15 @@ function AuthContextProvider( { children } ) {
             errorTimeout = setTimeout(() => toggleError(false), 7000);
         }
 
-        return () => {
+        return function cleanup() {
+            console.log('Unmount effect is triggered. Clean up timers');
             clearTimeout(successTimeout);
             clearTimeout(errorTimeout);
         };
     }, [success, error]);
 
     useEffect(() => {
+        // Verifies a stored token on component mount and fetches user data if valid
         const token = localStorage.getItem('token');
 
         if(token && isTokenValid(token)) {
@@ -58,16 +69,6 @@ function AuthContextProvider( { children } ) {
         }
 
     }, []);
-
-
-    useEffect( () => {
-        const token = localStorage.getItem('token');
-
-        if(token) {
-            const decodedToken = jwtDecode(token);
-            void fetchUserData(decodedToken.sub, token);
-        }
-    }, [fetchNewData]);
 
     function login(JWT) {
         console.log(JWT);
@@ -93,6 +94,7 @@ function AuthContextProvider( { children } ) {
                     'accept': '*/*',
                     'Authorization': `Bearer ${ token }`,
                 },
+                signal: controller.signal,
             });
 
             setIsAuth({
@@ -142,8 +144,7 @@ function AuthContextProvider( { children } ) {
         user: isAuth.user,
         login: login,
         logout: logout,
-        toggleFetchNewData: toggleFetchNewData,
-        fetchNewData: fetchNewData,
+        fetchUserData: fetchUserData,
         loading: loading,
         error: error,
         success: success,
