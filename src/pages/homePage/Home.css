@@ -79,7 +79,7 @@
 }
 
 .quote__image {
-    border-radius: 2rem;
+    border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -93,6 +93,7 @@
 .quote__text {
     letter-spacing: 3px;
     line-height: 3.6rem;
+    text-shadow: 4px 2px 4px rgba(26, 116, 83, 0.3);
     padding: 0 1rem;
     margin: 1rem 2rem;
 }
@@ -130,6 +131,6 @@
     }
 
     .quote__image {
-        max-width: 30rem;
+        max-width: 28rem;
     }
 }
