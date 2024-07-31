@@ -107,6 +107,13 @@
 }
 
 
+/* ----------------------------------------- 1.5 Testimonials section --------------------------------------- */
+
+.testimonials-section {
+    margin-bottom: 1.5rem;
+}
+
+
 /* ----------------------------------- 2. Home page Mediaqueries --------------------------------------- */
 
 @media screen and (max-width: 992px) {

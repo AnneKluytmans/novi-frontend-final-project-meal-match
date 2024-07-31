@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { MagnifyingGlass, Quotes } from '@phosphor-icons/react';
 import InspirationIcon from '../../assets/icons/inspiration-icon.svg?react';
 import IngredientsIcon from '../../assets/icons/ingredients-icon.svg?react';
@@ -12,16 +13,55 @@ import avatarOlly from '../../assets/avatars/avatar-olly-hawthorne.jpg';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
 import FeatureCard from '../../components/cards/featureCard/FeatureCard.jsx';
+import TestimonialCard from '../../components/cards/testimonialCard/TestimonialCard.jsx';
+import { API_KEY_SPOONACULAR, API_URL_SPOONACULAR } from '../../constants/apiConfig.js';
 import './Home.css';
-import TestimonialCard from "../../components/cards/testimonialCard/TestimonialCard.jsx";
 
 
 function Home() {
+    const [popularRecipes, setPopularRecipes] = useState(null);
+    const [error, toggleError] = useState(false);
+    const [loading, toggleLoading] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
     const images = [mexicanTacos, gadoGado];
 
     const quoteSectionRef = useRef(null);
     const navigate = useNavigate();
+
+    useEffect ( () => {
+        async function fetchPopularRecipes() {
+            toggleError(false);
+            toggleLoading(true);
+
+            try {
+                const response = await axios.get(`${API_URL_SPOONACULAR}/complexSearch`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    params: {
+                        query: 'popular',
+                        instructionsRequired: true,
+                        sort: 'popularity',
+                        sortDirection: 'desc',
+                        number: 6,
+                        apiKey: API_KEY_SPOONACULAR,
+                    }
+                });
+
+                console.log('Popular Recipes are fetched:', response.data);
+                setPopularRecipes(response.data.results);
+            } catch (e) {
+                console.log('Error during fetching the popular recipes:', e);
+                toggleError(true);
+            } finally {
+                toggleLoading(false);
+            }
+        }
+
+        fetchPopularRecipes();
+
+    }, []);
 
     //Observer to check if the quote section is visible
     useEffect(() => {
