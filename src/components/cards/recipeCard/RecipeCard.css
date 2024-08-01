@@ -1,2 +1,50 @@
 /* ------------------------------- Recipe Card styling -------------------------------- */
 
+.recipe-card {
+    color: var(--dark);
+    background-color: var(--primary-light);
+    border-radius: 1rem;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+
+    width: 22rem;
+    min-height: 21rem;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.recipe-card__image {
+    height: 12rem;
+}
+
+
+.recipe-card__info {
+    background-color: var(--white);
+    padding: 0.5rem 1rem;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.recipe-card__info p {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+
+.recipe-card__title {
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    /*margin: auto 0;*/
+}

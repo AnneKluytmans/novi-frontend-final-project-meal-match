@@ -3,10 +3,11 @@ import axios from 'axios';
 import {ClockCounterClockwise, Fire, Plant} from '@phosphor-icons/react';
 import Loader from '../../misc/loader/Loader.jsx';
 import ErrorMessage from '../../misc/errorMessage/ErrorMessage.jsx';
+import formatTime from '../../../helpers/formatTime.js';
+import formatCalories from '../../../helpers/formatCalories.js';
+import truncateTitle from '../../../helpers/truncateTitle.js';
 import { API_KEY_SPOONACULAR, API_URL_SPOONACULAR } from '../../../constants/apiConfig.js';
 import './RecipeCard.css';
-import formatTime from "../../../helpers/formatTime.js";
-import formatCalories from "../../../helpers/formatCalories.js";
 
 
 function RecipeCard( { id } ) {
@@ -68,7 +69,7 @@ function RecipeCard( { id } ) {
                             <Plant size={24}/> : null
                         }
                     </div>
-                    <h5 className="recipe-card__title">{recipe.title}</h5>
+                    <h5 className="recipe-card__title">{truncateTitle(recipe.title)}</h5>
                 </> : null
             }
             {loading && <Loader text="Fetching a delicious recipe just for you...🍝"/>}

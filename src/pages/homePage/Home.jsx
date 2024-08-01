@@ -185,7 +185,6 @@ function Home() {
             <section className="popular-recipes-section outer-content-container">
                 <div className="inner-content-container__column">
                     <SectionDivider title="Popular Recipes"/>
-                    <h3>Popular recipes</h3>
                     { popularRecipes ?
                         <div className="popular-recipes__container">
                             {popularRecipes.results.map((popularRecipe) => {
