@@ -59,8 +59,12 @@ function Home() {
                 console.log('Popular Recipes are fetched:', response.data);
                 setPopularRecipes(response.data);
             } catch (e) {
-                console.log('Error during fetching popular recipes:', e);
-                toggleError(true);
+                if (axios.isCancel(e)) {
+                    console.log('Request canceled', e.message);
+                } else {
+                    console.log('Error during fetching popular recipes:', e);
+                    toggleError(true);
+                }
             } finally {
                 toggleLoading(false);
             }

@@ -62,8 +62,12 @@ function SignIn() {
             console.log('JWT token received:', response.data);
             login(response.data.jwt);
         } catch (e) {
-            console.error('Error during sign-in:', e);
-            toggleError(true);
+            if (axios.isCancel(e)) {
+                console.log('Request canceled', e.message);
+            } else {
+                console.log('Error during sign-in:', e);
+                toggleError(true);
+            }
         } finally {
             toggleLoading(false);
         }

@@ -80,8 +80,12 @@ function SignUp() {
             console.log('Registration successful:', response.data);
             toggleSuccess(true);
         } catch (e) {
-            console.error('Error during sign-up:', e);
-            toggleError(true);
+            if (axios.isCancel(e)) {
+                console.log('Request canceled', e.message);
+            } else {
+                console.log('Error during sign-up:', e);
+                toggleError(true);
+            }
         } finally {
             toggleLoading(false);
         }

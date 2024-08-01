@@ -101,8 +101,12 @@ function Profile() {
                 fetchUserData(username, token);
             }
         } catch (e) {
-            console.error('User data is not updated:', e);
-            toggleError(true);
+            if (axios.isCancel(e)) {
+                console.log('Request canceled', e.message);
+            } else {
+                console.log('User data is not updated:', e);
+                toggleError(true);
+            }
         } finally {
             toggleLoading(false);
             setResetField(null);

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Plant } from '@phosphor-icons/react';
+import Loader from '../../misc/loader/Loader.jsx';
+import ErrorMessage from '../../misc/errorMessage/ErrorMessage.jsx';
 import { API_KEY_SPOONACULAR, API_URL_SPOONACULAR } from '../../../constants/apiConfig.js';
 import './RecipeCard.css';
-import Loader from "../../misc/loader/Loader.jsx";
-import ErrorMessage from "../../misc/errorMessage/ErrorMessage.jsx";
 
 
 function RecipeCard( { id } ) {
