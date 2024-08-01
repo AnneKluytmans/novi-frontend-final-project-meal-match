@@ -12,8 +12,11 @@ import avatarDavide from '../../assets/avatars/avatar-davide-gallo.jpg';
 import avatarOlly from '../../assets/avatars/avatar-olly-hawthorne.jpg';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
+import Loader from '../../components/misc/loader/Loader.jsx';
+import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import FeatureCard from '../../components/cards/featureCard/FeatureCard.jsx';
 import TestimonialCard from '../../components/cards/testimonialCard/TestimonialCard.jsx';
+import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
 import { API_KEY_SPOONACULAR, API_URL_SPOONACULAR } from '../../constants/apiConfig.js';
 import './Home.css';
 
@@ -54,21 +57,21 @@ function Home() {
                 });
 
                 console.log('Popular Recipes are fetched:', response.data);
-                setPopularRecipes(response.data.results);
+                setPopularRecipes(response.data);
             } catch (e) {
-                console.log('Error during fetching the popular recipes:', e);
+                console.log('Error during fetching popular recipes:', e);
                 toggleError(true);
             } finally {
                 toggleLoading(false);
             }
         }
 
-        // fetchPopularRecipes();
+        fetchPopularRecipes();
 
         return function cleanup() {
             console.log('Unmount effect is triggered. Abort ongoing axios requests');
             controller.abort();
-        };
+        }
 
     }, []);
 
@@ -179,6 +182,18 @@ function Home() {
                 <div className="inner-content-container__column">
                     <SectionDivider title="Popular Recipes"/>
                     <h3>Popular recipes</h3>
+                    { popularRecipes ?
+                        <div className="popular-recipes__container">
+                            {popularRecipes.results.map((popularRecipe) => {
+                                return (
+                                    <RecipeCard key={popularRecipe.id} id={popularRecipe.id}/>
+                                );
+                            })
+                            }
+                        </div> : null
+                    }
+                    {loading && <Loader text="Finding delicious recipes just for you...🍝"/>}
+                    {error && <ErrorMessage message="Something went wrong while fetching the popular recipes... Our chef seems to have misplaced them! 🍳💔"/>}
                 </div>
             </section>
             <section className="testimonials-section outer-content-container">
