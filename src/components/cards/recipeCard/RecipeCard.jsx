@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Plant } from '@phosphor-icons/react';
+import {ClockCounterClockwise, Fire, Plant} from '@phosphor-icons/react';
 import Loader from '../../misc/loader/Loader.jsx';
 import ErrorMessage from '../../misc/errorMessage/ErrorMessage.jsx';
 import { API_KEY_SPOONACULAR, API_URL_SPOONACULAR } from '../../../constants/apiConfig.js';
 import './RecipeCard.css';
+import formatTime from "../../../helpers/formatTime.js";
+import formatCalories from "../../../helpers/formatCalories.js";
 
 
 function RecipeCard( { id } ) {
@@ -59,11 +61,13 @@ function RecipeCard( { id } ) {
             {recipe ?
                 <>
                     <img className="recipe-card__image" src={recipe.image} alt="recipe image"/>
-                    <p>{recipe.readyInMinutes} min</p>
-                    <p>{recipe.nutrition.nutrients[0].amount} kCal</p>
-                    {recipe.vegan || recipe.vegetarian ?
-                        <Plant size={24}/> : null
-                    }
+                    <div className="recipe-card__info">
+                        <p><ClockCounterClockwise size={24}/> {formatTime( recipe.readyInMinutes)}</p>
+                        <p><Fire size={24}/> {formatCalories(recipe.nutrition.nutrients[0].amount)}</p>
+                        {recipe.vegan || recipe.vegetarian ?
+                            <Plant size={24}/> : null
+                        }
+                    </div>
                     <h5 className="recipe-card__title">{recipe.title}</h5>
                 </> : null
             }
