@@ -17,7 +17,7 @@ import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import FeatureCard from '../../components/cards/featureCard/FeatureCard.jsx';
 import TestimonialCard from '../../components/cards/testimonialCard/TestimonialCard.jsx';
 import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
-import { API_KEY_SPOONACULAR, API_URL_SPOONACULAR } from '../../constants/apiConfig.js';
+import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
 import './Home.css';
 
 
@@ -27,6 +27,7 @@ function Home() {
     const [loading, toggleLoading] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    const maxRecipesReturned = 6;
     const images = [mexicanTacos, gadoGado];
 
     const quoteSectionRef = useRef(null);
@@ -41,23 +42,21 @@ function Home() {
             toggleLoading(true);
 
             try {
-                const response = await axios.get(`${API_URL_SPOONACULAR}/complexSearch`, {
+                const response = await axios.get(`${API_URL_EDAMAM}`, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     params: {
-                        query: 'popular',
-                        instructionsRequired: true,
-                        sort: 'popularity',
-                        sortDirection: 'desc',
-                        number: 6,
-                        apiKey: API_KEY_SPOONACULAR,
+                        type: 'public',
+                        app_id: API_ID_EDAMAM,
+                        app_key: API_KEY_EDAMAM,
+                        q: 'popular',
                     },
                     signal: controller.signal,
                 });
 
                 console.log('Popular Recipes are fetched:', response.data);
-                setPopularRecipes(response.data);
+                setPopularRecipes(response.data.hits.slice(0, maxRecipesReturned));
             } catch (e) {
                 if (axios.isCancel(e)) {
                     console.log('Request canceled', e.message);
@@ -187,9 +186,9 @@ function Home() {
                     <SectionDivider title="Popular Recipes"/>
                     { popularRecipes ?
                         <div className="popular-recipes__container">
-                            {popularRecipes.results.map((popularRecipe) => {
+                            {popularRecipes.map((popularRecipe) => {
                                 return (
-                                    <RecipeCard key={popularRecipe.id} id={popularRecipe.id}/>
+                                    <RecipeCard key={popularRecipe.recipe.label} recipe={popularRecipe.recipe}/>
                                 );
                             })
                             }
