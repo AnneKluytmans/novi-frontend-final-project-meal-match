@@ -1,1 +1,15 @@
-/* ------------------------------- Recipe details page styling -------------------------------- */
+/*////////////////////////
+    Table of Contents
+    1. Recipe Details page styling
+       1.1 Header
+       1.2 ??
+    2. Recipe details page Mediaqueries
+ ////////////////////////*/
+
+/* ------------------------------- 1. Recipe details page styling -------------------------------- */
+
+/* ----------------------------------------- 1.1 Header --------------------------------------- */
+
+.recipe-details__header-icon {
+    margin-top: 0.5rem;
+}
