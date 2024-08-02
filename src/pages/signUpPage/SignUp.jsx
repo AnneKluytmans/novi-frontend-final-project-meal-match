@@ -19,18 +19,19 @@ function SignUp() {
     const [loading, toggleLoading] = useState(false);
     const [success, toggleSuccess] = useState(false);
 
-    const source = axios.CancelToken.source();
-
     const navigate = useNavigate();
+    const controller = new AbortController();
 
     useEffect(() => {
-        // Clean up function to cancel ongoing Axios requests on component unmount
+        // Cancels ongoing Axios requests on component unmount
         return function cleanup() {
-            source.cancel();
+            console.log('Unmount effect is triggered. Abort ongoing axios requests');
+            controller.abort();
         }
     }, []);
 
     useEffect(() => {
+        // Automatically hides success and error messages after a set duration
         let successTimeout;
         let errorTimeout;
 
@@ -45,7 +46,8 @@ function SignUp() {
             errorTimeout = setTimeout(() => toggleError(false), 7000);
         }
 
-        return () => {
+        return function cleanup() {
+            console.log('Unmount effect is triggered. Clean up timers');
             clearTimeout(successTimeout);
             clearTimeout(errorTimeout);
         };
@@ -72,14 +74,18 @@ function SignUp() {
                     'Content-Type': 'application/json',
                     'X-Api-Key': API_KEY_AUTH,
                 },
-                cancelToken: source.token,
+                signal: controller.signal,
             });
 
             console.log('Registration successful:', response.data);
             toggleSuccess(true);
         } catch (e) {
-            console.error('Error during sign-up:', e);
-            toggleError(true);
+            if (axios.isCancel(e)) {
+                console.log('Request canceled', e.message);
+            } else {
+                console.log('Error during sign-up:', e);
+                toggleError(true);
+            }
         } finally {
             toggleLoading(false);
         }

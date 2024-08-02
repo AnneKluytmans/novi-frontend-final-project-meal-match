@@ -19,23 +19,26 @@ function SignIn() {
 
     const { login, loading: contextLoading, error: contextError, success: contextSuccess } = useContext(AuthContext);
 
-    const source = axios.CancelToken.source();
+    const controller = new AbortController();
 
     useEffect(() => {
-        // Clean up function to cancel ongoing Axios requests on component unmount
+        // Cancels ongoing Axios requests on component unmount
         return function cleanup() {
-            source.cancel();
+            console.log('Unmount effect is triggered. Abort ongoing axios requests');
+            controller.abort();
         }
     }, []);
 
     useEffect(() => {
+        // Automatically hides error messages after a set duration
         let errorTimeout;
 
         if (error) {
             errorTimeout = setTimeout(() => toggleError(false), 7000);
         }
 
-        return () => {
+        return function cleanup() {
+            console.log('Unmount effect is triggered. Clean up timer');
             clearTimeout(errorTimeout);
         };
     }, [error]);
@@ -53,14 +56,18 @@ function SignIn() {
                     'Content-Type': 'application/json',
                     'X-Api-Key': API_KEY_AUTH,
                 },
-                cancelToken: source.token,
+                signal: controller.signal,
             });
 
             console.log('JWT token received:', response.data);
             login(response.data.jwt);
         } catch (e) {
-            console.error('Error during sign-in:', e);
-            toggleError(true);
+            if (axios.isCancel(e)) {
+                console.log('Request canceled', e.message);
+            } else {
+                console.log('Error during sign-in:', e);
+                toggleError(true);
+            }
         } finally {
             toggleLoading(false);
         }

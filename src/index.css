@@ -142,15 +142,14 @@ button:disabled {
 
 /* ------------------------------- 4. Mediaquerries --------------------------------------- */
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 1200px) {
     html {
         font-size: 14px;
     }
 }
 
-@media screen and (max-width: 678px) {
+@media screen and (max-width: 576px) {
     html {
         font-size: 12px;
     }
 }
-

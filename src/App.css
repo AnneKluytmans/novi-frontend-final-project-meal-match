@@ -53,8 +53,25 @@ main {
 
 /* ------------------------------- 3. Mediaqueries -------------------------------- */
 
+@media screen and (max-width: 992px) {
+    .home-header .inner-content-container__row {
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 920px) {
+    .quote-section .inner-content-container__row {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 @media screen and (max-width: 678px) {
     .inner-content-container__row {
         flex-direction: column-reverse;
+
+        margin: 0 1.5rem;
     }
 }

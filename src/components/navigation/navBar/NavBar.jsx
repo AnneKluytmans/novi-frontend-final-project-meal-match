@@ -42,7 +42,7 @@ function NavBar() {
                                     <DropdownItem to="/profile" name="Profile"/>
                                     <DropdownItem to="/favorite-recipes" name="Favorite Recipes"/>
                                     <Button onClick={handleLogout}>
-                                        <p className="sign-out__btn">Sign Out</p>
+                                        <h5 className="sign-out__btn">Sign Out</h5>
                                     </Button>
                                 </>
                                 :

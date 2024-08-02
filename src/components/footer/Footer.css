@@ -71,5 +71,6 @@
 
     .footer__text-wrapper {
         order: -2;
+        margin: 0;
     }
 }

@@ -27,6 +27,16 @@
 }
 
 
+.btn__dark {
+    background: var(--dark);
+    background: linear-gradient(90deg, var(--dark) 0%, var(--primary-dark) 100%);
+}
+
+.btn__dark:hover {
+    background: var(--secondary-orange);
+    background: linear-gradient(90deg, var(--secondary-orange) 0%, var(--secondary-pink) 100%);
+}
+
 .btn__transparent {
     background-color: var(--light);
     color: var(--primary-dark);

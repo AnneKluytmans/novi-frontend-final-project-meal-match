@@ -12,3 +12,7 @@
     align-items: center;
     z-index: 3000;
 }
+
+.overlay > * {
+    z-index: 5000;
+}

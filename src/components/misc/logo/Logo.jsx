@@ -7,8 +7,8 @@ function Logo() {
         <div className="logo">
             <LogoIcon className="logo__icon"/>
             <div className="logo__text-wrapper">
-                <h5 className="logo__text">meal</h5>
-                <h5 className="logo__text">match</h5>
+                <h4 className="logo__text">meal</h4>
+                <h4 className="logo__text">match</h4>
             </div>
         </div>
     );
