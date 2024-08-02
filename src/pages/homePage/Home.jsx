@@ -34,7 +34,7 @@ function Home() {
     const navigate = useNavigate();
 
     useEffect ( () => {
-        // Fetches popular recipes from spoonacular API
+        // Fetches popular recipes from Edamam API
         const controller = new AbortController();
 
         async function fetchPopularRecipes() {
