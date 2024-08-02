@@ -190,7 +190,7 @@ function Home() {
                         <div className="popular-recipes__container">
                             {popularRecipes.map((popularRecipe) => {
                                 const { image, totalTime, calories, healthLabels, label } = popularRecipe.recipe;
-                                const { href: id } = popularRecipe._links.self;
+                                const id = popularRecipe._links.self.href.split('/').pop();
                                 return (
                                     <RecipeCard
                                         key={id}
@@ -198,7 +198,7 @@ function Home() {
                                         image={image}
                                         cookingTime={totalTime}
                                         calories={calories}
-                                        vegatarian={healthLabels.includes("Vegetarian")}
+                                        vegetarian={healthLabels.includes("Vegetarian")}
                                         vegan={healthLabels.includes("Vegan")}
                                         title={label}
                                     />
