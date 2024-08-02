@@ -4,20 +4,20 @@ import formatCalories from '../../../helpers/formatCalories.js';
 import truncateTitle from '../../../helpers/truncateTitle.js';
 import './RecipeCard.css';
 
-function RecipeCard( { recipe } ) {
+function RecipeCard( { image, cookingTime, calories, vegatarian, vegan, title, id } ) {
     return(
         <article className="recipe-card">
-            {recipe ?
+            {id ?
                 <>
-                    <img className="recipe-card__image" src={recipe.image} alt="recipe image"/>
+                    <img className="recipe-card__image" src={image} alt="recipe image"/>
                     <div className="recipe-card__info">
-                        <p><ClockCounterClockwise size={24}/> {formatTime( recipe.totalTime)}</p>
-                        <p><Fire size={24}/> {formatCalories(recipe.calories)}</p>
-                        {recipe.healthLabels.includes("Vegetarian") || recipe.healthLabels.includes("Vegan") ?
+                        <p><ClockCounterClockwise size={24}/> {formatTime(cookingTime)}</p>
+                        <p><Fire size={24}/> {formatCalories(calories)}</p>
+                        {vegatarian || vegan ?
                             <Plant size={24}/> : null
                         }
                     </div>
-                    <h5 className="recipe-card__title">{truncateTitle(recipe.label)}</h5>
+                    <h5 className="recipe-card__title">{truncateTitle(title)}</h5>
                 </> : null
             }
         </article>

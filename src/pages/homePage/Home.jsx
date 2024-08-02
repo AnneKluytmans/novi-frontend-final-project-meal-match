@@ -51,6 +51,8 @@ function Home() {
                         app_id: API_ID_EDAMAM,
                         app_key: API_KEY_EDAMAM,
                         q: 'popular',
+                        random: true,
+                        time: '5-120',
                     },
                     signal: controller.signal,
                 });
@@ -187,8 +189,19 @@ function Home() {
                     { popularRecipes ?
                         <div className="popular-recipes__container">
                             {popularRecipes.map((popularRecipe) => {
+                                const { image, totalTime, calories, healthLabels, label } = popularRecipe.recipe;
+                                const { href: id } = popularRecipe._links.self;
                                 return (
-                                    <RecipeCard key={popularRecipe.recipe.label} recipe={popularRecipe.recipe}/>
+                                    <RecipeCard
+                                        key={id}
+                                        id={id}
+                                        image={image}
+                                        cookingTime={totalTime}
+                                        calories={calories}
+                                        vegatarian={healthLabels.includes("Vegetarian")}
+                                        vegan={healthLabels.includes("Vegan")}
+                                        title={label}
+                                    />
                                 );
                             })
                             }
