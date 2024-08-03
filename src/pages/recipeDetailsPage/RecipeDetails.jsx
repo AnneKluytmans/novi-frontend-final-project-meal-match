@@ -8,6 +8,7 @@ import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import formatTime from '../../helpers/formatTime.js';
 import formatCalories from '../../helpers/formatCalories.js';
+import abbreviateIngredientUnit from '../../helpers/abbreviateIngredientUnit.js';
 import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
 import './RecipeDetails.css';
 
@@ -127,7 +128,7 @@ function RecipeDetails() {
                                               <div className="ingredients-list__item--quantity-wrapper">
                                                   <strong>{ingredient.quantity}</strong>
                                                   <strong>
-                                                      {ingredient.measure !== "<unit>" ? ingredient.measure : null }
+                                                      {ingredient.measure !== "<unit>"  ? abbreviateIngredientUnit(ingredient.measure) : null }
                                                   </strong>
                                               </div>
                                               {ingredient.food}
