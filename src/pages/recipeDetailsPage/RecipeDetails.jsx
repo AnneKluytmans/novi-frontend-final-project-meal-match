@@ -1,7 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import axios from 'axios';
-import {ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash, Circle, MinusCircle, PlusCircle } from '@phosphor-icons/react';
+import {
+    ClockCounterClockwise,
+    CookingPot,
+    Fire,
+    Plant,
+    Grains,
+    GrainsSlash,
+    Circle,
+    MinusCircle,
+    PlusCircle,
+    CaretRight, Heart
+} from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
@@ -105,20 +116,20 @@ function RecipeDetails() {
                           <img className="recipe-details__image" src={recipe.image} alt="recipe image"/>
                           <div className="recipe-details__categories">
                               {recipe.cuisineType.map((cuisine) => {
-                                    return(
-                                        <p key={cuisine} className="recipe-details__categorie">
-                                            <strong>{cuisine}</strong>
-                                        </p>
-                                    );
-                                })
+                                  return (
+                                      <p key={cuisine} className="recipe-details__categorie">
+                                          <strong>{cuisine}</strong>
+                                      </p>
+                                  );
+                              })
                               }
                               {recipe.dishType.map((dish) => {
                                   return (
                                       <p key={dish} className="recipe-details__categorie">
                                           <strong>{dish}</strong>
                                       </p>
-                              )
-                                  ;
+                                  )
+                                      ;
                               })
                               }
                               {recipe.mealType.map((meal) => {
@@ -135,13 +146,13 @@ function RecipeDetails() {
                               <div className="ingredients__servings">
                                   <p><strong>{count} servings</strong></p>
                                   <div className="ingredients__servings-buttons">
-                                       <Button onClick={decrementCount} disabled={count <= 1}>
-                                            <MinusCircle size={24}/>
-                                        </Button>
-                                        <Button onClick={incrementCount} disabled={count >= 20}>
-                                            <PlusCircle size={24}/>
-                                        </Button>
-                                   </div>
+                                      <Button onClick={decrementCount} disabled={count <= 1}>
+                                          <MinusCircle size={24}/>
+                                      </Button>
+                                      <Button onClick={incrementCount} disabled={count >= 20}>
+                                          <PlusCircle size={24}/>
+                                      </Button>
+                                  </div>
                               </div>
                               <ul className="ingredients__ingredients-list">
                                   {recipe.ingredients.map((ingredient) => {
@@ -151,7 +162,7 @@ function RecipeDetails() {
                                               <div className="ingredients-list__item--quantity-wrapper">
                                                   <strong>{adjustIngredientQuantity(ingredient.quantity, count)}</strong>
                                                   <strong>
-                                                      {ingredient.measure !== "<unit>"  ? abbreviateIngredientUnit(ingredient.measure) : null }
+                                                      {ingredient.measure !== "<unit>" ? abbreviateIngredientUnit(ingredient.measure) : null}
                                                   </strong>
                                               </div>
                                               {ingredient.food}
@@ -161,15 +172,31 @@ function RecipeDetails() {
                                   }
                               </ul>
                           </div>
+                          <div className="recipe-details__instructions">
+                              <h4 className="instructions__title">Instructions</h4>
+                              <h5 className="instructions__text">
+                                  Let's get cooking! Follow the link below for step-by-step instructions to create this
+                                  delicious dish! 🍽️👨‍🍳
+                              </h5>
+                              <Link to={recipe.url} className="go-to-link">
+                                  <CaretRight size={22}/>
+                                  Get the full recipe instructions here
+                              </Link>
+                          </div>
                       </div> : null
                   }
                   {loading && <Loader text="Finding the recipe details to start cooking...🍝"/>}
-                  {error && <ErrorMessage message="Something went wrong while fetching the recipe details... Our chef seems to have misplaced them! 🍳💔"/>}
+                  {error && <ErrorMessage
+                      message="Something went wrong while fetching the recipe details... Our chef seems to have misplaced them! 🍳💔"/>}
+                  <Link to="/all-recipes" className="go-to-link">
+                      <CaretRight size={22}/>
+                      Go to our recipe collection to explore more recipes
+                  </Link>
               </div>
           </section>
           <section className="outer-content-container">
               <div className="inner-content-container__column">
-                  <SectionDivider title="Similar Recipes"/>
+              <SectionDivider title="Similar Recipes"/>
                   <h2>Similar Recipes</h2>
               </div>
           </section>
