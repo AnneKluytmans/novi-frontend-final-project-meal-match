@@ -1,29 +1,18 @@
 import { useEffect, useState } from 'react';
 import {Link, useParams} from 'react-router-dom';
 import axios from 'axios';
-import {
-    ClockCounterClockwise,
-    CookingPot,
-    Fire,
-    Plant,
-    Grains,
-    GrainsSlash,
-    Circle,
-    MinusCircle,
-    PlusCircle,
-    CaretRight, Heart
-} from '@phosphor-icons/react';
+import { ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash, Circle, MinusCircle, PlusCircle, CaretRight, ChefHat } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
+import Button from '../../components/buttons/button/Button.jsx';
 import formatTime from '../../helpers/formatTime.js';
 import formatCalories from '../../helpers/formatCalories.js';
 import abbreviateIngredientUnit from '../../helpers/abbreviateIngredientUnit.js';
+import adjustIngredientQuantity from '../../helpers/adjustIngredientQuantity.js';
 import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
 import './RecipeDetails.css';
-import Button from "../../components/buttons/button/Button.jsx";
-import adjustIngredientQuantity from "../../helpers/adjustIngredientQuantity.js";
 
 
 function RecipeDetails() {
@@ -178,10 +167,10 @@ function RecipeDetails() {
                                   Let's get cooking! Follow the link below for step-by-step instructions to create this
                                   delicious dish! 🍽️👨‍🍳
                               </h5>
-                              <Link to={recipe.url} className="go-to-link">
+                              <a href={recipe.url} target="_blank" rel="noopener noreferrer" className="go-to-link">
                                   <CaretRight size={22}/>
                                   Get the full recipe instructions here
-                              </Link>
+                              </a>
                           </div>
                       </div> : null
                   }
@@ -191,6 +180,7 @@ function RecipeDetails() {
                   <Link to="/all-recipes" className="go-to-link">
                       <CaretRight size={22}/>
                       Go to our recipe collection to explore more recipes
+                      <ChefHat size={22}/>
                   </Link>
               </div>
           </section>
