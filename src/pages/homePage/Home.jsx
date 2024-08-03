@@ -71,7 +71,7 @@ function Home() {
             }
         }
 
-        fetchPopularRecipes();
+        void fetchPopularRecipes();
 
         return function cleanup() {
             console.log('Unmount effect is triggered. Abort ongoing axios requests');

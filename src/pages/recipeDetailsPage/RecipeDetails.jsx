@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { CookingPot } from '@phosphor-icons/react';
+import {ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash} from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
+import formatTime from '../../helpers/formatTime.js';
+import formatCalories from '../../helpers/formatCalories.js';
 import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
 import './RecipeDetails.css';
 
@@ -52,7 +54,7 @@ function RecipeDetails() {
             }
         }
 
-        fetchRecipeDetails();
+        void fetchRecipeDetails();
 
         return function cleanup() {
             console.log('Unmount effect is triggered. Abort ongoing axios requests');
@@ -72,8 +74,50 @@ function RecipeDetails() {
               <div className="inner-content-container__column">
                   <SectionDivider title="Uncover Recipe"/>
                   {recipe ?
-                    <h2>{recipe.label}</h2>
-                      : null
+                      <div className="recipe-details__container">
+                          <h2>{recipe.label}</h2>
+                          <div className="recipe-details__info">
+                              <p><ClockCounterClockwise size={24}/> {formatTime(recipe.totalTime)}</p>
+                              <p><Fire size={24}/> {formatCalories(recipe.calories)}</p>
+                              {recipe.healthLabels.includes("Vegetarian") && !recipe.healthLabels.includes("Vegan") &&
+                                  <p><Plant size={24}/> vegetarian</p>
+                              }
+                              {recipe.healthLabels.includes("Vegan") &&
+                                  <p><Plant size={24}/> vegan</p>
+                              }
+                              {recipe.healthLabels.includes("Gluten-Free") ?
+                                  <p><Grains size={24}/> gluten free</p> : <p><GrainsSlash size={24}/> gluten</p>
+                              }
+                          </div>
+                          <img className="recipe-details__image" src={recipe.image} alt="recipe image"/>
+                          <div className="recipe-details__categories">
+                              {recipe.cuisineType.map((cuisine) => {
+                                    return(
+                                        <p key={cuisine} className="recipe-details__categorie">
+                                            <strong>{cuisine}</strong>
+                                        </p>
+                                    );
+                                })
+                              }
+                              {recipe.dishType.map((dish) => {
+                                  return (
+                                      <p key={dish} className="recipe-details__categorie">
+                                          <strong>{dish}</strong>
+                                      </p>
+                              )
+                                  ;
+                              })
+                              }
+                              {recipe.mealType.map((meal) => {
+                                  return (
+                                      <p key={meal} className="recipe-details__categorie">
+                                          <strong>{meal}</strong>
+                                      </p>
+                                  );
+                              })
+                              }
+                          </div>
+                      </div> : null
                   }
                   {loading && <Loader text="Finding the recipe details to start cooking...🍝"/>}
                   {error && <ErrorMessage message="Something went wrong while fetching the recipe details... Our chef seems to have misplaced them! 🍳💔"/>}
