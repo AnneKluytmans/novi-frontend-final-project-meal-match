@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import {ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash} from '@phosphor-icons/react';
+import {ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash, Circle } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
@@ -116,6 +116,26 @@ function RecipeDetails() {
                                   );
                               })
                               }
+                          </div>
+                          <div className="recipe-details__ingredients">
+                              <h4 className="recipe-details__ingredients-title">Ingredients</h4>
+                              <ul className="recipe-details__ingredients-list">
+                                  {recipe.ingredients.map((ingredient) => {
+                                      return (
+                                          <li key={ingredient.foodId} className="ingredients-list__item">
+                                              <Circle size={6} weight="fill"/>
+                                              <div className="ingredients-list__item--quantity-wrapper">
+                                                  <strong>{ingredient.quantity}</strong>
+                                                  <strong>
+                                                      {ingredient.measure !== "<unit>" ? ingredient.measure : null }
+                                                  </strong>
+                                              </div>
+                                              {ingredient.food}
+                                          </li>
+                                      );
+                                  })
+                                  }
+                              </ul>
                           </div>
                       </div> : null
                   }
