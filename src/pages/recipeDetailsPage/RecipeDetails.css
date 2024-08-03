@@ -25,7 +25,7 @@
 
     max-width: 50rem;
     padding: 1rem 3rem;
-    margin: 0 1rem 4rem;
+    margin: 0 1rem;
 }
 
 
@@ -125,6 +125,19 @@
     max-width: 32rem;
     margin: 1.5rem 0;
 }
+
+
+/* ----------------------------------------- 1.4 Similar Recipes --------------------------------------- */
+
+.similar-recipes__container {
+    margin: 1rem 0 2rem;
+}
+
+.similar-recipes__not-found {
+    text-align: center;
+    margin: 1rem 0 3rem;
+}
+
 
 
 /* ------------------------------- 2. Recipe details mediaqueries -------------------------------- */

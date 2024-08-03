@@ -13,15 +13,20 @@ import abbreviateIngredientUnit from '../../helpers/abbreviateIngredientUnit.js'
 import adjustIngredientQuantity from '../../helpers/adjustIngredientQuantity.js';
 import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
 import './RecipeDetails.css';
+import RecipeCard from "../../components/cards/recipeCard/RecipeCard.jsx";
 
 
 function RecipeDetails() {
     const [recipe, setRecipe] = useState(null);
+    const [similarRecipes, setSimilarRecipes] = useState([]);
     const [count, setCount] = useState(2);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
+    const [errorSimRecipes, toggleErrorSimRecipes] = useState(false);
+    const [loadingSimRecipes, toggleLoadingSimRecipes] = useState(false);
 
     const { id } = useParams();
+    const maxRecipesReturned = 3;
 
     useEffect ( () => {
         // Fetches popular recipes from Edamam API
@@ -66,6 +71,54 @@ function RecipeDetails() {
         }
 
     }, []);
+
+    useEffect ( () => {
+        // Fetches similar recipes from Edamam API
+        if (!recipe) return;
+
+        const controller = new AbortController();
+
+        async function fetchSimilarRecipes() {
+            toggleErrorSimRecipes(false);
+            toggleLoadingSimRecipes(true);
+
+            try {
+                const response = await axios.get(`${API_URL_EDAMAM}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    params: {
+                        type: 'public',
+                        app_id: API_ID_EDAMAM,
+                        app_key: API_KEY_EDAMAM,
+                        q: recipe.label,
+                        time: '5-120',
+                    },
+                    signal: controller.signal,
+                });
+
+                console.log('Similar Recipes are fetched:', response.data);
+                setSimilarRecipes(response.data.hits.slice(0, maxRecipesReturned));
+            } catch (e) {
+                if (axios.isCancel(e)) {
+                    console.log('Request canceled', e.message);
+                } else {
+                    console.log('Error during fetching similar recipes:', e);
+                    toggleErrorSimRecipes(true);
+                }
+            } finally {
+                toggleLoadingSimRecipes(false);
+            }
+        }
+
+        void fetchSimilarRecipes();
+
+        return function cleanup() {
+            console.log('Unmount effect is triggered. Abort ongoing axios requests');
+            controller.abort();
+        }
+
+    }, [recipe]);
 
     function incrementCount() {
         setCount(count + 1);
@@ -146,7 +199,7 @@ function RecipeDetails() {
                               <ul className="ingredients__ingredients-list">
                                   {recipe.ingredients.map((ingredient) => {
                                       return (
-                                          <li key={ingredient.foodId} className="ingredients-list__item">
+                                          <li key={`${ingredient.foodId} ${ingredient.weight}`} className="ingredients-list__item">
                                               <Circle size={6} weight="fill"/>
                                               <div className="ingredients-list__item--quantity-wrapper">
                                                   <strong>{adjustIngredientQuantity(ingredient.quantity, count)}</strong>
@@ -175,19 +228,45 @@ function RecipeDetails() {
                       </div> : null
                   }
                   {loading && <Loader text="Finding the recipe details to start cooking...🍝"/>}
-                  {error && <ErrorMessage
-                      message="Something went wrong while fetching the recipe details... Our chef seems to have misplaced them! 🍳💔"/>}
-                  <Link to="/all-recipes" className="go-to-link">
-                      <CaretRight size={22}/>
-                      Go to our recipe collection to explore more recipes
-                      <ChefHat size={22}/>
-                  </Link>
+                  {error && <ErrorMessage message="Something went wrong while fetching the recipe details...
+                  Our chef seems to have misplaced them! 🍳💔"/>}
               </div>
           </section>
           <section className="outer-content-container">
               <div className="inner-content-container__column">
               <SectionDivider title="Similar Recipes"/>
-                  <h2>Similar Recipes</h2>
+                  {loadingSimRecipes && <Loader text="Finding similar recipes just for you...🍝"/>}
+                  {errorSimRecipes && <ErrorMessage message="Something went wrong while fetching the similar recipes...
+                  Our chef seems to have misplaced them! 🍳💔"/>}
+                  {similarRecipes.length > 1 ?
+                      <div className="similar-recipes__container recipes-container">
+                          {similarRecipes.map((similarRecipe) => {
+                              const { image, totalTime, calories, healthLabels, label } = similarRecipe.recipe;
+                              const id = similarRecipe._links.self.href.split('/').pop();
+                              return (
+                                  <RecipeCard
+                                      key={id}
+                                      id={id}
+                                      image={image}
+                                      cookingTime={totalTime}
+                                      calories={calories}
+                                      vegetarian={healthLabels.includes("Vegetarian")}
+                                      vegan={healthLabels.includes("Vegan")}
+                                      title={label}
+                                  />
+                              );
+                          })
+                          }
+                      </div> :
+                      <>
+                          <h3 className="default-text-restrictor similar-recipes__not-found">Hmmm, no similar recipes found... But don’t worry, we have plenty of other choices! 🍲🔍</h3>
+                          <Link to="/all-recipes" className="go-to-link">
+                              <CaretRight size={22}/>
+                              Go to our recipe collection to explore other recipes
+                              <ChefHat size={22}/>
+                          </Link>
+                      </>
+                  }
               </div>
           </section>
       </>

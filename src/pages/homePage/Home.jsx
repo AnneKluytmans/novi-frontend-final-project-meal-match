@@ -187,7 +187,7 @@ function Home() {
                 <div className="inner-content-container__column">
                     <SectionDivider title="Popular Recipes"/>
                     { popularRecipes ?
-                        <div className="popular-recipes__container">
+                        <div className="popular-recipes__container recipes-container">
                             {popularRecipes.map((popularRecipe) => {
                                 const { image, totalTime, calories, healthLabels, label } = popularRecipe.recipe;
                                 const id = popularRecipe._links.self.href.split('/').pop();
