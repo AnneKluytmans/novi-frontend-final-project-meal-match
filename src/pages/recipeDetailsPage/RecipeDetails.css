@@ -72,16 +72,32 @@
 
 /* ----------------------------------------- 1.3 Recipe details ingredients --------------------------------------- */
 
-.recipe-details__ingredients-title {
+.ingredients__title {
     width: 100%;
     padding: 0.75rem 0;
-    margin: 1rem 0 2rem;
     border-bottom: 1px solid var(--dark);
 }
 
 
+.ingredients__servings {
+    background-color: var(--grey);
+    border-radius: 2rem;
 
-.recipe-details__ingredients-list {
+    max-width: 20rem;
+    padding: 0.5rem 1rem;
+    margin: 1.5rem 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ingredients__servings-buttons Button + Button {
+    margin-left: 0.5rem;
+}
+
+
+.ingredients__ingredients-list {
     list-style: none;
     margin: 0 0.75rem;
 }

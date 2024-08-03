@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import {ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash, Circle } from '@phosphor-icons/react';
+import {ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash, Circle, MinusCircle, PlusCircle } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
@@ -11,10 +11,13 @@ import formatCalories from '../../helpers/formatCalories.js';
 import abbreviateIngredientUnit from '../../helpers/abbreviateIngredientUnit.js';
 import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
 import './RecipeDetails.css';
+import Button from "../../components/buttons/button/Button.jsx";
+import adjustIngredientQuantity from "../../helpers/adjustIngredientQuantity.js";
 
 
 function RecipeDetails() {
     const [recipe, setRecipe] = useState(null);
+    const [count, setCount] = useState(2);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
 
@@ -63,6 +66,15 @@ function RecipeDetails() {
         }
 
     }, []);
+
+    function incrementCount() {
+        setCount(count + 1);
+    }
+
+    function decrementCount() {
+        setCount(count - 1);
+    }
+
 
     return (
       <>
@@ -119,14 +131,25 @@ function RecipeDetails() {
                               }
                           </div>
                           <div className="recipe-details__ingredients">
-                              <h4 className="recipe-details__ingredients-title">Ingredients</h4>
-                              <ul className="recipe-details__ingredients-list">
+                              <h4 className="ingredients__title">Ingredients</h4>
+                              <div className="ingredients__servings">
+                                  <p><strong>{count} servings</strong></p>
+                                  <div className="ingredients__servings-buttons">
+                                       <Button onClick={decrementCount} disabled={count <= 1}>
+                                            <MinusCircle size={24}/>
+                                        </Button>
+                                        <Button onClick={incrementCount} disabled={count >= 20}>
+                                            <PlusCircle size={24}/>
+                                        </Button>
+                                   </div>
+                              </div>
+                              <ul className="ingredients__ingredients-list">
                                   {recipe.ingredients.map((ingredient) => {
                                       return (
                                           <li key={ingredient.foodId} className="ingredients-list__item">
                                               <Circle size={6} weight="fill"/>
                                               <div className="ingredients-list__item--quantity-wrapper">
-                                                  <strong>{ingredient.quantity}</strong>
+                                                  <strong>{adjustIngredientQuantity(ingredient.quantity, count)}</strong>
                                                   <strong>
                                                       {ingredient.measure !== "<unit>"  ? abbreviateIngredientUnit(ingredient.measure) : null }
                                                   </strong>
