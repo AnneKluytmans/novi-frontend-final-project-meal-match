@@ -34,7 +34,7 @@ function Home() {
     const navigate = useNavigate();
 
     useEffect ( () => {
-        // Fetches popular recipes from spoonacular API
+        // Fetches popular recipes from Edamam API
         const controller = new AbortController();
 
         async function fetchPopularRecipes() {
@@ -71,7 +71,7 @@ function Home() {
             }
         }
 
-        fetchPopularRecipes();
+        void fetchPopularRecipes();
 
         return function cleanup() {
             console.log('Unmount effect is triggered. Abort ongoing axios requests');
@@ -187,7 +187,7 @@ function Home() {
                 <div className="inner-content-container__column">
                     <SectionDivider title="Popular Recipes"/>
                     { popularRecipes ?
-                        <div className="popular-recipes__container">
+                        <div className="popular-recipes__container recipes-container">
                             {popularRecipes.map((popularRecipe) => {
                                 const { image, totalTime, calories, healthLabels, label } = popularRecipe.recipe;
                                 const id = popularRecipe._links.self.href.split('/').pop();
