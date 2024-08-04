@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {Link, useParams} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash, Circle, MinusCircle, PlusCircle, CaretRight, ChefHat } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
@@ -7,18 +7,18 @@ import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
+import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
 import formatTime from '../../helpers/formatTime.js';
 import formatCalories from '../../helpers/formatCalories.js';
 import abbreviateIngredientUnit from '../../helpers/abbreviateIngredientUnit.js';
 import adjustIngredientQuantity from '../../helpers/adjustIngredientQuantity.js';
 import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
 import './RecipeDetails.css';
-import RecipeCard from "../../components/cards/recipeCard/RecipeCard.jsx";
 
 
 function RecipeDetails() {
     const [recipe, setRecipe] = useState(null);
-    const [similarRecipes, setSimilarRecipes] = useState([]);
+    const [similarRecipes, setSimilarRecipes] = useState(null);
     const [count, setCount] = useState(2);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
@@ -26,7 +26,7 @@ function RecipeDetails() {
     const [loadingSimRecipes, toggleLoadingSimRecipes] = useState(false);
 
     const { id } = useParams();
-    const maxRecipesReturned = 3;
+    const maxRecipesReturned = 6;
 
     useEffect ( () => {
         // Fetches popular recipes from Edamam API
@@ -70,7 +70,7 @@ function RecipeDetails() {
             controller.abort();
         }
 
-    }, []);
+    }, [id]);
 
     useEffect ( () => {
         // Fetches similar recipes from Edamam API
@@ -98,7 +98,20 @@ function RecipeDetails() {
                 });
 
                 console.log('Similar Recipes are fetched:', response.data);
-                setSimilarRecipes(response.data.hits.slice(0, maxRecipesReturned));
+
+                //Filter the original recipe out the response
+                const filteredRecipes = response.data.hits.filter((hit) => {
+                    const recipeUrlParts = hit._links.self.href.split('/');
+                    const recipeUrlLastPart = recipeUrlParts[recipeUrlParts.length - 1];
+                    const recipeId = recipeUrlLastPart.split('?')[0];
+
+                    console.log('Current Recipe ID:', id);
+                    console.log('Similar Recipe ID:', recipeId);
+
+                    return recipeId !== id;
+                });
+
+                setSimilarRecipes(filteredRecipes.slice(0, maxRecipesReturned));
             } catch (e) {
                 if (axios.isCancel(e)) {
                     console.log('Request canceled', e.message);
@@ -199,12 +212,16 @@ function RecipeDetails() {
                               <ul className="ingredients__ingredients-list">
                                   {recipe.ingredients.map((ingredient) => {
                                       return (
-                                          <li key={`${ingredient.foodId} ${ingredient.weight}`} className="ingredients-list__item">
+                                          <li key={`${ingredient.foodId} ${ingredient.weight}`}
+                                              className="ingredients-list__item"
+                                          >
                                               <Circle size={6} weight="fill"/>
                                               <div className="ingredients-list__item--quantity-wrapper">
                                                   <strong>{adjustIngredientQuantity(ingredient.quantity, count)}</strong>
                                                   <strong>
-                                                      {ingredient.measure !== "<unit>" ? abbreviateIngredientUnit(ingredient.measure) : null}
+                                                      {ingredient.measure !== "<unit>" ?
+                                                          abbreviateIngredientUnit(ingredient.measure) : null
+                                                      }
                                                   </strong>
                                               </div>
                                               {ingredient.food}
@@ -238,7 +255,7 @@ function RecipeDetails() {
                   {loadingSimRecipes && <Loader text="Finding similar recipes just for you...🍝"/>}
                   {errorSimRecipes && <ErrorMessage message="Something went wrong while fetching the similar recipes...
                   Our chef seems to have misplaced them! 🍳💔"/>}
-                  {similarRecipes.length > 1 ?
+                  {similarRecipes ?
                       <div className="similar-recipes__container recipes-container">
                           {similarRecipes.map((similarRecipe) => {
                               const { image, totalTime, calories, healthLabels, label } = similarRecipe.recipe;
@@ -259,7 +276,9 @@ function RecipeDetails() {
                           }
                       </div> :
                       <>
-                          <h3 className="default-text-restrictor similar-recipes__not-found">Hmmm, no similar recipes found... But don’t worry, we have plenty of other choices! 🍲🔍</h3>
+                          <h3 className="default-text-restrictor similar-recipes__not-found">
+                              Hmmm, no similar recipes found... But don’t worry, we have plenty of other choices! 🍲🔍
+                          </h3>
                           <Link to="/all-recipes" className="go-to-link">
                               <CaretRight size={22}/>
                               Go to our recipe collection to explore other recipes
