@@ -1,1 +1,29 @@
 /* ------------------------------- Recipe quiz page styling -------------------------------- */
+
+.recipe-quiz-section {
+    margin: 0 0 3rem;
+}
+
+
+.recipe-quiz__start-screen,
+.recipe-quiz__end-screen {
+    color: var(--primary-dark);
+    text-align: center;
+    border: 2px solid var(--primary-dark);
+    border-radius: 1rem;
+
+    padding: 8rem 4rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipe-quiz__start-screen h2,
+.recipe-quiz__end-screen h2 {
+    font-weight: 500;
+    letter-spacing: 2px;
+    line-height: 3rem;
+}
