@@ -3,7 +3,7 @@ import './QuizAnswerCard.css';
 function QuizAnswerCard( { answer, onSelect, isSelected } ) {
     return (
         <article
-            className={`quiz-answer ${isSelected ? 'selected' : ''}`}
+            className={`quiz-answer__container ${isSelected ? 'selected' : ''}`}
             onClick={() => onSelect(answer.value)}
         >
             <h4>{answer.title}</h4>

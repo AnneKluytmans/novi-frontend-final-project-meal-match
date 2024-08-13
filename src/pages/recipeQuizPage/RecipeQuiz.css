@@ -23,7 +23,24 @@
 
 .recipe-quiz__start-screen h2,
 .recipe-quiz__end-screen h2 {
-    font-weight: 500;
     letter-spacing: 2px;
     line-height: 3rem;
+}
+
+
+
+.recipe-quiz__question {
+    border: 2px solid var(--primary-dark);
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+}
+
+.recipe-quiz__nav-btn-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+
+    width: 100%;
+    max-width: 8rem;
+    margin: 0 auto 2rem;
 }

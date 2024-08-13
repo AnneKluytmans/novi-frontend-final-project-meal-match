@@ -3,8 +3,8 @@ import './QuizQuestion.css';
 
 function QuizQuestion({ question, options, onSelect, selectedAnswer } ) {
     return (
-        <div className="quiz-question">
-            <h3>{question}</h3>
+        <div className="quiz-question__container">
+            <h3 className="quiz-question__question">{question}</h3>
             <div className="quiz-question__answer-options">
                 {options.map((option) => {
                     return (

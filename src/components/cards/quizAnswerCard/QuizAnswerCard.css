@@ -1,1 +1,42 @@
-/* ------------------------------- Quiz Answer styling -------------------------------- */
+/*////////////////////////
+    Table of Contents
+    1. Quiz Answer styling
+    2. Quiz Answer Mediaqueries
+ ////////////////////////*/
+
+/* ------------------------------- 1. Quiz Answer styling -------------------------------- */
+
+.quiz-answer__container {
+    text-align: center;
+    border: 1px solid var(--primary-dark);
+    border-radius: 1rem;
+    padding: 0.8rem 1.25rem;
+    margin: 0.5rem;
+    max-width: 24rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.quiz-answer__container:hover {
+    background-color: var(--primary);
+}
+
+
+.quiz-answer__container .selected {
+    background-color: var(--primary);
+}
+
+
+/* ------------------------------- 2. Quiz Answer MediaQueries -------------------------------- */
+
+@media screen and (max-width: 868px) {
+    .quiz-answer__container {
+        max-width: 22rem;
+    }
+}
