@@ -1,10 +1,10 @@
 import { CaretLeft } from '@phosphor-icons/react';
 import Button from '../button/Button.jsx';
 
-function PreviousButton( { count, setCount, minCount } ) {
+function PreviousButton( { count, setCount, disabled } ) {
     return (
         <Button
-            disabled={ count === minCount }
+            disabled={disabled}
             onClick={ () => {setCount(count - 1)} }
             className="btn btn__next-prev"
         >

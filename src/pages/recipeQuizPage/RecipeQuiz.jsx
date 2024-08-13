@@ -3,14 +3,40 @@ import InspirationIcon from '../../assets/icons/inspiration-icon.svg?react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
+import NextButton from '../../components/buttons/nextButton/NextButton.jsx';
+import PreviousButton from '../../components/buttons/previousButton/PreviousButton.jsx';
+import QuizQuestion from '../../components/misc/quizQuestion/QuizQuestion.jsx';
+import quizQuestions from '../../constants/quizQuestions.js';
 import './RecipeQuiz.css';
-import NextButton from "../../components/buttons/nextButton/NextButton.jsx";
-import PreviousButton from "../../components/buttons/previousButton/PreviousButton.jsx";
+
 
 
 function RecipeQuiz() {
     const [quizStarted, toggleQuizStarted] = useState(false);
-    const [count, setCount] = useState(0);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [quizAnswers, setQuizAnswers] = useState({});
+    const [answeredQuestions, setAnsweredQuestions] = useState({});
+
+    function SelectAnswer(answerValue) {
+        setQuizAnswers({
+            ...quizAnswers,
+            [quizQuestions[currentQuestionIndex].param]: answerValue,
+        });
+
+        setAnsweredQuestions({
+            ...answeredQuestions,
+            [currentQuestionIndex]: true,
+        });
+
+        console.log(quizAnswers);
+    }
+
+    function resetQuiz() {
+        toggleQuizStarted(false);
+        setQuizAnswers({});
+        setAnsweredQuestions({});
+        setCurrentQuestionIndex(0);
+    }
 
     return (
       <>
@@ -31,19 +57,38 @@ function RecipeQuiz() {
                         >
                             Start quiz
                         </Button>
-                        <h3>{count}</h3>
-                        <NextButton count={count} setCount={setCount} maxCount={6}/>
-                        <PreviousButton count={count} setCount={setCount} minCount={0}/>
                     </div> :
-                      <div className="recipe-quiz__end-screen">
-                          <h2 className="default-text-restrictor">You&apos;ve completed the quiz. Your perfect recipe match is just a click away.</h2>
-                          <Button
-                              className="btn btn__default"
-                              onClick={() => toggleQuizStarted(false)}
-                          >
-                              End quiz
-                          </Button>
-                      </div>
+                      currentQuestionIndex < quizQuestions.length ?
+                          <div className="recipe-quiz__question">
+                            <QuizQuestion
+                                question={quizQuestions[currentQuestionIndex].question}
+                                options={quizQuestions[currentQuestionIndex].answerOptions}
+                                onSelect={SelectAnswer}
+                                selectedAnswer={quizAnswers[quizQuestions[currentQuestionIndex].param]}
+                            />
+                            <div className="recipe-quiz__nav-btn-container">
+                                <NextButton
+                                    count={currentQuestionIndex}
+                                    setCount={setCurrentQuestionIndex}
+                                    disabled={!answeredQuestions[currentQuestionIndex] || currentQuestionIndex === quizQuestions.length}
+                                />
+                                <PreviousButton
+                                    count={currentQuestionIndex}
+                                    setCount={setCurrentQuestionIndex}
+                                    disabled={currentQuestionIndex === 0}
+                                />
+                            </div>
+                          </div>
+                          :
+                          <div className="recipe-quiz__end-screen">
+                              <h2 className="default-text-restrictor">You&apos;ve completed the quiz. Your perfect recipe match is just a click away.</h2>
+                              <Button
+                                  className="btn btn__default"
+                                  onClick={resetQuiz}
+                              >
+                                  End quiz
+                              </Button>
+                          </div>
                   }
               </div>
           </section>
