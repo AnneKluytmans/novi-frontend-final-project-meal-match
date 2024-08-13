@@ -14,7 +14,7 @@ function QuizQuestion({ count, question, options, onSelect, selectedAnswer } ) {
                             key={option.title}
                             answer={option}
                             onSelect={onSelect}
-                            isSelected={selectedAnswer === option.value}
+                            isSelected={selectedAnswer === option.title}
                         />
                     );
                 })

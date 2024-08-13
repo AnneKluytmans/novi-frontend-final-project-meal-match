@@ -28,7 +28,7 @@
 }
 
 
-.quiz-answer__container .selected {
+.quiz-answer__container.selected {
     background-color: var(--primary);
 }
 

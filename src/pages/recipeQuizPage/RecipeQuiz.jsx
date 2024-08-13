@@ -15,19 +15,21 @@ function RecipeQuiz() {
     const [quizStarted, toggleQuizStarted] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [quizAnswers, setQuizAnswers] = useState({});
-    const [answeredQuestions, setAnsweredQuestions] = useState({});
+    const [selectedAnswers, setSelectedAnswers] = useState({});
 
+    const currentQuestion = quizQuestions[currentQuestionIndex];
+    const isAnswerSelected = selectedAnswers[currentQuestionIndex] !== undefined;
 
-    function SelectAnswer(answerValue) {
+    function SelectAnswer(answerValue, answerTitle) {
         setQuizAnswers(prevQuizAnswers => {
             const updatedQuizAnswers = {
                 ...prevQuizAnswers,
-                [quizQuestions[currentQuestionIndex].param]: answerValue,
+                [currentQuestion.param]: answerValue,
             }
 
-            setAnsweredQuestions(prevAnsweredQuestions => ({
-                ...prevAnsweredQuestions,
-                [currentQuestionIndex]: true,
+            setSelectedAnswers(prevSelectedAnswers => ({
+                ...prevSelectedAnswers,
+                [currentQuestionIndex]: answerTitle,
             }));
 
             console.log(updatedQuizAnswers);
@@ -36,9 +38,10 @@ function RecipeQuiz() {
     }
 
     function resetQuiz() {
+        console.log(quizAnswers);
         toggleQuizStarted(false);
         setQuizAnswers({});
-        setAnsweredQuestions({});
+        setSelectedAnswers({});
         setCurrentQuestionIndex(0);
     }
 
@@ -66,16 +69,16 @@ function RecipeQuiz() {
                           <div className="recipe-quiz__question">
                             <QuizQuestion
                                 count={currentQuestionIndex + 1}
-                                question={quizQuestions[currentQuestionIndex].question}
-                                options={quizQuestions[currentQuestionIndex].answerOptions}
+                                question={currentQuestion.question}
+                                options={currentQuestion.answerOptions}
                                 onSelect={SelectAnswer}
-                                selectedAnswer={quizAnswers[quizQuestions[currentQuestionIndex].param]}
+                                selectedAnswer={selectedAnswers[currentQuestionIndex]}
                             />
                             <div className="recipe-quiz__nav-btn-container">
                                 <NextButton
                                     count={currentQuestionIndex}
                                     setCount={setCurrentQuestionIndex}
-                                    disabled={!answeredQuestions[currentQuestionIndex] || currentQuestionIndex === quizQuestions.length}
+                                    disabled={!isAnswerSelected || currentQuestionIndex === quizQuestions.length}
                                 />
                                 <PreviousButton
                                     count={currentQuestionIndex}
@@ -98,7 +101,7 @@ function RecipeQuiz() {
                                   <NextButton
                                       count={currentQuestionIndex}
                                       setCount={setCurrentQuestionIndex}
-                                      disabled={!answeredQuestions[currentQuestionIndex] || currentQuestionIndex === quizQuestions.length}
+                                      disabled={!isAnswerSelected || currentQuestionIndex === quizQuestions.length}
                                   />
                                   <PreviousButton
                                       count={currentQuestionIndex}
