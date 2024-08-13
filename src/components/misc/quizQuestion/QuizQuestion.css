@@ -2,7 +2,7 @@
 
 .quiz-question__container {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     max-width: 56rem;
 
     display: flex;
@@ -12,11 +12,11 @@
 
 
 .quiz-question__question {
-    margin: 2.5rem 1rem 1rem;
+    margin: 1.5rem 1rem 1rem;
 }
 
 .quiz-question__answer-options {
-    margin: 1rem 0.5rem 2rem;
+    margin: 1rem 0.5rem;
 
     display: flex;
     justify-content: center;

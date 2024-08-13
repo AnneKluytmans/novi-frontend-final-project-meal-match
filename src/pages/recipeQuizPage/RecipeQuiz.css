@@ -11,8 +11,7 @@
     text-align: center;
     border: 2px solid var(--primary-dark);
     border-radius: 1rem;
-
-    padding: 8rem 4rem;
+    margin-bottom: 2rem;
 
     display: flex;
     flex-direction: column;
@@ -28,11 +27,19 @@
 }
 
 
+.recipe-quiz__start-screen {
+    padding: 7.5rem 4rem;
+}
+
+.recipe-quiz__end-screen {
+    padding: 2rem 4rem;
+}
+
 
 .recipe-quiz__question {
     border: 2px solid var(--primary-dark);
     border-radius: 1rem;
-    padding: 1rem 2rem;
+    padding: 1rem;
 }
 
 .recipe-quiz__nav-btn-container {
@@ -42,5 +49,11 @@
 
     width: 100%;
     max-width: 8rem;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1.5rem;
+}
+
+
+
+.recipe-quiz__end-screen .recipe-quiz__nav-btn-container {
+    margin-top: 2rem;
 }

@@ -17,18 +17,22 @@ function RecipeQuiz() {
     const [quizAnswers, setQuizAnswers] = useState({});
     const [answeredQuestions, setAnsweredQuestions] = useState({});
 
+
     function SelectAnswer(answerValue) {
-        setQuizAnswers({
-            ...quizAnswers,
-            [quizQuestions[currentQuestionIndex].param]: answerValue,
-        });
+        setQuizAnswers(prevQuizAnswers => {
+            const updatedQuizAnswers = {
+                ...prevQuizAnswers,
+                [quizQuestions[currentQuestionIndex].param]: answerValue,
+            }
 
-        setAnsweredQuestions({
-            ...answeredQuestions,
-            [currentQuestionIndex]: true,
-        });
+            setAnsweredQuestions(prevAnsweredQuestions => ({
+                ...prevAnsweredQuestions,
+                [currentQuestionIndex]: true,
+            }));
 
-        console.log(quizAnswers);
+            console.log(updatedQuizAnswers);
+            return updatedQuizAnswers;
+        });
     }
 
     function resetQuiz() {
@@ -61,6 +65,7 @@ function RecipeQuiz() {
                       currentQuestionIndex < quizQuestions.length ?
                           <div className="recipe-quiz__question">
                             <QuizQuestion
+                                count={currentQuestionIndex + 1}
                                 question={quizQuestions[currentQuestionIndex].question}
                                 options={quizQuestions[currentQuestionIndex].answerOptions}
                                 onSelect={SelectAnswer}
@@ -81,13 +86,26 @@ function RecipeQuiz() {
                           </div>
                           :
                           <div className="recipe-quiz__end-screen">
-                              <h2 className="default-text-restrictor">You&apos;ve completed the quiz. Your perfect recipe match is just a click away.</h2>
+                              <h2 className="default-text-restrictor">You&apos;ve completed the quiz. Your perfect
+                                  recipe match is just a click away.</h2>
                               <Button
                                   className="btn btn__default"
                                   onClick={resetQuiz}
                               >
                                   End quiz
                               </Button>
+                              <div className="recipe-quiz__nav-btn-container">
+                                  <NextButton
+                                      count={currentQuestionIndex}
+                                      setCount={setCurrentQuestionIndex}
+                                      disabled={!answeredQuestions[currentQuestionIndex] || currentQuestionIndex === quizQuestions.length}
+                                  />
+                                  <PreviousButton
+                                      count={currentQuestionIndex}
+                                      setCount={setCurrentQuestionIndex}
+                                      disabled={currentQuestionIndex === 0}
+                                  />
+                              </div>
                           </div>
                   }
               </div>
