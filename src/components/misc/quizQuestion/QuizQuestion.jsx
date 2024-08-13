@@ -1,4 +1,4 @@
-import QuizAnswerCard from '../cards/quizAnswerCard/QuizAnswerCard.jsx';
+import QuizAnswerCard from '../../cards/quizAnswerCard/QuizAnswerCard.jsx';
 import './QuizQuestion.css';
 
 function QuizQuestion({ question, options, onSelect, selectedAnswer } ) {
