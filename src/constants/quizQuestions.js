@@ -10,7 +10,7 @@ const quizQuestions = [
                 subtitle: "Rise and shine in a relaxing sunny breakfast paradise"
             },
             {
-                value: ["Biscuits and cookies", "Condiments and sauces", "Drinks", "Sweets", "Side dish", "Starter"],
+                value: ["Biscuits and cookies", "Drinks", "Side dish", "Starter"],
                 title: "Delightful snack stopover 🍿",
                 subtitle: "Make a pit stop for delightful snacks that’ll keep you smiling all day long"
             },
@@ -41,32 +41,32 @@ const quizQuestions = [
         param: "cuisineType",
         answerOptions: [
             {
-                value: ["Mediterranean"],
+                value: "Mediterranean",
                 title: "A Mediterranean escape 🍝",
                 subtitle: "Longing for Mediterranean flavors like Greek or Italian"
             },
             {
-                value: ["Mexican"],
+                value: "Mexican",
                 title: "A fiesta of Mexican flavors 🌮",
                 subtitle: "Craving bold Mexican dishes with spicy flavors"
             },
             {
-                value: ["Asian"],
+                value: "Asian",
                 title: "A taste of Asian fusion 🍣",
                 subtitle: "Exploring a mix of Asian cuisines like Japanese, Chinese, or Thai"
             },
             {
-                value: ["Middle Eastern"],
+                value: "Middle Eastern",
                 title: "A Middle Eastern feast 🥘",
                 subtitle: "Interested in Middle Eastern dishes like Lebanese or Moroccan"
             },
             {
-                value: ["American"],
+                value: "American",
                 title: "Craving American comfort 🍔",
                 subtitle: "Wanting hearty American classics like bagels or burgers"
             },
             {
-                value: "",
+                value: null,
                 title: "Surprise me 🌍",
                 subtitle: "Open to any cuisine, surprise me with a delicious recipe"
             },
@@ -113,32 +113,32 @@ const quizQuestions = [
         param: "excluded",
         answerOptions: [
             {
-                value: ["olive"],
+                value: "olive",
                 title: "Olives 🫒",
                 subtitle: "Avoid the olive orchestra, no surprise serenades with every bite"
             },
             {
-                value: ["banana"],
+                value: "banana",
                 title: "Banana 🍌",
                 subtitle: "Skip bananas, no slippery slides on my plate"
             },
             {
-                value: ["garlic"],
+                value: "garlic",
                 title: "Garlic 🧄",
                 subtitle: "Leaf the garlic out, we're saying no to breath that could clear a room"
             },
             {
-                value: ["peanut butter"],
+                value: "peanut butter",
                 title: "Peanut butter 🥜",
                 subtitle: "Avoid peanut butter, those sticky situations could leave us in a nutty mess"
             },
             {
-                value: ["chili pepper"],
+                value: "chili pepper",
                 title: "Chili pepper 🌶️",
                 subtitle: "Bypass the chili pepper calamity, keeping the heat levels just right"
             },
             {
-                value: "",
+                value: null,
                 title: "Adventurous appetite 🚀",
                 subtitle: "No limits, from anchovies to licorice, bring on the wild culinary journey"
             },
@@ -185,17 +185,17 @@ const quizQuestions = [
         param: "health",
         answerOptions: [
             {
-                value: "",
+                value: null,
                 title: "No limits, anything goes 🌈",
                 subtitle: "From sushi to decadent pasta, explore without boundaries"
             },
             {
-                value: ["pescatarian"],
+                value: "pescatarian",
                 title: "Pescatarian exploration 🐠",
                 subtitle: "From salmon fillet to shrimp, let your taste buds dance"
             },
             {
-                value: ["vegetarian"],
+                value: ["vegetarian", "vegan"],
                 title: "Plant-powered paradise 🌿",
                 subtitle: "From buddha bowls to veggie burgers, nature's flavors take center stage"
             },
@@ -205,12 +205,12 @@ const quizQuestions = [
                 subtitle: "Gluten-free pasta to dairy-free desserts, enjoy allergy-free"
             },
             {
-                value: ["low-sugar"],
+                value: "low-sugar",
                 title: "Calorie-conscious wonderland ☁️",
                 subtitle: "From vibrant salads to wholesome, light and delicious bowls"
             },
             {
-                value: ["paleo"],
+                value: "paleo",
                 title: "Protein-packed Oasis 🏋️‍♂️",
                 subtitle: "From steaks to powerpacked smoothies, indulge in high-protein meals"
             },
