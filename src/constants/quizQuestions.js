@@ -74,35 +74,35 @@ const quizQuestions = [
     },
     {
         question: "What's your culinary mood tonight?",
-        param: "q",
+        param: "calories",
         answerOptions: [
             {
-                value: "comfort food",
+                value: "300-1500",
                 title: "Craving comfort and warmth 🧸",
                 subtitle: "I need a warm, comforting dish that feels like a cozy hug to lift my spirits"
             },
             {
-                value: "family",
+                value: "400-800",
                 title: "In the mood for family and fun 👭",
                 subtitle: "Looking forward to a family-friendly meal that brings joy to the table"
             },
             {
-                value: "spicy",
+                value: "1-1000",
                 title: "Ready for adventure 🚀",
                 subtitle: "I'm ready to explore bold new flavors and spicy delights"
             },
             {
-                value: "party",
+                value: "400-1000",
                 title: "It’s party time 🎉",
                 subtitle: "I need fun, shareable dishes to get everyone in a party vibe"
             },
             {
-                value: "quick",
+                value: "100-400",
                 title: "Very busy and on-the-go ⚡",
                 subtitle: "With a packed schedule, I need a quick, energizing dish to keep me going"
             },
             {
-                value: "elegant",
+                value: "200-800",
                 title: "Romantic date night 🌹",
                 subtitle: "Looking for elegant, romantic dishes to make the night unforgettable"
             },
