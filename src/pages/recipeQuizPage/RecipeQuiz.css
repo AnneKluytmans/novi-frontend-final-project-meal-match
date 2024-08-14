@@ -1,1 +1,73 @@
 /* ------------------------------- Recipe quiz page styling -------------------------------- */
+
+.recipe-quiz-section {
+    margin: 0 0 3rem;
+}
+
+
+.recipe-quiz__start-screen,
+.recipe-quiz__end-screen {
+    color: var(--primary-dark);
+    text-align: center;
+    border: 2px solid var(--primary-dark);
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipe-quiz__start-screen h2,
+.recipe-quiz__end-screen h2 {
+    letter-spacing: 2px;
+    line-height: 3rem;
+}
+
+
+.recipe-quiz__start-screen {
+    padding: 7.5rem 4rem;
+}
+
+.recipe-quiz__end-screen {
+    padding: 2rem 4rem;
+}
+
+
+
+.recipe-quiz__question {
+    border: 2px solid var(--primary-dark);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.recipe-quiz__nav-btn-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+
+    width: 100%;
+    max-width: 8rem;
+    margin: 0 auto 1.5rem;
+}
+
+.recipe-quiz__end-screen .recipe-quiz__nav-btn-container {
+    margin-top: 2rem;
+}
+
+
+
+.recipe-quiz__result-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+}
+
+.recipe-quiz__result-screen h3 {
+    font-size: 2rem;
+}
+

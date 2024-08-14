@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import qs from 'qs';
 import { MagnifyingGlass, Quotes } from '@phosphor-icons/react';
 import InspirationIcon from '../../assets/icons/inspiration-icon.svg?react';
 import IngredientsIcon from '../../assets/icons/ingredients-icon.svg?react';
@@ -17,7 +18,7 @@ import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import FeatureCard from '../../components/cards/featureCard/FeatureCard.jsx';
 import TestimonialCard from '../../components/cards/testimonialCard/TestimonialCard.jsx';
 import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
-import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
+import {API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM, apiEdamamFieldParam} from '../../constants/apiConfig.js';
 import './Home.css';
 
 
@@ -41,18 +42,23 @@ function Home() {
             toggleError(false);
             toggleLoading(true);
 
+            const params = {
+                type: 'public',
+                app_id: API_ID_EDAMAM,
+                app_key: API_KEY_EDAMAM,
+                field: apiEdamamFieldParam,
+                q: 'popular',
+                random: true,
+                time: '5-120',
+            };
+
+            const paramsString = qs.stringify(params, { arrayFormat: 'repeat' });
+            const endpoint = `${API_URL_EDAMAM}?${paramsString}`;
+
             try {
-                const response = await axios.get(`${API_URL_EDAMAM}`, {
+                const response = await axios.get(endpoint, {
                     headers: {
                         'Content-Type': 'application/json',
-                    },
-                    params: {
-                        type: 'public',
-                        app_id: API_ID_EDAMAM,
-                        app_key: API_KEY_EDAMAM,
-                        q: 'popular',
-                        random: true,
-                        time: '5-120',
                     },
                     signal: controller.signal,
                 });

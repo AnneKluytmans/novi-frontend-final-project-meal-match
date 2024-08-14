@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import qs from 'qs';
 import { ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash, Circle, MinusCircle, PlusCircle, CaretRight, ChefHat } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
@@ -12,7 +13,7 @@ import formatTime from '../../helpers/formatTime.js';
 import formatCalories from '../../helpers/formatCalories.js';
 import abbreviateIngredientUnit from '../../helpers/abbreviateIngredientUnit.js';
 import adjustIngredientQuantity from '../../helpers/adjustIngredientQuantity.js';
-import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
+import {API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM, apiEdamamFieldParam} from '../../constants/apiConfig.js';
 import './RecipeDetails.css';
 
 
@@ -82,17 +83,22 @@ function RecipeDetails() {
             toggleErrorSimRecipes(false);
             toggleLoadingSimRecipes(true);
 
+            const params = {
+                type: 'public',
+                app_id: API_ID_EDAMAM,
+                app_key: API_KEY_EDAMAM,
+                field: apiEdamamFieldParam,
+                q: recipe.label,
+                time: '5-120',
+            };
+
+            const paramsString = qs.stringify(params, { arrayFormat: 'repeat' });
+            const endpoint = `${API_URL_EDAMAM}?${paramsString}`;
+
             try {
-                const response = await axios.get(`${API_URL_EDAMAM}`, {
+                const response = await axios.get(endpoint, {
                     headers: {
                         'Content-Type': 'application/json',
-                    },
-                    params: {
-                        type: 'public',
-                        app_id: API_ID_EDAMAM,
-                        app_key: API_KEY_EDAMAM,
-                        q: recipe.label,
-                        time: '5-120',
                     },
                     signal: controller.signal,
                 });
@@ -104,9 +110,6 @@ function RecipeDetails() {
                     const recipeUrlParts = hit._links.self.href.split('/');
                     const recipeUrlLastPart = recipeUrlParts[recipeUrlParts.length - 1];
                     const recipeId = recipeUrlLastPart.split('?')[0];
-
-                    console.log('Current Recipe ID:', id);
-                    console.log('Similar Recipe ID:', recipeId);
 
                     return recipeId !== id;
                 });
@@ -255,7 +258,7 @@ function RecipeDetails() {
                   {loadingSimRecipes && <Loader text="Finding similar recipes just for you...🍝"/>}
                   {errorSimRecipes && <ErrorMessage message="Something went wrong while fetching the similar recipes...
                   Our chef seems to have misplaced them! 🍳💔"/>}
-                  {similarRecipes ?
+                  {similarRecipes && similarRecipes.length > 0 ?
                       <div className="similar-recipes__container recipes-container">
                           {similarRecipes.map((similarRecipe) => {
                               const { image, totalTime, calories, healthLabels, label } = similarRecipe.recipe;
