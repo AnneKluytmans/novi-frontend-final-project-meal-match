@@ -12,7 +12,7 @@ import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import quizQuestions from '../../constants/quizQuestions.js';
-import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
+import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM, apiEdamamFieldParam } from '../../constants/apiConfig.js';
 import './RecipeQuiz.css';
 
 
@@ -76,12 +76,12 @@ function RecipeQuiz() {
             type: 'public',
             app_id: API_ID_EDAMAM,
             app_key: API_KEY_EDAMAM,
+            field: apiEdamamFieldParam,
             random: true,
             ...quizAnswers
         };
 
         const paramsString = qs.stringify(params, { arrayFormat: 'repeat' });
-
         const endpoint = `${API_URL_EDAMAM}?${paramsString}`;
 
         try {
