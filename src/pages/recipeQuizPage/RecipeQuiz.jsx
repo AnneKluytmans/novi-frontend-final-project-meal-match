@@ -28,6 +28,7 @@ function RecipeQuiz() {
 
     const currentQuestion = quizQuestions[currentQuestionIndex];
     const isAnswerSelected = selectedAnswers[currentQuestionIndex] !== undefined;
+    const maxRecipesReturned = 12;
 
     const controller = new AbortController();
 
@@ -92,7 +93,8 @@ function RecipeQuiz() {
                 signal: controller.signal,
             });
 
-            setFoundRecipes(response.data.hits);
+            console.log('Recipes are fetched:', response.data);
+            setFoundRecipes(response.data.hits.slice(0, maxRecipesReturned));
         } catch (e) {
             if (axios.isCancel(e)) {
                 console.log('Request canceled', e.message);
@@ -201,8 +203,8 @@ function RecipeQuiz() {
                         {!error && !loading &&
                             <>
                                 {foundRecipes.length > 0 ?
-                                    <div className="recipe-quiz__recipes">
-                                        <h3>Your recipe matches</h3>
+                                    <div className="recipe-quiz__result-screen">
+                                        <h3>Your recipe matches 🎉🧑‍🍳</h3>
                                         <div className="recipes-container">
                                             {foundRecipes.map((foundRecipe) => {
                                                 const { image, totalTime, calories, healthLabels, label } = foundRecipe.recipe;

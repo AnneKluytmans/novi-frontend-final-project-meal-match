@@ -36,6 +36,7 @@
 }
 
 
+
 .recipe-quiz__question {
     border: 2px solid var(--primary-dark);
     border-radius: 1rem;
@@ -52,8 +53,21 @@
     margin: 0 auto 1.5rem;
 }
 
-
-
 .recipe-quiz__end-screen .recipe-quiz__nav-btn-container {
     margin-top: 2rem;
 }
+
+
+
+.recipe-quiz__result-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+}
+
+.recipe-quiz__result-screen h3 {
+    font-size: 2rem;
+}
+
