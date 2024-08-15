@@ -99,7 +99,7 @@ function RecipeQuiz() {
             if (axios.isCancel(e)) {
                 console.log('Request canceled', e.message);
             } else {
-                console.log('Error during fetching popular recipes:', e);
+                console.log('Error during fetching recipes:', e);
                 toggleError(true);
             }
         } finally {
