@@ -1,1 +1,7 @@
 /* ------------------------------- Search by ingredients page styling -------------------------------- */
+
+.ingredient-search__query {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+}

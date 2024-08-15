@@ -30,7 +30,7 @@ function IngredientSearch() {
         <section className="outer-content-container">
             <div className="inner-content-container__column">
                 <SectionDivider title="Search by ingredients" />
-                <form onSubmit={handleSubmit(handleFormSubmit)}>
+                <form className="ingredient-search__query" onSubmit={handleSubmit(handleFormSubmit)}>
                     <InputField
                         id="ingredients-field"
                         type="text"
@@ -43,12 +43,13 @@ function IngredientSearch() {
                             maxLength: { value: maxQueryLength, message: `Ingredients query cannot exceed ${maxQueryLength} characters` },
                         }}
                         error={errors.ingredients}
+                        className="ingredient-search__query--input"
                     />
                     <Button
                         type="submit"
-                        className="btn btn-search"
+                        className="btn btn__search"
                     >
-                        <MagnifyingGlass size={32}/>
+                        <MagnifyingGlass size={32} stroke="#EBFACC" strokeWidth={6}/>
                     </Button>
                 </form>
             </div>
