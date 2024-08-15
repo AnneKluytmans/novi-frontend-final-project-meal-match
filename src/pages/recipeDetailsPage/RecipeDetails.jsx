@@ -168,7 +168,7 @@ function RecipeDetails() {
                                   <p><Plant size={24}/> vegan</p>
                               }
                               {recipe.healthLabels.includes("Gluten-Free") ?
-                                  <p><Grains size={24}/> gluten free</p> : <p><GrainsSlash size={24}/> not gluten free</p>
+                                  <p><Grains size={24}/> gluten free</p> : <p><GrainsSlash size={24}/> contains gluten</p>
                               }
                           </div>
                           <img className="recipe-details__image" src={recipe.image} alt="recipe image"/>
