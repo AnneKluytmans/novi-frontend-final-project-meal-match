@@ -191,7 +191,7 @@ const quizQuestions = [
             },
             {
                 value: "pescatarian",
-                title: "Pescatarian exploration 🥗🐠",
+                title: "Pescatarian exploration 🐠🥗",
                 subtitle: "From salmon fillets to vibrant veggies, let your taste buds dance"
             },
             {
