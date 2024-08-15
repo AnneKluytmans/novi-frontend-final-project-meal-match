@@ -203,7 +203,7 @@ function RecipeQuiz() {
                         {!error && !loading &&
                             <>
                                 {foundRecipes.length > 0 ?
-                                    <div className="recipe-quiz__result-screen">
+                                    <div className="recipe-results-container">
                                         <h3>Your recipe matches 🎉🧑‍🍳</h3>
                                         <div className="recipes-container">
                                             {foundRecipes.map((foundRecipe) => {
@@ -231,17 +231,17 @@ function RecipeQuiz() {
                                             Take quiz again
                                         </Button>
                                     </div>
-                                    : <>
-                                          <h3 className="default-text-restrictor">
+                                    : <div className="recipe-results-container">
+                                          <h4 className="default-text-restrictor">
                                               Hmmm, no recipes found matching your quiz answers... Please try again! 💔🍲
-                                          </h3>
+                                          </h4>
                                           <Button
                                               onClick={resetQuiz}
                                               className="btn btn__default"
                                           >
                                               Try again
                                           </Button>
-                                      </>
+                                      </div>
                                 }
                             </>
                         }

@@ -116,7 +116,7 @@ function IngredientSearch() {
                         {!error && !loading &&
                             <>
                                 {foundRecipes.length > 0 ?
-                                    <div className="ingredient-search__recipes">
+                                    <div className="recipe-results-container">
                                         <h3>Your recipe matches 🎉🧑‍🍳</h3>
                                         <div className="recipes-container">
                                             {foundRecipes.map((foundRecipe) => {
@@ -138,9 +138,13 @@ function IngredientSearch() {
                                             }
                                         </div>
                                     </div> :
-                                    <h3 className="default-text-restrictor">
-                                        Hmmm, no recipes found matching your quiz answers... Please try again! 💔🍲
-                                    </h3>
+                                    <div className="recipe-results-container">
+                                        <h4 className="default-text-restrictor">
+                                            Hmmm, no recipes found matching your ingredients...
+                                            <br/>
+                                            Please check the ingredients and try again! 💔🍲
+                                        </h4>
+                                    </div>
                                 }
                             </>
                         }
