@@ -72,3 +72,15 @@
 .btn__next-prev:disabled:hover {
     transform: scale(1);
 }
+
+
+
+.btn__search {
+    background: var(--primary-dark);
+    border-radius: 0 0.5rem 0.5rem 0;
+    transition: transform 0.2s ease-in-out;
+}
+
+.btn__search:hover {
+    transform: scale(1.025);
+}

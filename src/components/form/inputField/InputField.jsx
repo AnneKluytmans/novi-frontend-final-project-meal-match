@@ -2,14 +2,14 @@ import { WarningCircle } from '@phosphor-icons/react';
 import './InputField.css';
 
 
-function InputField( { label, type = 'text', id, name, placeholder, register, validation, error } ) {
+function InputField( { className, label, type = 'text', id, name, placeholder, register, validation, error } ) {
     return (
-        <div className="input-field">
+        <div className={`input-field ${className}`}>
             <label htmlFor={id} className="input-field__label">
                 {label}
             </label>
             <input
-                className="input-field__field"
+                className={`input-field__field ${className}`}
                 type={type}
                 id={id}
                 placeholder={placeholder}

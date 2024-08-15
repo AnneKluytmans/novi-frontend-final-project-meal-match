@@ -1,4 +1,10 @@
-/* ------------------------------- Input field styling -------------------------------- */
+/*////////////////////////
+    Table of Contents
+    1. Input field styling
+    2. Input field mediaqueries
+ ////////////////////////*/
+
+/* ------------------------------- 1. Input field styling -------------------------------- */
 
 .input-field {
     display: flex;
@@ -43,5 +49,27 @@
 }
 
 .input-field__error p {
-    font-size: 0.875rem;
+    font-size: 1rem;
+}
+
+
+
+.input-field__field.ingredient-search__query--input {
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary);
+    border-radius: 0.5rem 0 0 0.5rem;
+
+    font-size: 1.1rem;
+
+    padding: 1.25rem 2rem;
+    width: 32rem;
+}
+
+
+/* ------------------------------- 2. Input field Mediaqueries -------------------------------- */
+
+@media screen and (max-width: 576px) {
+    .input-field__field.ingredient-search__query--input {
+        width: 24rem;
+    }
 }
