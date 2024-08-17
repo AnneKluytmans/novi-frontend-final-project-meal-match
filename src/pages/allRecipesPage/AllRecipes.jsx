@@ -4,15 +4,19 @@ import qs from 'qs';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
+import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
+import Loader from '../../components/misc/loader/Loader.jsx';
+import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
+import PreviousButton from '../../components/buttons/previousButton/PreviousButton.jsx';
+import NextButton from '../../components/buttons/nextButton/NextButton.jsx';
 import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM, apiEdamamFieldParam } from '../../constants/apiConfig.js';
 import './AllRecipes.css';
-import RecipeCard from "../../components/cards/recipeCard/RecipeCard.jsx";
-import Loader from "../../components/misc/loader/Loader.jsx";
-import ErrorMessage from "../../components/misc/errorMessage/ErrorMessage.jsx";
 
 
 function AllRecipes() {
     const [allRecipes, setAllRecipes] = useState(null);
+    const [showedRecipes, setShowedRecipes] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
     const [filters, setFilters] = useState(null);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
@@ -41,7 +45,7 @@ function AllRecipes() {
             let endpoint = `${API_URL_EDAMAM}?${paramsString}`;
 
             try {
-                while (fetchedRecipes.length < 120 && endpoint) {
+                while (fetchedRecipes.length < 100 && endpoint) {
                     const response = await axios.get(endpoint, {
                         headers: {
                             'Content-Type': 'application/json',
@@ -62,7 +66,7 @@ function AllRecipes() {
 
                 console.log('Recipes are fetched:', fetchedRecipes);
                 setAllRecipes(fetchedRecipes);
-
+                setCurrentPage(1); // Reset to page 1 when new recipes are fetched
             } catch (e) {
                 if (axios.isCancel(e)) {
                     console.log('Request canceled', e.message);
@@ -83,6 +87,20 @@ function AllRecipes() {
         }
     }, [filters]);
 
+    useEffect(() => {
+        if (allRecipes) {
+            const recipesPerPage = 12;
+            const startIndex = (currentPage - 1) * recipesPerPage;
+            const endIndex = startIndex + recipesPerPage;
+
+            if (endIndex <= allRecipes.length) {
+                setShowedRecipes(allRecipes.slice(startIndex, endIndex));
+            } else {
+                setShowedRecipes(allRecipes.slice(startIndex, allRecipes.length));
+            }
+        }
+    }, [allRecipes, currentPage]);
+
     return (
         <>
             <Header
@@ -92,26 +110,42 @@ function AllRecipes() {
             />
             <section className="outer-content-container">
                 <div className="inner-content-container__column">
-                    <SectionDivider title="Explore Recipes" />
-                    { allRecipes ?
-                        <div className="recipes-container">
-                            {allRecipes.map((allRecipe) => {
-                                const { image, totalTime, calories, healthLabels, label } = allRecipe.recipe;
-                                const id = allRecipe._links.self.href.split('/').pop();
-                                return (
-                                    <RecipeCard
-                                        key={id}
-                                        id={id}
-                                        image={image}
-                                        cookingTime={totalTime}
-                                        calories={calories}
-                                        vegetarian={healthLabels.includes("Vegetarian")}
-                                        vegan={healthLabels.includes("Vegan")}
-                                        title={label}
-                                    />
-                                );
-                            })
-                            }
+                    <SectionDivider title="Explore Recipes"/>
+                    {allRecipes && showedRecipes ?
+                        <div className="recipe-results-container">
+                            <div className="recipes-container">
+                                {showedRecipes.map((showedRecipe) => {
+                                    const {image, totalTime, calories, healthLabels, label} = showedRecipe.recipe;
+                                    const id = showedRecipe._links.self.href.split('/').pop();
+                                    return (
+                                        <RecipeCard
+                                            key={id}
+                                            id={id}
+                                            image={image}
+                                            cookingTime={totalTime}
+                                            calories={calories}
+                                            vegetarian={healthLabels.includes("Vegetarian")}
+                                            vegan={healthLabels.includes("Vegan")}
+                                            title={label}
+                                        />
+                                    );
+                                })
+                                }
+                            </div>
+                            <div className="nav-btn-container">
+                                <PreviousButton
+                                    count={currentPage}
+                                    setCount={setCurrentPage}
+                                    disabled={currentPage === 1}
+                                />
+                                <p>Page</p>
+                                <p>{currentPage}</p>
+                                <NextButton
+                                    count={currentPage}
+                                    setCount={setCurrentPage}
+                                    disabled={currentPage >= allRecipes.length / 12}
+                                />
+                            </div>
                         </div> : null
                     }
                     {loading && <Loader text="Finding delicious recipes just for you...🍝"/>}
