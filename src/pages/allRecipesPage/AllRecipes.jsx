@@ -38,6 +38,7 @@ function AllRecipes() {
                 app_key: API_KEY_EDAMAM,
                 field: apiEdamamFieldParam,
                 time: '1-120',
+                q: 'popular',
                 ...filters,
             };
 
@@ -111,45 +112,62 @@ function AllRecipes() {
             <section className="outer-content-container">
                 <div className="inner-content-container__column">
                     <SectionDivider title="Explore Recipes"/>
-                    {allRecipes && showedRecipes ?
-                        <div className="recipe-results-container">
-                            <div className="recipes-container">
-                                {showedRecipes.map((showedRecipe) => {
-                                    const {image, totalTime, calories, healthLabels, label} = showedRecipe.recipe;
-                                    const id = showedRecipe._links.self.href.split('/').pop();
-                                    return (
-                                        <RecipeCard
-                                            key={id}
-                                            id={id}
-                                            image={image}
-                                            cookingTime={totalTime}
-                                            calories={calories}
-                                            vegetarian={healthLabels.includes("Vegetarian")}
-                                            vegan={healthLabels.includes("Vegan")}
-                                            title={label}
-                                        />
-                                    );
-                                })
-                                }
-                            </div>
-                            <div className="nav-btn-container">
-                                <PreviousButton
-                                    count={currentPage}
-                                    setCount={setCurrentPage}
-                                    disabled={currentPage === 1}
-                                />
-                                <p>Page</p>
-                                <p>{currentPage}</p>
-                                <NextButton
-                                    count={currentPage}
-                                    setCount={setCurrentPage}
-                                    disabled={currentPage >= allRecipes.length / 12}
-                                />
-                            </div>
-                        </div> : null
-                    }
                     {loading && <Loader text="Finding delicious recipes just for you...🍝"/>}
                     {error && <ErrorMessage message="Something went wrong while fetching the recipes... Our chef seems to have misplaced them! 🍳💔"/>}
+                    {!loading && !error && allRecipes && showedRecipes &&
+                        <>
+                            {allRecipes.length > 0 ?
+                                <div className="recipe-results-container">
+                                    <div className="recipes-container">
+                                        {showedRecipes.map((showedRecipe) => {
+                                            const {
+                                                image,
+                                                totalTime,
+                                                calories,
+                                                healthLabels,
+                                                label
+                                            } = showedRecipe.recipe;
+                                            const id = showedRecipe._links.self.href.split('/').pop();
+                                            return (
+                                                <RecipeCard
+                                                    key={id}
+                                                    id={id}
+                                                    image={image}
+                                                    cookingTime={totalTime}
+                                                    calories={calories}
+                                                    vegetarian={healthLabels.includes("Vegetarian")}
+                                                    vegan={healthLabels.includes("Vegan")}
+                                                    title={label}
+                                                />
+                                            );
+                                        })
+                                        }
+                                    </div>
+                                    <div className="nav-btn-container">
+                                        <PreviousButton
+                                            count={currentPage}
+                                            setCount={setCurrentPage}
+                                            disabled={currentPage === 1}
+                                        />
+                                        <p>Page</p>
+                                        <p>{currentPage}</p>
+                                        <NextButton
+                                            count={currentPage}
+                                            setCount={setCurrentPage}
+                                            disabled={currentPage >= allRecipes.length / 12}
+                                        />
+                                    </div>
+                                </div> :
+                                <div className="recipe-results-container">
+                                    <h4 className="default-text-restrictor">
+                                        Hmmm, no recipes found matching your filters...
+                                        <br/>
+                                        Please try again! 💔🍲
+                                    </h4>
+                                </div>
+                            }
+                        </>
+                    }
                 </div>
             </section>
         </>
