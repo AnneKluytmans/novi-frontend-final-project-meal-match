@@ -49,6 +49,7 @@ function IngredientSearch() {
             app_key: API_KEY_EDAMAM,
             field: apiEdamamFieldParam,
             random: true,
+            time: '1-120',
             q: data.ingredients,
         };
 
