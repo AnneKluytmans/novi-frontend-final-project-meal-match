@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import qs from 'qs';
-import { MagnifyingGlass } from '@phosphor-icons/react';
+import { MagnifyingGlass, CaretDown, CaretUp } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
+import Dropdown from '../../components/dropdowns/dropdown/Dropdown.jsx';
+import Button from '../../components/buttons/button/Button.jsx';
 import PreviousButton from '../../components/buttons/previousButton/PreviousButton.jsx';
 import NextButton from '../../components/buttons/nextButton/NextButton.jsx';
 import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM, apiEdamamFieldParam } from '../../constants/apiConfig.js';
@@ -18,8 +21,11 @@ function AllRecipes() {
     const [showedRecipes, setShowedRecipes] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [filters, setFilters] = useState(null);
+    const [sortOption, setSortOption] = useState(null);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
+
+    const { register, handleSubmit } = useForm();
 
     useEffect ( () => {
         // Fetches recipes from Edamam API on component mount or update of filters and cancels ongoing Axios requests on component unmount
@@ -90,17 +96,46 @@ function AllRecipes() {
 
     useEffect(() => {
         if (allRecipes) {
+            const sortedRecipes = sortRecipes(allRecipes, sortOption);
             const recipesPerPage = 12;
             const startIndex = (currentPage - 1) * recipesPerPage;
             const endIndex = startIndex + recipesPerPage;
 
             if (endIndex <= allRecipes.length) {
-                setShowedRecipes(allRecipes.slice(startIndex, endIndex));
+                setShowedRecipes(sortedRecipes.slice(startIndex, endIndex));
             } else {
-                setShowedRecipes(allRecipes.slice(startIndex, allRecipes.length));
+                setShowedRecipes(sortedRecipes.slice(startIndex, sortedRecipes.length));
             }
         }
-    }, [allRecipes, currentPage]);
+    }, [allRecipes, currentPage, sortOption]);
+
+
+    function handleFormSubmitSort(data) {
+        applySorting(data.sortOption);
+    }
+
+    function sortRecipes(recipes, sortOption) {
+        switch (sortOption) {
+            case 'cookingTimeAsc':
+                return [...recipes].sort((a, b) => a.recipe.totalTime - b.recipe.totalTime);
+            case 'cookingTimeDesc':
+                return [...recipes].sort((a, b) => b.recipe.totalTime - a.recipe.totalTime);
+            case 'caloriesAsc':
+                return [...recipes].sort((a, b) => a.recipe.calories - b.recipe.calories);
+            case 'caloriesDesc':
+                return [...recipes].sort((a, b) => b.recipe.calories - a.recipe.calories);
+            case 'ingredientsAsc':
+                return [...recipes].sort((a, b) => a.recipe.ingredients.length - b.recipe.ingredients.length);
+            case 'ingredientsDesc':
+                return [...recipes].sort((a, b) => b.recipe.ingredients.length - a.recipe.ingredients.length);
+            default:
+                return recipes;
+        }
+    }
+
+    function applySorting(newSortOption) {
+        setSortOption(newSortOption);
+    }
 
     return (
         <>
@@ -112,6 +147,78 @@ function AllRecipes() {
             <section className="outer-content-container">
                 <div className="inner-content-container__column">
                     <SectionDivider title="Explore Recipes"/>
+                    <div className="filter-sort-container">
+                        <Dropdown
+                            title="Sort"
+                            openIcon={<CaretUp size={28}/>}
+                            closedIcon={<CaretDown size={28}/>}
+                            closeOnContentClick={false}
+                            className="dropdown__filter-sort"
+                        >
+                            <h4>Sort by</h4>
+                            <form onSubmit={handleSubmit(handleFormSubmitSort)}>
+                                <div>
+                                    <h5>Cooking Time</h5>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            value="cookingTimeAsc"
+                                            {...register('sortOption')}
+                                        />
+                                        Cooking Time (short to long)
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            value="cookingTimeDesc"
+                                            {...register('sortOption')}
+                                        />
+                                        Cooking Time (long to short)
+                                    </label>
+                                    <h5>Calories</h5>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            value="caloriesAsc"
+                                            {...register('sortOption')}
+                                        />
+                                        Calories (low to high)
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            value="caloriesDesc"
+                                            {...register('sortOption')}
+                                        />
+                                        Calories (high to low)
+                                    </label>
+                                    <h5>Ingredients</h5>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            value="ingredientsAsc"
+                                            {...register('sortOption')}
+                                        />
+                                        Ingredients (few to many)
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            value="ingredientsDesc"
+                                            {...register('sortOption')}
+                                        />
+                                        Ingredients (many to few)
+                                    </label>
+                                </div>
+                                <Button
+                                    type="submit"
+                                    className="btn btn__transparent"
+                                >
+                                    Sort recipes
+                                </Button>
+                            </form>
+                        </Dropdown>
+                    </div>
                     {loading && <Loader text="Finding delicious recipes just for you...🍝"/>}
                     {error && <ErrorMessage message="Something went wrong while fetching the recipes... Our chef seems to have misplaced them! 🍳💔"/>}
                     {!loading && !error && allRecipes && showedRecipes &&
