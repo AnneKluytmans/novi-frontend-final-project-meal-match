@@ -84,3 +84,16 @@
 .btn__search:hover {
     transform: scale(1.025);
 }
+
+
+
+.btn__filter-sort {
+    color: var(--light);
+    background: var(--primary-dark);
+    border-radius: 0.5rem;
+    transition: transform 0.2s ease-in-out;
+}
+
+.btn__filter-sort:hover {
+    transform: scale(1.025);
+}

@@ -155,64 +155,61 @@ function AllRecipes() {
                             closeOnContentClick={false}
                             className="dropdown__filter-sort"
                         >
-                            <h4>Sort by</h4>
-                            <form onSubmit={handleSubmit(handleFormSubmitSort)}>
-                                <div>
-                                    <h5>Cooking Time</h5>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            value="cookingTimeAsc"
-                                            {...register('sortOption')}
-                                        />
-                                        Cooking Time (short to long)
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            value="cookingTimeDesc"
-                                            {...register('sortOption')}
-                                        />
-                                        Cooking Time (long to short)
-                                    </label>
-                                    <h5>Calories</h5>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            value="caloriesAsc"
-                                            {...register('sortOption')}
-                                        />
-                                        Calories (low to high)
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            value="caloriesDesc"
-                                            {...register('sortOption')}
-                                        />
-                                        Calories (high to low)
-                                    </label>
-                                    <h5>Ingredients</h5>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            value="ingredientsAsc"
-                                            {...register('sortOption')}
-                                        />
-                                        Ingredients (few to many)
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            value="ingredientsDesc"
-                                            {...register('sortOption')}
-                                        />
-                                        Ingredients (many to few)
-                                    </label>
-                                </div>
+                            <form className="filter-sort-container__options" onSubmit={handleSubmit(handleFormSubmitSort)}>
+                                <h5>Cooking Time</h5>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="cookingTimeAsc"
+                                        {...register('sortOption')}
+                                    />
+                                    Cooking Time (short to long)
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="cookingTimeDesc"
+                                        {...register('sortOption')}
+                                    />
+                                    Cooking Time (long to short)
+                                </label>
+                                <h5>Calories</h5>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="caloriesAsc"
+                                        {...register('sortOption')}
+                                    />
+                                    Calories (low to high)
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="caloriesDesc"
+                                        {...register('sortOption')}
+                                    />
+                                    Calories (high to low)
+                                </label>
+                                <h5>Ingredients</h5>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="ingredientsAsc"
+                                        {...register('sortOption')}
+                                    />
+                                    Ingredients (few to many)
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="ingredientsDesc"
+                                        {...register('sortOption')}
+                                    />
+                                    Ingredients (many to few)
+                                </label>
                                 <Button
                                     type="submit"
-                                    className="btn btn__transparent"
+                                    className="btn btn__filter-sort"
                                 >
                                     Sort recipes
                                 </Button>

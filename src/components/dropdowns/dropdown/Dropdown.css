@@ -3,6 +3,7 @@
     1. Global dropdown styling
     2. Dropdowns NavBar styling
     3. Dropdown Profile page styling
+    4. Dropdown filter and sort styling
  ////////////////////////*/
 
 /* ------------------------------- 1. Global dropdown styling -------------------------------- */
@@ -31,7 +32,7 @@
 
 /* ------------------------------- 2. Dropdowns NavBar styling -------------------------------- */
 
-/* ------------------------------- 2.1 Dropdown Navigation header styling -------------------- */
+/* ------------------------------- 2.1 Dropdown NavBar header styling -------------------- */
 
 .dropdown__nav-link .dropdown__header {
     color: var(--light);
@@ -60,7 +61,6 @@
 }
 
 
-/* ------------------------------- 2.2 Dropdown Hamburger Menu header styling -------------------- */
 
 .dropdown__hamburger-menu .dropdown__header {
     color: var(--primary);
@@ -74,7 +74,7 @@
 
 
 
-/* ------------------------------- 2.3 Dropdown NavBar content styling -------------------- */
+/* ------------------------------- 2.2 Dropdown NavBar content styling -------------------- */
 
 .dropdown__nav-bar .dropdown__content {
     background-color: var(--light);
@@ -127,4 +127,39 @@
 .dropdown__profile-page .dropdown__header:hover {
     border-bottom: 2px solid var(--primary-dark);
     font-weight: 500;
+}
+
+
+
+/* ------------------------------- 4. Dropdown filter and sort styling -------------------------------- */
+
+.dropdown__filter-sort .dropdown__header {
+    color: var(--light);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    background-color: var(--primary-dark);
+    border-radius: 0.5rem;
+
+    padding: 0.25rem 1.25rem;
+    gap: 14rem;
+}
+
+.dropdown__filter-sort .dropdown__icon {
+    stroke: var(--light);
+    stroke-width: 8;
+}
+
+.dropdown__filter-sort .dropdown__header:hover {
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.dropdown__filter-sort .dropdown__content {
+    background-color: var(--primary);
+    border-radius: 0.5rem;
+
+    padding: 0.5rem 1rem;
+    margin-top: 0.25rem;
 }
