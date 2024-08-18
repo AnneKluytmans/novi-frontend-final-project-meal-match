@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import qs from 'qs';
-import { MagnifyingGlass, CaretDown, CaretUp } from '@phosphor-icons/react';
+import { MagnifyingGlass, CaretDown, CaretUp, Plus, Minus } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
@@ -110,6 +110,22 @@ function AllRecipes() {
     }, [allRecipes, currentPage, sortOption]);
 
 
+    function handleFormSubmitFilter(data) {
+        const selectedDishTypes = data.dishType ? data.dishType : null;
+        const selectedMealTypes = data.mealType ? data.mealType : null;
+        const selectedCuisineTypes = data.cuisineType ? data.cuisineType : null;
+        const selectedHealthFilters = data.health ? data.health : null;
+
+        const newFilters = {
+            ...(selectedDishTypes && {dishType: selectedDishTypes}),
+            ...(selectedMealTypes && {mealType: selectedMealTypes}),
+            ...(selectedCuisineTypes && {cuisineType: selectedCuisineTypes}),
+            ...(selectedHealthFilters && {health: selectedHealthFilters}),
+        };
+
+        setFilters(newFilters);
+    }
+
     function handleFormSubmitSort(data) {
         applySorting(data.sortOption);
     }
@@ -134,6 +150,7 @@ function AllRecipes() {
     }
 
     function applySorting(newSortOption) {
+        setCurrentPage(1);
         setSortOption(newSortOption);
     }
 
@@ -148,6 +165,171 @@ function AllRecipes() {
                 <div className="inner-content-container__column">
                     <SectionDivider title="Explore Recipes"/>
                     <div className="filter-sort-container">
+                        <Dropdown
+                            title="Filters"
+                            openIcon={<Minus size={28}/>}
+                            closedIcon={<Plus size={28}/>}
+                            closeOnContentClick={false}
+                            className="dropdown__filter-sort"
+                        >
+                            <form className="filter-sort-container__options" onSubmit={handleSubmit(handleFormSubmitFilter)}>
+                                <div className="filter-sort-container__options-wrapper">
+                                    <h5>Dish Type</h5>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Breakfast"
+                                            {...register('mealType')}
+                                        />
+                                        Breakfast
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Lunch"
+                                            {...register('mealType')}
+                                        />
+                                        Lunch
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Dinner"
+                                            {...register('mealType')}
+                                        />
+                                        Dinner
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Snack"
+                                            {...register('mealType')}
+                                        />
+                                        Snack
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Desserts"
+                                            {...register('dishType')}
+                                        />
+                                        Dessert
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Drinks"
+                                            {...register('dishType')}
+                                        />
+                                        Drink
+                                    </label>
+                                    <h5>Cuisine</h5>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="American"
+                                            {...register('cuisineType')}
+                                        />
+                                        American
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Asian"
+                                            {...register('cuisineType')}
+                                        />
+                                        Asian
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Eastern Europe"
+                                            {...register('cuisineType')}
+                                        />
+                                        Eastern Europe
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Mediterranean"
+                                            {...register('cuisineType')}
+                                        />
+                                        Mediterranean
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Middle Eastern"
+                                            {...register('cuisineType')}
+                                        />
+                                        Middle Eastern
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="South American"
+                                            {...register('cuisineType')}
+                                        />
+                                        South American
+                                    </label>
+                                    <h5>Diet</h5>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="gluten-free"
+                                            {...register('health')}
+                                        />
+                                        Gluten free
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="tree-nut-free"
+                                            {...register('health')}
+                                        />
+                                        Nut free
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="dairy-free"
+                                            {...register('health')}
+                                        />
+                                        Dairy free
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="alcohol-free"
+                                            {...register('health')}
+                                        />
+                                        Alcohol free
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="vegetarian"
+                                            {...register('health')}
+                                        />
+                                        Vegetarian
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="vegan"
+                                            {...register('health')}
+                                        />
+                                        Vegan
+                                    </label>
+                                </div>
+                                <Button
+                                    type="submit"
+                                    className="btn btn__filter-sort"
+                                >
+                                    Filter recipes
+                                </Button>
+                            </form>
+                        </Dropdown>
                         <Dropdown
                             title="Sort"
                             openIcon={<CaretUp size={28}/>}
