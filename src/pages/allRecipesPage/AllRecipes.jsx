@@ -235,22 +235,6 @@ function AllRecipes() {
                                     <label>
                                         <input
                                             type="checkbox"
-                                            value="Asian"
-                                            {...register('cuisineType')}
-                                        />
-                                        Asian
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            value="Eastern Europe"
-                                            {...register('cuisineType')}
-                                        />
-                                        Eastern Europe
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="checkbox"
                                             value="Mediterranean"
                                             {...register('cuisineType')}
                                         />
@@ -259,10 +243,26 @@ function AllRecipes() {
                                     <label>
                                         <input
                                             type="checkbox"
+                                            value="Eastern Europe"
+                                            {...register('cuisineType')}
+                                        />
+                                        European
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
                                             value="Middle Eastern"
                                             {...register('cuisineType')}
                                         />
                                         Middle Eastern
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value="Asian"
+                                            {...register('cuisineType')}
+                                        />
+                                        Asian
                                     </label>
                                     <label>
                                         <input

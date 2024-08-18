@@ -31,3 +31,10 @@
 .filter-sort-container__options button {
     margin-top: 1.5rem;
 }
+
+
+
+.filter-sort-container__options-wrapper label {
+    margin-right: 0.75rem;
+    white-space: nowrap;
+}
