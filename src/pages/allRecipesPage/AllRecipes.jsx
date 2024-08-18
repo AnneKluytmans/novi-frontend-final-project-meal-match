@@ -155,7 +155,8 @@ function AllRecipes() {
                             closeOnContentClick={false}
                             className="dropdown__filter-sort"
                         >
-                            <form className="filter-sort-container__options" onSubmit={handleSubmit(handleFormSubmitSort)}>
+                            <form className="filter-sort-container__options"
+                                  onSubmit={handleSubmit(handleFormSubmitSort)}>
                                 <h5>Cooking Time</h5>
                                 <label>
                                     <input
@@ -207,6 +208,15 @@ function AllRecipes() {
                                     />
                                     Ingredients (many to few)
                                 </label>
+                                <h5>No sorting</h5>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="default"
+                                        {...register('sortOption')}
+                                    />
+                                    Default
+                                </label>
                                 <Button
                                     type="submit"
                                     className="btn btn__filter-sort"
@@ -217,10 +227,11 @@ function AllRecipes() {
                         </Dropdown>
                     </div>
                     {loading && <Loader text="Finding delicious recipes just for you...🍝"/>}
-                    {error && <ErrorMessage message="Something went wrong while fetching the recipes... Our chef seems to have misplaced them! 🍳💔"/>}
+                    {error && <ErrorMessage
+                        message="Something went wrong while fetching the recipes... Our chef seems to have misplaced them! 🍳💔"/>}
                     {!loading && !error && allRecipes && showedRecipes &&
                         <>
-                            {allRecipes.length > 0 ?
+                        {allRecipes.length > 0 ?
                                 <div className="recipe-results-container">
                                     <div className="recipes-container">
                                         {showedRecipes.map((showedRecipe) => {
