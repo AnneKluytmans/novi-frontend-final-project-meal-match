@@ -2,11 +2,17 @@ import { useState } from 'react';
 import './Dropdown.css';
 import Button from "../../buttons/button/Button.jsx";
 
-function Dropdown ( { title, openIcon, closedIcon, children, className = '' } ) {
+function Dropdown ( { title, openIcon, closedIcon, children, className = '', closeOnContentClick } ) {
     const [isOpen, toggleIsOpen] = useState(false);
 
     function toggleDropdown() {
         toggleIsOpen(!isOpen);
+    }
+
+    function handleContentClick() {
+        if (closeOnContentClick) {
+            toggleDropdown();
+        }
     }
 
     return (
@@ -23,7 +29,7 @@ function Dropdown ( { title, openIcon, closedIcon, children, className = '' } ) 
                 </span>
             </Button>
             {isOpen && (
-                <div className={"dropdown__content"}>
+                <div className={"dropdown__content"} onClick={handleContentClick}>
                     {children}
                 </div>
             )}

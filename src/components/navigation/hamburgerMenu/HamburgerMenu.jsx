@@ -8,6 +8,7 @@ function HamburgerMenu( { children }) {
         <Dropdown
             openIcon={<X size={44}/>}
             closedIcon={<List size={44}/>}
+            closeOnContentClick={true}
             className="dropdown__nav-bar dropdown__nav-bar--default dropdown__hamburger-menu"
         >
             <DropdownItem to="/" name="Home" />

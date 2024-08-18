@@ -148,6 +148,7 @@ function Profile() {
                         title="Your Personal Details"
                         openIcon={<CaretUp size={28}/>}
                         closedIcon={<CaretDown size={28}/>}
+                        closeOnContentClick={false}
                         className="dropdown__profile-page"
                     >
                         <DropdownItemProfile
