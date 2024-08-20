@@ -1,1 +1,40 @@
 /* ------------------------------- All recipe page styling -------------------------------- */
+
+.filter-sort-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+
+
+
+.filter-sort-container__options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    max-width: 20rem;
+}
+
+.filter-sort-container__options input {
+    margin-right: 1rem;
+}
+
+.filter-sort-container__options label + label {
+    margin-top: 0.5rem;
+}
+
+.filter-sort-container__options button {
+    margin-top: 1.5rem;
+}
+
+
+
+.filter-sort-container__options-wrapper label {
+    margin-right: 0.75rem;
+    white-space: nowrap;
+}

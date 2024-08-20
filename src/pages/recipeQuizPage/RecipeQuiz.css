@@ -44,17 +44,7 @@
 }
 
 
-.recipe-quiz__nav-btn-container {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row-reverse;
-
-    width: 100%;
-    max-width: 8rem;
-    margin: 0 auto 1.5rem;
-}
-
-.recipe-quiz__end-screen .recipe-quiz__nav-btn-container {
+.recipe-quiz__end-screen .nav-btn-container {
     margin-top: 2rem;
 }
 

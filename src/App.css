@@ -52,6 +52,7 @@
     row-gap: 3rem;
 }
 
+
 .recipe-results-container {
     display: flex;
     flex-direction: column;
@@ -65,6 +66,16 @@
 
 .recipe-results-container h3 {
     font-size: 1.75rem;
+}
+
+
+.nav-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    margin: 0 auto 1.5rem;
 }
 
 /* ------------------------------- 2. Main -------------------------------- */

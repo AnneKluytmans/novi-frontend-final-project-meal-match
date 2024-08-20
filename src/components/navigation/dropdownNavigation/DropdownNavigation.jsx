@@ -10,6 +10,7 @@ function DropdownNavigation({ title, className, children } ) {
                 title={title}
                 openIcon={<CaretUp size={22}/>}
                 closedIcon={<CaretDown size={22}/>}
+                closeOnContentClick={true}
                 className={`dropdown__nav-bar dropdown__nav-link ${className}`}
             >
                 {children}

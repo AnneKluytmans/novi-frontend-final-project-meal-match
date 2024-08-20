@@ -140,25 +140,25 @@ function RecipeQuiz() {
                         </div> :
                           currentQuestionIndex < quizQuestions.length ?
                               <div className="recipe-quiz__question">
-                                <QuizQuestion
+                                  <QuizQuestion
                                     count={currentQuestionIndex + 1}
                                     question={currentQuestion.question}
                                     options={currentQuestion.answerOptions}
                                     onSelect={SelectAnswer}
                                     selectedAnswer={selectedAnswers[currentQuestionIndex]}
-                                />
-                                <div className="recipe-quiz__nav-btn-container">
-                                    <NextButton
-                                        count={currentQuestionIndex}
-                                        setCount={setCurrentQuestionIndex}
-                                        disabled={!isAnswerSelected || currentQuestionIndex === quizQuestions.length}
-                                    />
-                                    <PreviousButton
-                                        count={currentQuestionIndex}
-                                        setCount={setCurrentQuestionIndex}
-                                        disabled={currentQuestionIndex === 0}
-                                    />
-                                </div>
+                                  />
+                                  <div className="nav-btn-container">
+                                      <PreviousButton
+                                          count={currentQuestionIndex}
+                                          setCount={setCurrentQuestionIndex}
+                                          disabled={currentQuestionIndex === 0}
+                                      />
+                                      <NextButton
+                                          count={currentQuestionIndex}
+                                          setCount={setCurrentQuestionIndex}
+                                          disabled={!isAnswerSelected || currentQuestionIndex === quizQuestions.length}
+                                      />
+                                  </div>
                               </div>
                               :
                               <div className="recipe-quiz__end-screen">
@@ -170,16 +170,16 @@ function RecipeQuiz() {
                                   >
                                       Uncover recipes
                                   </Button>
-                                  <div className="recipe-quiz__nav-btn-container">
-                                      <NextButton
-                                          count={currentQuestionIndex}
-                                          setCount={setCurrentQuestionIndex}
-                                          disabled={!isAnswerSelected || currentQuestionIndex === quizQuestions.length}
-                                      />
+                                  <div className="nav-btn-container">
                                       <PreviousButton
                                           count={currentQuestionIndex}
                                           setCount={setCurrentQuestionIndex}
                                           disabled={currentQuestionIndex === 0}
+                                      />
+                                      <NextButton
+                                          count={currentQuestionIndex}
+                                          setCount={setCurrentQuestionIndex}
+                                          disabled={!isAnswerSelected || currentQuestionIndex === quizQuestions.length}
                                       />
                                   </div>
                               </div>
