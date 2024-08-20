@@ -60,6 +60,7 @@ function AllRecipes() {
                         signal: controller.signal,
                     });
 
+                    console.log(response.data);
                     fetchedRecipes = [...fetchedRecipes, ...response.data.hits];
 
                     if (response.data._links && response.data._links.next && response.data._links.next.href) {
@@ -243,7 +244,7 @@ function AllRecipes() {
                                     <label>
                                         <input
                                             type="checkbox"
-                                            value="Eastern Europe"
+                                            value="French"
                                             {...register('cuisineType')}
                                         />
                                         European
@@ -251,7 +252,7 @@ function AllRecipes() {
                                     <label>
                                         <input
                                             type="checkbox"
-                                            value="Middle Eastern"
+                                            value="Indian"
                                             {...register('cuisineType')}
                                         />
                                         Middle Eastern
@@ -259,7 +260,7 @@ function AllRecipes() {
                                     <label>
                                         <input
                                             type="checkbox"
-                                            value="Asian"
+                                            value="Chinese"
                                             {...register('cuisineType')}
                                         />
                                         Asian
