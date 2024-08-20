@@ -1,0 +1,14 @@
+/* ------------------------------- Favorite Button styling -------------------------------- */
+
+.btn__favorite {
+    background-color: var(--white);
+
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    z-index: 100;
+}
+
+.btn__favorite.recipe-details {
+    top: 2rem;
+}

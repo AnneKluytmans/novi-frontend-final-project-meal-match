@@ -9,12 +9,14 @@ import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
 import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
+import FavoriteButton from '../../components/buttons/favoriteButton/FavoriteButton.jsx';
 import formatTime from '../../helpers/formatTime.js';
 import formatCalories from '../../helpers/formatCalories.js';
 import abbreviateIngredientUnit from '../../helpers/abbreviateIngredientUnit.js';
 import adjustIngredientQuantity from '../../helpers/adjustIngredientQuantity.js';
 import {API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM, apiEdamamFieldParam} from '../../constants/apiConfig.js';
 import './RecipeDetails.css';
+
 
 
 function RecipeDetails() {
@@ -171,7 +173,10 @@ function RecipeDetails() {
                                   <p><Grains size={24}/> gluten free</p> : <p><GrainsSlash size={24}/> contains gluten</p>
                               }
                           </div>
-                          <img className="recipe-details__image" src={recipe.image} alt="recipe image"/>
+                          <div className="recipe-details__image-wrapper">
+                              <img className="recipe-details__image" src={recipe.image} alt="recipe image"/>
+                              <FavoriteButton recipeId={id} className="recipe-details"/>
+                          </div>
                           <div className="recipe-details__categories">
                               {recipe.cuisineType.map((cuisine) => {
                                   return (
