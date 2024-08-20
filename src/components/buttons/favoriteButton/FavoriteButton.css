@@ -2,13 +2,55 @@
 
 .btn__favorite {
     background-color: var(--white);
+    padding: 0.25rem 0.8rem;
 
     position: absolute;
     top: 0.5rem;
     right: 1rem;
     z-index: 100;
+
+    transition: transform 0.3s ease-in-out;
 }
 
-.btn__favorite.recipe-details {
+.btn__favorite.recipe-details__fav-btn {
     top: 2rem;
+    right: 1rem;
+}
+
+
+
+.btn__favorite--heart-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-top: 0.25rem;
+    transition: transform 0.3s ease-in-out, stroke 0.3s ease-in-out;
+}
+
+.btn__favorite--heart-icon.favorite {
+    stroke: var(--secondary-pink);
+    color: var(--secondary-pink);
+}
+
+.btn__favorite--heart-icon.not-favorite {
+    stroke: var(--dark);
+    stroke-width: 12;
+    color: var(--white);
+}
+
+
+.btn__favorite:hover .btn__favorite--heart-icon {
+    animation: pulse 0.5s infinite;
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }

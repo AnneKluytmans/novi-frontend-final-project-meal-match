@@ -175,7 +175,7 @@ function RecipeDetails() {
                           </div>
                           <div className="recipe-details__image-wrapper">
                               <img className="recipe-details__image" src={recipe.image} alt="recipe image"/>
-                              <FavoriteButton recipeId={id} className="recipe-details"/>
+                              <FavoriteButton recipeId={id} className="recipe-details__fav-btn"/>
                           </div>
                           <div className="recipe-details__categories">
                               {recipe.cuisineType.map((cuisine) => {

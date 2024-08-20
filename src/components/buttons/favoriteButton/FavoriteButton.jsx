@@ -5,7 +5,7 @@ import Button from '../button/Button.jsx';
 import './FavoriteButton.css';
 
 
-function FavoriteButton( { recipeId } ) {
+function FavoriteButton( { recipeId, className } ) {
     const { favoriteRecipes, setFavoriteRecipes, updateFavoriteRecipes } = useContext(FavContext);
     const [isFavorite, toggleIsFavorite] = useState(false);
 
@@ -28,7 +28,7 @@ function FavoriteButton( { recipeId } ) {
     return (
         <Button
             onClick={toggleFavorite}
-            className={`btn btn__favorite ${isFavorite ? 'favorite' : 'not-favorite'}`}
+            className={`btn btn__favorite ${isFavorite ? 'favorite' : 'not-favorite'} ${className || ''}`}
         >
             <Heart weight="fill" className={`btn__favorite--heart-icon ${isFavorite ? 'favorite' : 'not-favorite'}`}/>
         </Button>
