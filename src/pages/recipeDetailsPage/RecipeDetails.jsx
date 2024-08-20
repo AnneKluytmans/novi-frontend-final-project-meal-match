@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import qs from 'qs';
 import { ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash, Circle, MinusCircle, PlusCircle, CaretRight, ChefHat } from '@phosphor-icons/react';
+import { AuthContext } from '../../context/AuthContext.jsx';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
@@ -28,6 +29,7 @@ function RecipeDetails() {
     const [errorSimRecipes, toggleErrorSimRecipes] = useState(false);
     const [loadingSimRecipes, toggleLoadingSimRecipes] = useState(false);
 
+    const { isAuth } = useContext(AuthContext);
     const { id } = useParams();
     const maxRecipesReturned = 6;
 
@@ -175,7 +177,9 @@ function RecipeDetails() {
                           </div>
                           <div className="recipe-details__image-wrapper">
                               <img className="recipe-details__image" src={recipe.image} alt="recipe image"/>
-                              <FavoriteButton recipeId={id} className="recipe-details__fav-btn"/>
+                              {isAuth ?
+                                  <FavoriteButton recipeId={id}/> : null
+                              }
                           </div>
                           <div className="recipe-details__categories">
                               {recipe.cuisineType.map((cuisine) => {
@@ -242,7 +246,7 @@ function RecipeDetails() {
                           <div className="recipe-details__instructions">
                               <h4 className="instructions__title">Instructions</h4>
                               <h5 className="instructions__text">
-                                  Let's get cooking! Follow the link below for step-by-step instructions to create this
+                                  Let&apos;s get cooking! Follow the link below for step-by-step instructions to create this
                                   delicious dish! 🍽️👨‍🍳
                               </h5>
                               <a href={recipe.url} target="_blank" rel="noopener noreferrer" className="go-to-link">
