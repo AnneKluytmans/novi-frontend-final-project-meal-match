@@ -178,7 +178,7 @@ function RecipeDetails() {
                           <div className="recipe-details__image-wrapper">
                               <img className="recipe-details__image" src={recipe.image} alt="recipe image"/>
                               {isAuth ?
-                                  <FavoriteButton recipeId={id}/> : null
+                                  <FavoriteButton recipeId={id} className="recipe-details__fav-btn"/> : null
                               }
                           </div>
                           <div className="recipe-details__categories">

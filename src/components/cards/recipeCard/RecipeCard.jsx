@@ -15,12 +15,12 @@ function RecipeCard( { image, cookingTime, calories, vegetarian, vegan, title, i
     return(
         <>
         {id ?
-            <article className="recipe-card" onClick={ () => navigate(`/recipe-details/${id}`) }>
-                    <img className="recipe-card__image" src={image} alt="recipe image"/>
+            <article className="recipe-card">
+                    <img className="recipe-card__image" src={image} alt="recipe image" onClick={ () => navigate(`/recipe-details/${id}`) }/>
                     {isAuth ?
-                        <FavoriteButton recipeId={id}/> : null
+                        <FavoriteButton recipeId={id.split('?')[0]}/> : null
                     }
-                    <div className="recipe-card__content">
+                    <div className="recipe-card__content" onClick={ () => navigate(`/recipe-details/${id}`) }>
                         <div className="recipe-card__info">
                             <p><ClockCounterClockwise size={24}/> {formatTime(cookingTime)}</p>
                             <p><Fire size={24}/> {formatCalories(calories)}</p>
