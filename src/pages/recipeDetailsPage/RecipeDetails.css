@@ -44,6 +44,10 @@
     gap: 0.25rem;
 }
 
+.recipe-details__image-wrapper {
+    max-width: 20rem;
+    position: relative;
+}
 
 .recipe-details__image {
     max-width: 20rem;

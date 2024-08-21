@@ -1,20 +1,23 @@
-import { useEffect, useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import qs from 'qs';
 import { ClockCounterClockwise, CookingPot, Fire, Plant, Grains, GrainsSlash, Circle, MinusCircle, PlusCircle, CaretRight, ChefHat } from '@phosphor-icons/react';
+import { AuthContext } from '../../context/AuthContext.jsx';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
 import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
+import FavoriteButton from '../../components/buttons/favoriteButton/FavoriteButton.jsx';
 import formatTime from '../../helpers/formatTime.js';
 import formatCalories from '../../helpers/formatCalories.js';
 import abbreviateIngredientUnit from '../../helpers/abbreviateIngredientUnit.js';
 import adjustIngredientQuantity from '../../helpers/adjustIngredientQuantity.js';
 import {API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM, apiEdamamFieldParam} from '../../constants/apiConfig.js';
 import './RecipeDetails.css';
+
 
 
 function RecipeDetails() {
@@ -26,6 +29,7 @@ function RecipeDetails() {
     const [errorSimRecipes, toggleErrorSimRecipes] = useState(false);
     const [loadingSimRecipes, toggleLoadingSimRecipes] = useState(false);
 
+    const { isAuth } = useContext(AuthContext);
     const { id } = useParams();
     const maxRecipesReturned = 6;
 
@@ -171,7 +175,12 @@ function RecipeDetails() {
                                   <p><Grains size={24}/> gluten free</p> : <p><GrainsSlash size={24}/> contains gluten</p>
                               }
                           </div>
-                          <img className="recipe-details__image" src={recipe.image} alt="recipe image"/>
+                          <div className="recipe-details__image-wrapper">
+                              <img className="recipe-details__image" src={recipe.image} alt="recipe image"/>
+                              {isAuth ?
+                                  <FavoriteButton recipeId={id} className="recipe-details__fav-btn"/> : null
+                              }
+                          </div>
                           <div className="recipe-details__categories">
                               {recipe.cuisineType.map((cuisine) => {
                                   return (
@@ -237,7 +246,7 @@ function RecipeDetails() {
                           <div className="recipe-details__instructions">
                               <h4 className="instructions__title">Instructions</h4>
                               <h5 className="instructions__text">
-                                  Let's get cooking! Follow the link below for step-by-step instructions to create this
+                                  Let&apos;s get cooking! Follow the link below for step-by-step instructions to create this
                                   delicious dish! 🍽️👨‍🍳
                               </h5>
                               <a href={recipe.url} target="_blank" rel="noopener noreferrer" className="go-to-link">
