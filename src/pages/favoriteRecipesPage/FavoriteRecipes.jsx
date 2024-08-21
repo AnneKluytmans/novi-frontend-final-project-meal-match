@@ -9,7 +9,6 @@ import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
-import './FavoriteRecipes.css'
 
 
 function FavoriteRecipes() {
