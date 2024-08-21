@@ -88,43 +88,40 @@ function FavoriteRecipes() {
                       <ErrorMessage message="Something went wrong while fetching your favorite recipes... Our chef seems to have misplaced them! 🍳💔"/>
                   }
                   {!loading && !error && !contextLoading && !contextError && recipes &&
-                      <div className="recipe-results-container">
-                          <h3>Your favorite recipes 🧡🎉</h3>
-                          <div className="recipes-container">
-                              {recipes.map((recipe) => {
-                                  const {
-                                      image,
-                                      totalTime,
-                                      calories,
-                                      healthLabels,
-                                      label
-                                  } = recipe.recipe;
-                                  const id = recipe._links.self.href.split('/').pop();
-                                  return (
-                                      <RecipeCard
-                                          key={id}
-                                          id={id}
-                                          image={image}
-                                          cookingTime={totalTime}
-                                          calories={calories}
-                                          vegetarian={healthLabels.includes("Vegetarian")}
-                                          vegan={healthLabels.includes("Vegan")}
-                                          title={label}
-                                      />
-                                  );
-                              })
-                              }
-                          </div>
+                      <div className="recipes-container">
+                          {recipes.map((recipe) => {
+                              const {
+                                  image,
+                                  totalTime,
+                                  calories,
+                                  healthLabels,
+                                  label
+                              } = recipe.recipe;
+                              const id = recipe._links.self.href.split('/').pop();
+                              return (
+                                  <RecipeCard
+                                      key={id}
+                                      id={id}
+                                      image={image}
+                                      cookingTime={totalTime}
+                                      calories={calories}
+                                      vegetarian={healthLabels.includes("Vegetarian")}
+                                      vegan={healthLabels.includes("Vegan")}
+                                      title={label}
+                                  />
+                              );
+                          })
+                          }
                       </div>
                   }
                   {!loading && !error && !contextLoading && !contextError && !recipes &&
                       <div className="recipe-results-container">
                           <h4 className="default-text-restrictor">
-                              No favorite recipes yet... But don’t worry. Browse through our recipe collection to uncover delicious recipes!
+                              No favorite recipes yet... But don’t worry. Browse through our recipe collection to uncover delicious recipes! 🍔🧡
                           </h4>
                           <Link to="/all-recipes" className="go-to-link">
                               <CaretRight size={22}/>
-                              Go to our recipe collection to uncover favorite recipes
+                              Go to our recipe collection to uncover your favorite recipes
                               <ChefHat size={22}/>
                           </Link>
                       </div>
