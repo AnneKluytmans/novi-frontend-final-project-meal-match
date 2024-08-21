@@ -1,9 +1,13 @@
 import { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Heart } from '@phosphor-icons/react';
+import { CaretRight, ChefHat, Heart } from '@phosphor-icons/react';
 import { FavContext } from '../../context/FavContext.jsx';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
+import RecipeCard from '../../components/cards/recipeCard/RecipeCard.jsx';
+import Loader from '../../components/misc/loader/Loader.jsx';
+import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
 import { API_KEY_EDAMAM, API_ID_EDAMAM, API_URL_EDAMAM } from '../../constants/apiConfig.js';
 import './FavoriteRecipes.css'
 
@@ -39,7 +43,7 @@ function FavoriteRecipes() {
                 );
 
                 const responses = await Promise.all(response);
-                const fetchedRecipes = responses.map(response => response.data.recipe);
+                const fetchedRecipes = responses.map(response => response.data);
 
                 console.log('Favorite Recipes are fetched:', fetchedRecipes);
                 setRecipes(fetchedRecipes);
@@ -79,6 +83,52 @@ function FavoriteRecipes() {
           <section className="outer-content-container">
               <div className="inner-content-container__column">
                   <SectionDivider title="Favorite Recipes"/>
+                  {loading || contextLoading && <Loader text="Fetching your favorite recipes...🍝🧡 Hang Tight!"/>}
+                  {error || contextError &&
+                      <ErrorMessage message="Something went wrong while fetching your favorite recipes... Our chef seems to have misplaced them! 🍳💔"/>
+                  }
+                  {!loading && !error && !contextLoading && !contextError && recipes &&
+                      <div className="recipe-results-container">
+                          <h3>Your favorite recipes 🧡🎉</h3>
+                          <div className="recipes-container">
+                              {recipes.map((recipe) => {
+                                  const {
+                                      image,
+                                      totalTime,
+                                      calories,
+                                      healthLabels,
+                                      label
+                                  } = recipe.recipe;
+                                  const id = recipe._links.self.href.split('/').pop();
+                                  return (
+                                      <RecipeCard
+                                          key={id}
+                                          id={id}
+                                          image={image}
+                                          cookingTime={totalTime}
+                                          calories={calories}
+                                          vegetarian={healthLabels.includes("Vegetarian")}
+                                          vegan={healthLabels.includes("Vegan")}
+                                          title={label}
+                                      />
+                                  );
+                              })
+                              }
+                          </div>
+                      </div>
+                  }
+                  {!loading && !error && !contextLoading && !contextError && !recipes &&
+                      <div className="recipe-results-container">
+                          <h4 className="default-text-restrictor">
+                              No favorite recipes yet... But don’t worry. Browse through our recipe collection to uncover delicious recipes!
+                          </h4>
+                          <Link to="/all-recipes" className="go-to-link">
+                              <CaretRight size={22}/>
+                              Go to our recipe collection to uncover favorite recipes
+                              <ChefHat size={22}/>
+                          </Link>
+                      </div>
+                  }
               </div>
           </section>
       </>
