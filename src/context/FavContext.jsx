@@ -23,16 +23,50 @@ function FavContextProvider( { children } ) {
         }
     }, []);
 
+    useEffect ( () => {
+        // Fetch favorite recipes on login or refresh
+        if (isAuth && user) {
+            void fetchFavoriteRecipes();
+        }
+
+    }, [isAuth, user]);
+
+    async function fetchFavoriteRecipes() {
+        toggleError(false);
+        toggleLoading(true);
+
+        try {
+            const response = await axios.get(`${API_URL_AUTH}/users/${user.username}/info`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+                signal: controller.signal,
+            });
+
+            console.log('fetched favorite recipes', response.data);
+            const favoriteRecipesData = response.data || '';
+            const favoriteRecipesArray = favoriteRecipesData.split(',');
+
+            setFavoriteRecipes(favoriteRecipesArray);
+        } catch (e) {
+            if (axios.isCancel(e)) {
+                console.log('Request canceled', e.message);
+            } else {
+                console.log('Failed to fetch favorite recipes:', e);
+                toggleError(true);
+            }
+        } finally {
+            toggleLoading(false);
+        }
+    }
+
     async function updateFavoriteRecipes(updatedFavoriteRecipes) {
         console.log('Favorite recipes:', updatedFavoriteRecipes);
 
-        if (!isAuth) {
+        if (!isAuth || !user) {
             console.log('User is not authenticated.');
             return;
         }
-
-        toggleError(false);
-        toggleLoading(true);
 
         const favoriteRecipesString = updatedFavoriteRecipes.join(',');
 
@@ -49,16 +83,12 @@ function FavContextProvider( { children } ) {
             });
 
             console.log('Favorite recipes updated successfully', response.data);
-
         } catch (e) {
             if (axios.isCancel(e)) {
                 console.log('Request canceled', e.message);
             } else {
                 console.log('Favorite recipes are not updated:', e);
-                toggleError(true);
             }
-        } finally {
-            toggleLoading(false);
         }
     }
 
