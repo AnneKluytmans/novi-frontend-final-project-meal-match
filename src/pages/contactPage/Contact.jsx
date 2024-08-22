@@ -14,7 +14,6 @@ function Contact() {
           <section className="outer-content-container">
               <div className="inner-content-container__column">
                   <SectionDivider title="Contact" />
-                  <h3>Contact form</h3>
               </div>
           </section>
       </>
