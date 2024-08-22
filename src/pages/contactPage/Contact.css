@@ -1,1 +1,20 @@
 /* ------------------------------- Contact page styling -------------------------------- */
+
+.contact-form__container {
+    text-align: center;
+    background-color: var(--primary);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 2rem;
+    max-width: 32rem;
+
+    padding: 2rem;
+    margin: 0 1rem 2rem;
+}
+
+.contact-form__container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 1rem;
+}
