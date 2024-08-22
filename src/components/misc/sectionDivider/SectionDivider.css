@@ -2,6 +2,7 @@
 
 .section-divider__container {
     color: var(--primary-dark);
+    text-align: center;
     letter-spacing: 3px;
     text-transform: uppercase;
 
