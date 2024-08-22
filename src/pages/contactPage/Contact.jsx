@@ -5,18 +5,18 @@ import './Contact.css';
 
 function Contact() {
     return (
-      <>
-          <Header
-              title="Contact"
-              subtitle="Contact us below. We’re here to help with all your foodie questions, culinary support and more."
-              icon={<ChatCircleText className="header__icon"/>}
-          />
-          <section className="outer-content-container">
-              <div className="inner-content-container__column">
-                  <SectionDivider title="Contact" />
-              </div>
-          </section>
-      </>
+        <>
+            <Header
+                title="Contact"
+                subtitle="Contact us below. We’re here to help with all your foodie questions, culinary support and more."
+                icon={<ChatCircleText className="header__icon"/>}
+            />
+            <section className="outer-content-container">
+                <div className="inner-content-container__column">
+                    <SectionDivider title="Contact" />
+                </div>
+            </section>
+        </>
     );
 }
 

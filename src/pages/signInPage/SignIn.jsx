@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import AuthForm from '../../components/form/authForm/AuthForm.jsx';
-import UsernameField from '../../components/form/usernameField/UsernameField.jsx';
+import TextField from '../../components/form/TextField/TextField.jsx';
 import PasswordField from '../../components/form/passwordField/PasswordField.jsx';
 import Loader from '../../components/misc/loader/Loader.jsx';
 import ErrorMessage from '../../components/misc/errorMessage/ErrorMessage.jsx';
@@ -94,7 +94,7 @@ function SignIn() {
                         handleFormSubmit={handleFormSubmit}
                         primaryLink={<p>No account yet? <Link to="/sign-up">Sign Up</Link></p>}
                     >
-                        <UsernameField/>
+                        <TextField name="username" label="Username" />
                         <PasswordField/>
                     </AuthForm>
             </div>
