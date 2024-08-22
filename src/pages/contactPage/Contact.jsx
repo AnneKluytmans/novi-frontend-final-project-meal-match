@@ -1,4 +1,5 @@
 import { useForm, FormProvider } from 'react-hook-form';
+import emailjs from 'emailjs-com';
 import { ChatCircleText } from '@phosphor-icons/react';
 import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
@@ -6,6 +7,7 @@ import TextField from '../../components/form/TextField/TextField.jsx';
 import EmailField from '../../components/form/emailField/EmailField.jsx';
 import TextArea from '../../components/form/textArea/TextArea.jsx';
 import Button from '../../components/buttons/button/Button.jsx';
+import { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_USER_ID } from '../../constants/emailJsConfig.js';
 import './Contact.css';
 
 
@@ -14,8 +16,16 @@ function Contact() {
         mode: 'onTouched',
     });
 
-    function handleFormSubmit(data) {
+    async function handleFormSubmit(data) {
         console.log(data);
+
+        try {
+            const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data, EMAILJS_USER_ID);
+            console.log('Successfully sent email', response);
+        } catch (e) {
+            console.error('Failed to send email', e);
+        }
+
     }
 
     return (
