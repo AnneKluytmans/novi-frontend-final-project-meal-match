@@ -17,6 +17,10 @@
     margin-bottom: 1rem;
 }
 
+.terms-policy__item p {
+    margin-left: 1rem;
+}
+
 .policy-section {
     margin-bottom: 3rem;
 }
