@@ -36,6 +36,12 @@
 }
 
 
+.header__icon--big {
+    height: 8rem;
+    width: 8rem;
+}
+
+
 /* ------------------------------- 2. Header mediaqueries -------------------------------- */
 
 @media screen and (max-width: 678px) {
