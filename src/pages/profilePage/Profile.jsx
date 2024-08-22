@@ -8,7 +8,7 @@ import Header from '../../components/header/Header.jsx';
 import SectionDivider from '../../components/misc/sectionDivider/SectionDivider.jsx';
 import Dropdown from '../../components/dropdowns/dropdown/Dropdown.jsx';
 import DropdownItemProfile from '../../components/dropdowns/dropdownItemProfile/DropdownItemProfile.jsx';
-import UsernameField from '../../components/form/usernameField/UsernameField.jsx';
+import TextField from '../../components/form/TextField/TextField.jsx';
 import EmailField from '../../components/form/emailField/EmailField.jsx';
 import PasswordField from '../../components/form/passwordField/PasswordField.jsx';
 import ConfirmPasswordField from '../../components/form/passwordField/ConfirmPasswordField.jsx';
@@ -175,7 +175,7 @@ function Profile() {
                             <ConfirmMessage message="Update your username">
                                 <FormProvider {...methods}>
                                     <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
-                                        <UsernameField />
+                                        <TextField name="username" label="Username" />
                                         <Button className="cancel-btn" type="button" onClick={() => setResetField(null)}>Cancel</Button>
                                         <Button className="confirm-btn" type="submit">Save</Button>
                                     </form>

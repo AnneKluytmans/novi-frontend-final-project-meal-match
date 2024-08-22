@@ -1,1 +1,13 @@
 /* ------------------------------- Not found page styling -------------------------------- */
+
+.not-found-section h4 {
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.not-found__links-wrapper {
+    text-align: left;
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0 0.5rem;
+}
+

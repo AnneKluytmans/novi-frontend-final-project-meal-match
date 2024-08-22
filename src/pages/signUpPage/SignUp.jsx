@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthForm from '../../components/form/authForm/AuthForm.jsx';
-import UsernameField from '../../components/form/usernameField/UsernameField.jsx';
+import TextField from '../../components/form/TextField/TextField.jsx';
 import EmailField from '../../components/form/emailField/EmailField.jsx';
 import PasswordField from '../../components/form/passwordField/PasswordField.jsx';
 import ConfirmPasswordField from '../../components/form/passwordField/ConfirmPasswordField.jsx';
@@ -112,7 +112,7 @@ function SignUp() {
                     handleFormSubmit={handleFormSubmit}
                     primaryLink={<p>Already a member? <Link to="/sign-in">Sign In</Link></p>}
                 >
-                    <UsernameField />
+                    <TextField name="username" label="Username" />
                     <EmailField />
                     <PasswordField />
                     <ConfirmPasswordField />

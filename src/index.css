@@ -94,6 +94,7 @@ h5 {
 
 p {
     font-size: 1rem;
+    line-height: 1.8;
     font-weight: 400;
     margin: 0.25rem 0;
 }
@@ -129,7 +130,7 @@ a:hover {
     align-items: center;
     gap: 1rem;
 
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 button {
