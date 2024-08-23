@@ -73,7 +73,13 @@ function AllRecipes() {
                 }
 
                 console.log('Recipes are fetched:', fetchedRecipes);
-                setAllRecipes(fetchedRecipes);
+
+                // Filter out duplicates recipes based on recipe.uri
+                const uniqueRecipes = fetchedRecipes.filter((fetchedRecipe, index, self) => {
+                    return index === self.findIndex((recipe) => recipe.recipe.uri === fetchedRecipe.recipe.uri);
+                })
+
+                setAllRecipes(uniqueRecipes);
                 setCurrentPage(1); // Reset to page 1 when new recipes are fetched
             } catch (e) {
                 if (axios.isCancel(e)) {
