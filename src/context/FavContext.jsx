@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, useContext } from 'react';
+import { createContext, useEffect, useState, useContext, useRef } from 'react';
 import axios from 'axios';
 import { AuthContext } from './AuthContext.jsx';
 import { API_KEY_AUTH, API_URL_AUTH } from '../constants/apiConfig.js';
@@ -13,14 +13,14 @@ function FavContextProvider( { children } ) {
     const { isAuth, user } = useContext(AuthContext);
     const token = localStorage.getItem('token');
 
-    const controller = new AbortController();
+    const controllerRef = useRef(new AbortController());
 
     useEffect(() => {
         // Cancels ongoing Axios requests on component unmount
-        return function cleanup() {
+        return () => {
             console.log('Unmount effect is triggered. Abort ongoing axios requests');
-            controller.abort();
-        }
+            controllerRef.current.abort();
+        };
     }, []);
 
     useEffect ( () => {
@@ -32,6 +32,11 @@ function FavContextProvider( { children } ) {
     }, [isAuth, user]);
 
     async function fetchFavoriteRecipes() {
+        // Resets abort controller for every new request
+        controllerRef.current.abort();
+        controllerRef.current = new AbortController();
+        const controller = controllerRef.current;
+
         toggleError(false);
         toggleLoading(true);
 
@@ -68,6 +73,11 @@ function FavContextProvider( { children } ) {
             return;
         }
 
+        // Resets abort controller for every new request
+        controllerRef.current.abort();
+        controllerRef.current = new AbortController();
+        const controller = controllerRef.current;
+        
         const favoriteRecipesString = updatedFavoriteRecipes.join(',');
 
         try {

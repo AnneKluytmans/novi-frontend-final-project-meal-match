@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import qs from 'qs';
@@ -27,17 +27,22 @@ function IngredientSearch() {
     });
 
     const maxQueryLength = 150;
-    const controller = new AbortController();
+    const controllerRef = useRef(new AbortController());
 
     useEffect(() => {
         // Cancels ongoing Axios requests on component unmount
-        return function cleanup() {
+        return () => {
             console.log('Unmount effect is triggered. Abort ongoing axios requests');
-            controller.abort();
-        }
+            controllerRef.current.abort();
+        };
     }, []);
 
     async function handleFormSubmit(data) {
+        // Resets abort controller for every new request
+        controllerRef.current.abort();
+        controllerRef.current = new AbortController();
+        const controller = controllerRef.current;
+
         console.log(data);
         toggleError(false);
         toggleLoading(true);

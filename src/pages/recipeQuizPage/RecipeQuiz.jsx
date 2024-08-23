@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import qs from 'qs';
@@ -34,14 +34,14 @@ function RecipeQuiz() {
     const maxRecipesReturned = 12;
     const totalQuestions = quizQuestions.length;
 
-    const controller = new AbortController();
+    const controllerRef = useRef(new AbortController());
 
     useEffect(() => {
         // Cancels ongoing Axios requests on component unmount
-        return function cleanup() {
+        return () => {
             console.log('Unmount effect is triggered. Abort ongoing axios requests');
-            controller.abort();
-        }
+            controllerRef.current.abort();
+        };
     }, []);
 
     useEffect(() => {
@@ -79,6 +79,11 @@ function RecipeQuiz() {
     }
 
     async function fetchRecipes() {
+        // Resets abort controller for every new request
+        controllerRef.current.abort();
+        controllerRef.current = new AbortController();
+        const controller = controllerRef.current;
+
         toggleError(false);
         toggleLoading(true);
 

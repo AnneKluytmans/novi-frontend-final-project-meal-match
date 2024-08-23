@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthForm from '../../components/form/authForm/AuthForm.jsx';
@@ -20,14 +20,14 @@ function SignUp() {
     const [success, toggleSuccess] = useState(false);
 
     const navigate = useNavigate();
-    const controller = new AbortController();
+    const controllerRef = useRef(new AbortController());
 
     useEffect(() => {
         // Cancels ongoing Axios requests on component unmount
-        return function cleanup() {
+        return () => {
             console.log('Unmount effect is triggered. Abort ongoing axios requests');
-            controller.abort();
-        }
+            controllerRef.current.abort();
+        };
     }, []);
 
     useEffect(() => {
@@ -54,6 +54,11 @@ function SignUp() {
     }, [success, error]);
 
     async function handleFormSubmit(data) {
+        // Resets abort controller for every new request
+        controllerRef.current.abort();
+        controllerRef.current = new AbortController();
+        const controller = controllerRef.current;
+
         toggleError(false);
         toggleLoading(true);
         toggleSuccess(false);
