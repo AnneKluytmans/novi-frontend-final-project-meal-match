@@ -18,6 +18,8 @@ function FavoriteRecipes() {
 
     const { favoriteRecipes, error: contextError, loading: contextLoading } = useContext(FavContext);
 
+    const filteredFavoriteRecipes = favoriteRecipes.filter(recipe => recipe.trim() !== '');
+
     useEffect( () => {
         // Fetches favorite recipes on component mount or updated favoriteRecipes
         const controller = new AbortController();
@@ -27,7 +29,7 @@ function FavoriteRecipes() {
             toggleLoading(true);
 
             try {
-                const response = favoriteRecipes.map(id =>
+                const response = filteredFavoriteRecipes.map(id =>
                     axios.get(`${API_URL_EDAMAM}/${id}`, {
                         headers: {
                             'Content-Type': 'application/json',
@@ -58,7 +60,7 @@ function FavoriteRecipes() {
             }
         }
 
-        if (favoriteRecipes.length > 0) {
+        if (filteredFavoriteRecipes.length > 0) {
             void fetchFavoriteRecipes();
         } else {
             setRecipes(null);
