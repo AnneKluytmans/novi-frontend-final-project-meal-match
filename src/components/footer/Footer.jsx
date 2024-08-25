@@ -18,7 +18,16 @@ function Footer( { className } ) {
                         <p>Inspiring recipes at <em>&copy;</em> Meal Match 2024</p>
                         <span className="footer__text-designer">
                             <LineVertical size={24} color="#012F1E"/>
-                            <p>Designed by Anne Kluijtmans</p>
+                            <p>Designed by
+                                <a
+                                href="https://github.com/AnneKluytmans"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="footer__social-link"
+                                >
+                                Anne Kluijtmans
+                                </a>
+                            </p>
                         </span>
                     </div>
                     <EdamamBadge className="footer__edamam-badge"/>

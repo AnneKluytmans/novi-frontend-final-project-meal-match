@@ -66,7 +66,7 @@ You can follow these links to create the needed API keys and App id's:
 - EmailJS id's --> [EmailJS](https://www.emailjs.com/)
 
 Note:
-- The examinator can find the original API keys and id's in the pdf document: .env and test users
+- The examinator can find the original API keys and id's in the pdf document: functioneel ontwerp meal match, chapter 1. linkjes, .env en testgebruikers
 
 ## Installation
 
@@ -105,15 +105,15 @@ You can sign up with your own account or sign in using the credentials of the ex
 
 1. Test user 1:
     - **Username**: testaccount1
-    - **Password**: 
+    - **Password**: aR2?h59fS!f
 
 2. Test user 2:
     - **Username**: testaccount2
-    - **Password**: 
+    - **Password**: d1Lw@q4+D49Y1w3
 
 3. Test user 3:
     - **Username**: testaccount3
-    - **Password**: 
+    - **Password**: Aut3b90?#S
 
 ## Acknowledgements
 - [Delicious NL](https://deliciousmagazine.nl/): Provided the food images on the home page.
