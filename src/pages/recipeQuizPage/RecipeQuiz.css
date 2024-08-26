@@ -1,9 +1,23 @@
-/* ------------------------------- Recipe quiz page styling -------------------------------- */
+/*////////////////////////
+    Table of Contents
+    1. Recipe quiz page styling
+    2. Recipe quiz start/ end screen styling
+    3. Recipe quiz slider styling
+ ////////////////////////*/
+
+/* ------------------------------- 1. Recipe quiz page styling -------------------------------- */
 
 .recipe-quiz-section {
     margin: 0 0 3rem;
 }
 
+.recipe-quiz__question {
+    border: 2px solid var(--primary-dark);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+/* ------------------------------- 2. Recipe quiz start/ end screen styling -------------------------------- */
 
 .recipe-quiz__start-screen,
 .recipe-quiz__end-screen {
@@ -37,14 +51,40 @@
 
 
 
-.recipe-quiz__question {
-    border: 2px solid var(--primary-dark);
-    border-radius: 1rem;
-    padding: 1rem;
-}
-
-
 .recipe-quiz__end-screen .nav-btn-container {
     margin-top: 2rem;
 }
 
+
+
+/* ------------------------------- 3. Recipe quiz slider styling -------------------------------- */
+
+.recipe-quiz__progress-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.recipe-quiz__progress-slider .slider {
+    background: var(--grey);
+    opacity: 0.75;
+    outline: none;
+    border-radius: 2rem;
+
+    width: 40%;
+    height: 0.75rem;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.recipe-quiz__progress-slider .slider::-webkit-slider-thumb {
+    background: var(--primary-dark);
+    border-radius: 50%;
+
+    width: 1.5rem;
+    height: 1.5rem;
+    -webkit-appearance: none;
+    appearance: none;
+}

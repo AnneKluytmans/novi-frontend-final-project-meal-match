@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import axios from 'axios';
 import { CaretDown, CaretUp, CaretRight, Heart, Trash, User } from '@phosphor-icons/react';
@@ -35,14 +35,14 @@ function Profile() {
     const token = localStorage.getItem('token');
 
     const methods = useForm();
-    const controller = new AbortController();
+    const controllerRef = useRef(new AbortController());
 
     useEffect(() => {
         // Cancels ongoing Axios requests on component unmount
-        return function cleanup() {
+        return () => {
             console.log('Unmount effect is triggered. Abort ongoing axios requests');
-            controller.abort();
-        }
+            controllerRef.current.abort();
+        };
     }, []);
 
     useEffect(() => {
@@ -75,6 +75,11 @@ function Profile() {
     }, [success, error, deleteAccountSuccess, logout]);
 
     async function updateUserData(data, field) {
+        // Resets abort controller for every new request
+        controllerRef.current.abort();
+        controllerRef.current = new AbortController();
+        const controller = controllerRef.current;
+        
         toggleError(false);
         toggleLoading(true);
         toggleSuccess(false);

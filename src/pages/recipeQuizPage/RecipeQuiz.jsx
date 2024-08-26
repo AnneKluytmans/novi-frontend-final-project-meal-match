@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import qs from 'qs';
 import InspirationIcon from '../../assets/icons/inspiration-icon.svg?react';
@@ -26,19 +27,27 @@ function RecipeQuiz() {
     const [loading, toggleLoading] = useState(false);
     const [showResultsScreen, toggleShowResultsScreen] = useState(false);
 
+    const { register, setValue, watch } = useForm();
+
     const currentQuestion = quizQuestions[currentQuestionIndex];
     const isAnswerSelected = selectedAnswers[currentQuestionIndex] !== undefined;
     const maxRecipesReturned = 12;
+    const totalQuestions = quizQuestions.length;
 
-    const controller = new AbortController();
+    const controllerRef = useRef(new AbortController());
 
     useEffect(() => {
         // Cancels ongoing Axios requests on component unmount
-        return function cleanup() {
+        return () => {
             console.log('Unmount effect is triggered. Abort ongoing axios requests');
-            controller.abort();
-        }
+            controllerRef.current.abort();
+        };
     }, []);
+
+    useEffect(() => {
+        // Watch currentQuestionIndex to update the slider value
+        setValue('quizProgress', currentQuestionIndex);
+    }, [currentQuestionIndex, setValue]);
 
     function SelectAnswer(answerValue, answerTitle) {
         setQuizAnswers(prevQuizAnswers => {
@@ -70,6 +79,11 @@ function RecipeQuiz() {
     }
 
     async function fetchRecipes() {
+        // Resets abort controller for every new request
+        controllerRef.current.abort();
+        controllerRef.current = new AbortController();
+        const controller = controllerRef.current;
+
         toggleError(false);
         toggleLoading(true);
 
@@ -140,12 +154,24 @@ function RecipeQuiz() {
                         </div> :
                           currentQuestionIndex < quizQuestions.length ?
                               <div className="recipe-quiz__question">
+                                  <div className="recipe-quiz__progress-slider">
+                                      <input
+                                          type="range"
+                                          min="0"
+                                          max={totalQuestions - 1}
+                                          value={watch('quizProgress')}
+                                          readOnly
+                                          className="slider"
+                                          {...register('quizProgress')}
+                                      />
+                                      <h3>{currentQuestionIndex + 1} / {totalQuestions}</h3>
+                                  </div>
                                   <QuizQuestion
-                                    count={currentQuestionIndex + 1}
-                                    question={currentQuestion.question}
-                                    options={currentQuestion.answerOptions}
-                                    onSelect={SelectAnswer}
-                                    selectedAnswer={selectedAnswers[currentQuestionIndex]}
+                                      count={currentQuestionIndex + 1}
+                                      question={currentQuestion.question}
+                                      options={currentQuestion.answerOptions}
+                                      onSelect={SelectAnswer}
+                                      selectedAnswer={selectedAnswers[currentQuestionIndex]}
                                   />
                                   <div className="nav-btn-container">
                                       <PreviousButton
@@ -171,7 +197,7 @@ function RecipeQuiz() {
                                       Uncover recipes
                                   </Button>
                                   <div className="nav-btn-container">
-                                      <PreviousButton
+                                  <PreviousButton
                                           count={currentQuestionIndex}
                                           setCount={setCurrentQuestionIndex}
                                           disabled={currentQuestionIndex === 0}

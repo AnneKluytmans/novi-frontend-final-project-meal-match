@@ -41,7 +41,7 @@ function FavoriteButton( { recipeId, className } ) {
             toggleIsFavorite(false);
         } else {
             // Limit favorite recipes to 10 due to Edamam API request limit of 10 requests/min
-            if (favoriteRecipes.length >= 10) {
+            if (favoriteRecipes.length >= 11) {
                 toggleShowLimitWarning(true);
                 return
             }
