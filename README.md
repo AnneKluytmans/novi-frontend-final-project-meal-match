@@ -1,4 +1,4 @@
-# <img src="src/assets/screenshots/logo.svg" alt="MealMatch Logo" width="40"/> Meal Match - Frontend Final Assignment
+# <img src="src/assets/icons/logo-icon.svg" alt="MealMatch Logo" width="40"/> Meal Match - Frontend Final Assignment
 
 ## About The Project
 
@@ -76,6 +76,12 @@ The application provides personalized recipe suggestions based on your mood, die
 </details>  
 
 <details>
+<summary><strong>Recipe Quiz Demo</strong></summary>  
+
+![Recipe Quiz](src/assets/screenshots/demo-recipe-quiz.gif)
+</details>  
+
+<details>
 <summary><strong>Ingredient Search</strong></summary>  
 
 ![Ingredient Search](src/assets/screenshots/screenshot-ingredient-search.png)
@@ -85,6 +91,12 @@ The application provides personalized recipe suggestions based on your mood, die
 <summary><strong>All Recipes</strong></summary>  
 
 ![All Recipes](src/assets/screenshots/screenshot-all-recipes.png)
+</details>  
+
+<details>
+<summary><strong>Recipe Details</strong></summary>  
+
+![Recipe Details](src/assets/screenshots/screenshot-recipe-details.png)
 </details>  
 
 <details>
